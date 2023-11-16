@@ -3,6 +3,10 @@
 import 'package:flutter/material.dart';
 import 'rastreamento.dart';
 import 'perfil.dart';
+import 'carrinho.dart';
+import 'inicio.dart';
+import 'pesquisa.dart';
+//import 'favoritos.dart';
 
 class MyTabControl extends StatefulWidget {
   const MyTabControl({super.key});
@@ -19,8 +23,10 @@ class _MyTabControlState extends State<MyTabControl>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(length: 2, vsync: this); // Número total de abas
+    _tabController = TabController(
+        length: 5,
+        vsync:
+            this); // Número total de abas deve mudar sempre que adicionar e reiniciar o app com flutter run
   }
 
   @override
@@ -33,6 +39,15 @@ class _MyTabControlState extends State<MyTabControl>
           controller: _tabController,
           tabs: const [
             Tab(
+              icon: Icon(Icons.home),
+            ),
+            Tab(
+              icon: Icon(Icons.search),
+            ),
+            Tab(
+              icon: Icon(Icons.shopping_cart),
+            ),
+            Tab(
               icon: Icon(Icons.local_shipping_sharp),
             ),
             Tab(
@@ -44,6 +59,9 @@ class _MyTabControlState extends State<MyTabControl>
       body: TabBarView(
         controller: _tabController,
         children: const [
+          Inicio(),
+          Pesquisa(),
+          Carrinho(),
           Rastreamento(),
           Perfil(),
         ],
