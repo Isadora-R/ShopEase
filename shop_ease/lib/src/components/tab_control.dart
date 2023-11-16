@@ -27,7 +27,7 @@ class _MyTabControlState extends State<MyTabControl>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Minha Loja'),
+        title: const Text('ShopEase'),
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
