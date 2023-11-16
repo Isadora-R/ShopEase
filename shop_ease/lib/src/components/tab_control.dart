@@ -23,10 +23,8 @@ class _MyTabControlState extends State<MyTabControl>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-        length: 5,
-        vsync:
-            this); // Número total de abas deve mudar sempre que adicionar e reiniciar o app com flutter run
+    _tabController =
+        TabController(length: 5, vsync: this); // Número total de abas
   }
 
   @override
@@ -35,7 +33,10 @@ class _MyTabControlState extends State<MyTabControl>
       appBar: AppBar(
         title: const Text('ShopEase'),
         centerTitle: true,
-        bottom: TabBar(
+      ),
+      bottomNavigationBar: Container(
+        color: Theme.of(context).primaryColor,
+        child: TabBar(
           controller: _tabController,
           tabs: const [
             Tab(
