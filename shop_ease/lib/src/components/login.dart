@@ -21,15 +21,16 @@ class _LoginState extends State<Login> {
 
   Future<void> _fazerLogin() async {
     try {
-      final response = await getUserLogin();
+      final userLogin = await getUserLogin();
 
-      setState(() => data = response);
       {
-        if (data != null &&
-            _usernameController.text == data!.users[0].username &&
-            _passwordController.text == data!.users[0].password) {
-          Navigator.pushReplacementNamed(context, '/home');
-          return;
+        for (User user in userLogin.users) {
+          if (_usernameController.text == user.username &&
+              _passwordController.text == user.password) {
+            // Usuário autenticado com sucesso
+            Navigator.pushReplacementNamed(context, '/home');
+            return;
+          }
         }
       }
       ScaffoldMessenger.of(context).showSnackBar(
