@@ -14,13 +14,28 @@ class Perfil extends StatelessWidget {
         Provider.of<DataProvider>(context).variavelCompartilhada;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Perfil'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Text('Bem vindo, $variavelCompartilhada'),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Perfil'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Bem vindo(a), $variavelCompartilhada'),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to the second screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                  );
+                },
+                child: const Text('Logout'),
+              ),
+            ],
+          ),
+        ));
   }
 }
