@@ -49,9 +49,10 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -59,13 +60,13 @@ class _LoginState extends State<Login> {
               controller: _usernameController,
               decoration: const InputDecoration(labelText: 'Nome de Usuário'),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 20.0),
             TextField(
               controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(labelText: 'Senha'),
             ),
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 40.0),
             ElevatedButton(
               onPressed: _fazerLogin,
               child: const Text('Login'),

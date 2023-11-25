@@ -14,7 +14,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'ShopEase',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        primaryColor: Colors.purple[300],
       ),
       initialRoute: '/login', // Defina a rota inicial como a tela de login
       routes: {
