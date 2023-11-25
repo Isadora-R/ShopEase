@@ -3,6 +3,17 @@
 import 'package:flutter/material.dart';
 import '../model/user_model.dart';
 import '../service/api_service.dart';
+import 'package:provider/provider.dart';
+
+Widget build(BuildContext context) {
+  return Provider<DataProvider>(
+      create: (_) => DataProvider(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return Text(context.watch<DataProvider>().toString());
+      });
+}
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,6 +30,8 @@ class _LoginState extends State<Login> {
   String jsonString = '{"users": [], "total": 0, "skip": 0, "limit": 0}';
   UserLogin? data;
 
+  String usuarioLogado = '';
+
   Future<void> _fazerLogin() async {
     try {
       final userLogin = await getUserLogin();
@@ -27,8 +40,11 @@ class _LoginState extends State<Login> {
         for (User user in userLogin.users) {
           if (_usernameController.text == user.username &&
               _passwordController.text == user.password) {
-            // Usuário autenticado com sucesso
-            Navigator.pushReplacementNamed(context, '/home');
+            usuarioLogado = user.firstName;
+            Navigator.pushReplacementNamed(
+              context,
+              '/home',
+            );
             return;
           }
         }
@@ -69,12 +85,26 @@ class _LoginState extends State<Login> {
             ),
             const SizedBox(height: 40.0),
             ElevatedButton(
-              onPressed: _fazerLogin,
+              onPressed: () async {
+                await _fazerLogin();
+                context.read<DataProvider>().setVariavel(usuarioLogado);
+              },
               child: const Text('Login'),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class DataProvider with ChangeNotifier {
+  String _variavelCompartilhada = '';
+
+  String get variavelCompartilhada => _variavelCompartilhada;
+
+  void setVariavel(String valor) {
+    _variavelCompartilhada = valor;
+    notifyListeners();
   }
 }
