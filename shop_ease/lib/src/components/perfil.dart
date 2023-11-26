@@ -37,7 +37,7 @@ class Perfil extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               Text(
-                'Endereço:  ${usuarioLogado[3]}',
+                'Endereço de entrega:  ${usuarioLogado[3]}',
               ),
               const SizedBox(height: 10.0),
               Text(

@@ -41,7 +41,8 @@ class _LoginState extends State<Login> {
 
       {
         for (User user in userLogin.users) {
-          if (_usernameController.text == user.username &&
+          if ((_usernameController.text == user.username ||
+                  _usernameController.text == user.email) &&
               _passwordController.text == user.password) {
             usuarioLogou = [
               user.firstName,
@@ -85,7 +86,8 @@ class _LoginState extends State<Login> {
           children: [
             TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Nome de Usuário'),
+              decoration:
+                  const InputDecoration(labelText: 'Nome de Usuário ou Email'),
             ),
             const SizedBox(height: 20.0),
             TextField(
