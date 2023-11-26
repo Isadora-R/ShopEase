@@ -10,8 +10,9 @@ class Perfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Acesse a variável compartilhada usando Provider
-    String variavelCompartilhada =
-        Provider.of<DataProvider>(context).variavelCompartilhada;
+    List<String> usuarioLogado =
+        Provider.of<DataProvider>(context).usuarioLogado;
+    String numeroDoCartao = usuarioLogado[4];
 
     return Scaffold(
         appBar: AppBar(
@@ -22,8 +23,26 @@ class Perfil extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Bem vindo(a), $variavelCompartilhada'),
-              const SizedBox(height: 20.0),
+              Image.network(
+                usuarioLogado[2],
+                width: 100,
+                height: 100,
+              ),
+              const SizedBox(height: 10.0),
+              Text(
+                  'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : "Usuário Desconhecido"}'),
+              const SizedBox(height: 30.0),
+              Text(
+                'Nome:  ${usuarioLogado[0]} ${usuarioLogado[1]}',
+              ),
+              const SizedBox(height: 10.0),
+              Text(
+                'Endereço:  ${usuarioLogado[3]}',
+              ),
+              const SizedBox(height: 10.0),
+              Text(
+                  'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado[5]}'),
+              const SizedBox(height: 40.0),
               ElevatedButton(
                 onPressed: () {
                   // Navigate to the second screen

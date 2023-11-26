@@ -1,5 +1,8 @@
 ﻿// ignore_for_file: use_build_context_synchronously
 
+//  "username": "atuny0",
+//  "password": "9uQFF1Lh"
+
 import 'package:flutter/material.dart';
 import '../model/user_model.dart';
 import '../service/api_service.dart';
@@ -30,7 +33,7 @@ class _LoginState extends State<Login> {
   String jsonString = '{"users": [], "total": 0, "skip": 0, "limit": 0}';
   UserLogin? data;
 
-  String usuarioLogado = '';
+  List<String> usuarioLogou = [];
 
   Future<void> _fazerLogin() async {
     try {
@@ -40,7 +43,14 @@ class _LoginState extends State<Login> {
         for (User user in userLogin.users) {
           if (_usernameController.text == user.username &&
               _passwordController.text == user.password) {
-            usuarioLogado = user.firstName;
+            usuarioLogou = [
+              user.firstName,
+              user.lastName,
+              user.image,
+              user.address.address,
+              user.bank.cardNumber,
+              user.bank.cardExpire,
+            ];
             Navigator.pushReplacementNamed(
               context,
               '/home',
@@ -87,7 +97,9 @@ class _LoginState extends State<Login> {
             ElevatedButton(
               onPressed: () async {
                 await _fazerLogin();
-                context.read<DataProvider>().setVariavel(usuarioLogado);
+                for (int i = 0; i < usuarioLogou.length; i++) {
+                  context.read<DataProvider>().adicionarItem(usuarioLogou[i]);
+                }
               },
               child: const Text('Login'),
             ),
@@ -99,12 +111,13 @@ class _LoginState extends State<Login> {
 }
 
 class DataProvider with ChangeNotifier {
-  String _variavelCompartilhada = '';
+  // ignore: prefer_final_fields
+  List<String> _usuarioLogado = [];
 
-  String get variavelCompartilhada => _variavelCompartilhada;
+  List<String> get usuarioLogado => _usuarioLogado;
 
-  void setVariavel(String valor) {
-    _variavelCompartilhada = valor;
+  void adicionarItem(String item) {
+    _usuarioLogado.add(item);
     notifyListeners();
   }
 }
