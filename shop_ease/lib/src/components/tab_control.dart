@@ -23,36 +23,57 @@ class _MyTabControlState extends State<MyTabControl>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(length: 5, vsync: this); // Número total de abas
+    _tabController = TabController(
+        length: 5,
+        vsync:
+            this); // Número total de abas. E sempre que acrescentar aba mudar aqui. Quebrar o programa e começar de novo!!!
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ShopEase'),
-        centerTitle: true,
+        flexibleSpace: const Image(
+          image: AssetImage('lib/src/assets/logooo.png'),
+          fit: BoxFit.contain,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remove a sombra da AppBar
       ),
       bottomNavigationBar: Container(
         color: Theme.of(context).primaryColor,
         child: TabBar(
           controller: _tabController,
-          tabs: const [
+          tabs: [
             Tab(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.search),
+              icon: Icon(
+                Icons.search,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.shopping_cart),
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.local_shipping_sharp),
+              icon: Icon(
+                Icons.local_shipping_sharp,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.person),
+              icon: Icon(
+                Icons.person,
+                color: Colors.purple[900],
+              ),
             ),
           ],
         ),

@@ -1,4 +1,6 @@
-﻿import 'dart:async';
+﻿//Rastreamento de pedidos: deve-se ter um acompanhamento e o status de seus pedidos, desde o processamento até a entrega, fornecendo informações sobre o envio e a previsão de chegada.
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -73,8 +75,13 @@ class _RastreamentoState extends State<Rastreamento> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rastreamento'),
+        title: const Text('ACOMPANHE SUA ENTREGA'),
+        titleTextStyle: const TextStyle(
+          color: Colors.deepPurple,
+          fontWeight: FontWeight.bold,
+        ),
         centerTitle: true,
+        forceMaterialTransparency: true,
       ),
       body: Center(
         child: Column(
@@ -85,7 +92,7 @@ class _RastreamentoState extends State<Rastreamento> {
               // ignore: prefer_const_constructors
               valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
               value: progresso,
-            ), // Indicador de carregamento (opcional)
+            ),
             const SizedBox(height: 16.0),
             Text(mensagem),
           ],
