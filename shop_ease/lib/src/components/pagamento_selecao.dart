@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/cupom.dart';
 import 'package:shop_ease/src/components/pagamento_cartao.dart';
+import 'package:shop_ease/src/components/pagamento_checkout.dart';
 import 'package:shop_ease/src/components/pagamento_pix.dart';
-import 'package:shop_ease/src/components/pagamento_transferencia.dart';
 
 class PagamentoSelecao extends StatefulWidget {
   const PagamentoSelecao({super.key});
@@ -93,10 +93,41 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                   ),
                                   ElevatedButton.icon(
                                     onPressed: () {
-                                      setState(() {
-                                        transfChecked = !transfChecked;
-                                        desmarca('transf');
-                                      });
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                'Detalhes Bancários'),
+                                            content: const Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text('Banco:'),
+                                                Text('Agência:'),
+                                                Text('Conta Corrente:'),
+                                                Text('Titular:'),
+                                                Text('CPF:'),
+                                              ],
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    transfChecked =
+                                                        !transfChecked;
+                                                    desmarca('transf');
+                                                  });
+                                                  Navigator.of(context)
+                                                      .pop(); //Fechar o diálogo
+                                                },
+                                                child: const Text('Continuar'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     },
                                     icon: transfChecked
                                         ? const Icon(
@@ -151,7 +182,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const PagamentoTransf()),
+                                                  const PagamentoCheckout()),
                                         );
                                       } else if (pixChecked) {
                                         Navigator.push(
