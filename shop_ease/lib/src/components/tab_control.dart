@@ -44,21 +44,36 @@ class _MyTabControlState extends State<MyTabControl>
         color: Theme.of(context).primaryColor,
         child: TabBar(
           controller: _tabController,
-          tabs: const [
+          tabs: [
             Tab(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.search),
+              icon: Icon(
+                Icons.search,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.shopping_cart),
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.local_shipping_sharp),
+              icon: Icon(
+                Icons.local_shipping_sharp,
+                color: Colors.purple[900],
+              ),
             ),
             Tab(
-              icon: Icon(Icons.person),
+              icon: Icon(
+                Icons.person,
+                color: Colors.purple[900],
+              ),
             ),
           ],
         ),
