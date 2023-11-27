@@ -22,3 +22,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets: 
+    - lib/src/assets/planoDefundoLoja.png
+    - lib/src/assets/logo.png
