@@ -8,8 +8,12 @@ class PagamentoPix extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ShopEase'),
-          centerTitle: true,
+          flexibleSpace: const Image(
+            image: AssetImage('lib/src/assets/logooo.png'),
+            fit: BoxFit.contain,
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0, // Remove a sombra da AppBar
         ),
         body: Center(
           child: SizedBox(
@@ -24,9 +28,8 @@ class PagamentoPix extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Container(
-                          color: Colors.white,
-
-                          //height: 200, //altura
+                          //color: const Color.fromARGB(255, 243, 200, 237),
+                          height: 280, //altura
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -45,6 +48,9 @@ class PagamentoPix extends StatelessWidget {
                                   const Text(
                                       style: TextStyle(fontSize: 16), 'CPF'),
                                   const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const SizedBox(
                                     height: 50.0,
                                     width: 500,
                                     child: TextField(
@@ -52,6 +58,8 @@ class PagamentoPix extends StatelessWidget {
                                         labelText:
                                             'Preencha idêntico ao documento',
                                         border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: Colors.white,
                                       ),
                                     ),
                                   ),

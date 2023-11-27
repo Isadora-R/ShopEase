@@ -7,8 +7,12 @@ class PagamentoAddEndereco extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ShopEase'),
-          centerTitle: true,
+          flexibleSpace: const Image(
+            image: AssetImage('lib/src/assets/logooo.png'),
+            fit: BoxFit.contain,
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0, // Remove a sombra da AppBar
         ),
         body: Center(
           child: SizedBox(
@@ -23,7 +27,7 @@ class PagamentoAddEndereco extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Container(
-                          color: Colors.white,
+                          //color: Colors.white,
 
                           height: 600, // altura
                           child: Center(
@@ -52,6 +56,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                         labelText:
                                             'Preencha idêntico ao Rg ou CNH',
                                         border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -64,7 +70,7 @@ class PagamentoAddEndereco extends StatelessWidget {
                                             'Estado'),
                                       ),
                                       SizedBox(
-                                        width: 20,
+                                        width: 80,
                                       ),
                                       Expanded(
                                         child: Text(
@@ -83,6 +89,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                           decoration: InputDecoration(
                                             labelText: '',
                                             border: OutlineInputBorder(),
+                                            filled: true,
+                                            fillColor: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -97,6 +105,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                           decoration: InputDecoration(
                                             labelText: '',
                                             border: OutlineInputBorder(),
+                                            filled: true,
+                                            fillColor: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -112,6 +122,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                       decoration: InputDecoration(
                                         labelText: ' ',
                                         border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -124,7 +136,7 @@ class PagamentoAddEndereco extends StatelessWidget {
                                             'Rua/Avenida'),
                                       ),
                                       SizedBox(
-                                        width: 20,
+                                        width: 80,
                                       ),
                                       Expanded(
                                         child: Text(
@@ -143,6 +155,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                           decoration: InputDecoration(
                                             labelText: '',
                                             border: OutlineInputBorder(),
+                                            filled: true,
+                                            fillColor: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -157,6 +171,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                           decoration: InputDecoration(
                                             labelText: '',
                                             border: OutlineInputBorder(),
+                                            filled: true,
+                                            fillColor: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -174,6 +190,8 @@ class PagamentoAddEndereco extends StatelessWidget {
                                       decoration: InputDecoration(
                                         labelText: '',
                                         border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: Colors.white,
                                       ),
                                     ),
                                   ),

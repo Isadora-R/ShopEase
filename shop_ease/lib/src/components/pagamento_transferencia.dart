@@ -9,8 +9,12 @@ class PagamentoTransf extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ShopEase'),
-          centerTitle: true,
+          flexibleSpace: const Image(
+            image: AssetImage('lib/src/assets/logooo.png'),
+            fit: BoxFit.contain,
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0, // Remove a sombra da AppBar
         ),
         body: Center(
           child: SizedBox(
