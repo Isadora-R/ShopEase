@@ -115,6 +115,8 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 20.0),
                 TextField(
+                  style: const TextStyle(
+                      color: Colors.white, decorationThickness: 2.0),
                   controller: _usernameController,
                   decoration: const InputDecoration(
                       labelText: 'Nome de Usuário ou Email',
@@ -125,6 +127,8 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 20.0),
                 TextField(
+                  style: const TextStyle(
+                      color: Colors.white, decorationThickness: 2.0),
                   controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(

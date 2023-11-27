@@ -33,8 +33,12 @@ class _MyTabControlState extends State<MyTabControl>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ShopEase'),
-        centerTitle: true,
+        flexibleSpace: const Image(
+          image: AssetImage('lib/src/assets/logooo.png'),
+          fit: BoxFit.contain,
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remove a sombra da AppBar
       ),
       bottomNavigationBar: Container(
         color: Theme.of(context).primaryColor,

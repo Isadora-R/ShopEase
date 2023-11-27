@@ -10,11 +10,11 @@ void main() {
       child: MaterialApp(
         title: 'ShopEase',
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.deepPurple[200],
-          primarySwatch: Colors.deepPurple,
-          primaryColor: Colors.deepPurple[400],
+          scaffoldBackgroundColor: Colors.purple[200],
+          primarySwatch: Colors.purple,
+          primaryColor: Colors.purple[400],
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.deepPurple, secondary: Colors.deepPurple[300]),
+              seedColor: Colors.purple, secondary: Colors.purple[300]),
         ),
         initialRoute: '/login',
         routes: {

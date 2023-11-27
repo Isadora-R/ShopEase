@@ -15,42 +15,42 @@ class Perfil extends StatelessWidget {
     String urlImagem = usuarioLogado.length > 2 ? usuarioLogado[2] : '';
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Perfil'),
-          centerTitle: true,
-        ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.network(
-                urlImagem,
-                width: 100,
-                height: 100,
-              ),
-              const SizedBox(height: 10.0),
-              Text(
-                  'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : "Usuário Desconhecido"}'),
-              const SizedBox(height: 30.0),
-              Text('Nome: ${usuarioLogado[0]} ${usuarioLogado[1]}'),
-              const SizedBox(height: 10.0),
-              Text(
-                  'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : ''}'),
-              const SizedBox(height: 10.0),
-              Text(
-                  'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : ''}'),
-              const SizedBox(height: 40.0),
-              ElevatedButton(
-                onPressed: () {
-                  Provider.of<DataProvider>(context, listen: false)
-                      .limparUsuario();
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login', (route) => false);
-                },
-                child: const Text('Logout'),
-              ),
-            ],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : "Usuário Desconhecido"}',
+            style: const TextStyle(
+              fontSize: 20.2,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ));
+          const SizedBox(height: 30.0),
+          Image.network(
+            urlImagem,
+            width: 100,
+            height: 100,
+          ),
+          const SizedBox(height: 10.0),
+          Text('Nome: ${usuarioLogado[0]} ${usuarioLogado[1]}'),
+          const SizedBox(height: 10.0),
+          Text(
+              'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : ''}'),
+          const SizedBox(height: 10.0),
+          Text(
+              'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : ''}'),
+          const SizedBox(height: 40.0),
+          ElevatedButton(
+            onPressed: () {
+              Provider.of<DataProvider>(context, listen: false).limparUsuario();
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/login', (route) => false);
+            },
+            child: const Text('Logout'),
+          ),
+        ],
+      ),
+    ));
   }
 }
