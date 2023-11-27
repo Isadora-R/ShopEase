@@ -48,7 +48,6 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
         ),
         body: Center(
           child: SizedBox(
-              //color: const Color.fromARGB(255, 248, 240, 250),
               width: 1220,
               child: Center(
                 child: Padding(
@@ -147,7 +146,6 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                           color: Colors.white70,
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
-                          //height: 200, //altura
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

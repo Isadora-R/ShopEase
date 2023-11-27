@@ -83,167 +83,154 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                     children: <Widget>[
                       Expanded(
                         flex: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white70,
-                            border: Border.all(
-                              color: Colors.grey, // Cor da borda
-                              width: 1.0, // Largura da borda
-                            ),
-                          ),
-
-                          //height: 200, //altura
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const Text(
-                                    'Adicione um novo cartão',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextField(
-                                          controller: _firstNameController,
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
-                                          ],
-                                          decoration: const InputDecoration(
-                                            labelText: 'Nome',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                const Text(
+                                  'Adicione um novo cartão',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _firstNameController,
+                                        inputFormatters: const [
+                                          //LengthLimitingTextInputFormatter(2),
+                                        ],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Nome',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Expanded(
-                                        child: TextField(
-                                          controller: _lastNameController,
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
-                                          ],
-                                          decoration: const InputDecoration(
-                                            labelText: 'Sobrenome',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  SizedBox(
-                                    height: 50.0,
-                                    width: 500,
-                                    child: TextField(
-                                      controller: _cardNumberController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Número do Cartão',
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  const Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                            style: TextStyle(fontSize: 16),
-                                            'Validade'),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextField(
-                                          controller: _cardExpireController,
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
-                                          ],
-                                          decoration: const InputDecoration(
-                                            labelText: 'MM/AA',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const SizedBox(
-                                        width: 282,
-                                      ),
-                                      Expanded(
-                                        child: TextField(
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(3),
-                                          ],
-                                          decoration: const InputDecoration(
-                                            labelText: 'Cód. de Segurança',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 60,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      await verificarCartao();
-                                      if (cardNumberChecked &&
-                                          cardexpireChecked &&
-                                          firstNameChecked &&
-                                          lastNameChecked) {
-                                        // ignore: use_build_context_synchronously
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PagamentoCheckout(),
-                                          ),
-                                        );
-                                      } else {
-                                        // Se os dados do cartão não forem verificados corretamente, exiba uma mensagem ou tome outra ação.
-                                        // Por exemplo, mostrar um snackbar informando que os dados do cartão estão incorretos.
-                                        // ignore: use_build_context_synchronously
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content: Text(
-                                                  'Dados do cartão inválidos')),
-                                        );
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(150, 50),
+                                    const SizedBox(
+                                      width: 5,
                                     ),
-                                    child: const Text('Continuar'),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _lastNameController,
+                                        inputFormatters: const [
+                                          //LengthLimitingTextInputFormatter(2),
+                                        ],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Sobrenome',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10.0),
+                                SizedBox(
+                                  height: 50.0,
+                                  width: 500,
+                                  child: TextField(
+                                    controller: _cardNumberController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Número do Cartão',
+                                      border: OutlineInputBorder(),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                const SizedBox(height: 10.0),
+                                const Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Text(
+                                          style: TextStyle(fontSize: 16),
+                                          'Validade'),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _cardExpireController,
+                                        inputFormatters: const [
+                                          //LengthLimitingTextInputFormatter(2),
+                                        ],
+                                        decoration: const InputDecoration(
+                                          labelText: 'MM/AA',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    const SizedBox(
+                                      width: 282,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(3),
+                                        ],
+                                        decoration: const InputDecoration(
+                                          labelText: 'Cód. de Segurança',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 60,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await verificarCartao();
+                                    if (cardNumberChecked &&
+                                        cardexpireChecked &&
+                                        firstNameChecked &&
+                                        lastNameChecked) {
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PagamentoCheckout(),
+                                        ),
+                                      );
+                                    } else {
+                                      // ignore: use_build_context_synchronously
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Dados do cartão inválidos')),
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(150, 50),
+                                  ),
+                                  child: const Text('Continuar'),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -252,7 +239,14 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                       Flexible(
                         flex: 1,
                         child: Container(
-                          color: Colors.white70,
+                          decoration: BoxDecoration(
+                            color: Colors.white70,
+                            border: Border.all(
+                              color: Colors.grey, // Cor da borda
+                              width: 1.0, // Largura da borda
+                            ),
+                          ),
+                          //color: Colors.white70,
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
                           //height: 200, // altura

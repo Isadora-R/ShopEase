@@ -17,7 +17,6 @@ class PagamentoCheckout extends StatelessWidget {
         ),
         body: Center(
           child: SizedBox(
-              //color: const Color.fromARGB(255, 248, 240, 250),
               width: 1220,
               child: Center(
                 child: Padding(
@@ -29,8 +28,6 @@ class PagamentoCheckout extends StatelessWidget {
                         flex: 2,
                         child: Container(
                           color: Colors.white,
-
-                          //height: 200, // altura
                           child: const Center(
                             child: Padding(
                               padding: EdgeInsets.all(20.0),
@@ -46,10 +43,9 @@ class PagamentoCheckout extends StatelessWidget {
                       Flexible(
                         flex: 1,
                         child: Container(
-                          color: const Color.fromARGB(255, 248, 240, 250),
+                          color: Colors.white70,
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
-                          //height: 200, //altura
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

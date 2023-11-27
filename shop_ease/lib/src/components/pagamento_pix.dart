@@ -17,7 +17,6 @@ class PagamentoPix extends StatelessWidget {
         ),
         body: Center(
           child: SizedBox(
-              //color: const Color.fromARGB(255, 248, 240, 250),
               width: 1220,
               child: Center(
                 child: Padding(
@@ -28,8 +27,6 @@ class PagamentoPix extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: SizedBox(
-                          //color: const Color.fromARGB(255, 243, 200, 237),
-                          height: 280, //altura
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -91,10 +88,9 @@ class PagamentoPix extends StatelessWidget {
                       Flexible(
                         flex: 1,
                         child: Container(
-                          color: const Color.fromARGB(255, 248, 240, 250),
+                          color: Colors.white70,
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
-                          //height: 200, //altura
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

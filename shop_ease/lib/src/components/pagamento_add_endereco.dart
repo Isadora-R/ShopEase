@@ -16,7 +16,6 @@ class PagamentoAddEndereco extends StatelessWidget {
         ),
         body: Center(
           child: SizedBox(
-              //color: const Color.fromARGB(255, 248, 240, 250),
               width: 1220,
               child: Center(
                 child: Padding(
@@ -27,9 +26,6 @@ class PagamentoAddEndereco extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: SizedBox(
-                          //color: Colors.white,
-
-                          height: 600, // altura
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -186,7 +182,6 @@ class PagamentoAddEndereco extends StatelessWidget {
                                     height: 50.0,
                                     width: 500,
                                     child: TextField(
-                                      //controller: _emailController,
                                       decoration: InputDecoration(
                                         labelText: '',
                                         border: OutlineInputBorder(),
@@ -218,7 +213,6 @@ class PagamentoAddEndereco extends StatelessWidget {
                           color: const Color.fromARGB(255, 248, 240, 250),
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
-                          //height: 200, //altura
                           child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
