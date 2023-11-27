@@ -23,8 +23,10 @@ class _MyTabControlState extends State<MyTabControl>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(length: 5, vsync: this); // Número total de abas
+    _tabController = TabController(
+        length: 5,
+        vsync:
+            this); // Número total de abas. E sempre que acrescentar aba mudar aqui. Quebrar o programa e começar de novo!!!
   }
 
   @override

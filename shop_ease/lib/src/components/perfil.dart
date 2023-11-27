@@ -9,10 +9,10 @@ class Perfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Acesse a variável compartilhada usando Provider
     List<String> usuarioLogado =
         Provider.of<DataProvider>(context).usuarioLogado;
-    String numeroDoCartao = usuarioLogado[4];
+    String numeroDoCartao = usuarioLogado.length > 4 ? usuarioLogado[4] : '';
+    String urlImagem = usuarioLogado.length > 2 ? usuarioLogado[2] : '';
 
     return Scaffold(
         appBar: AppBar(
@@ -24,7 +24,7 @@ class Perfil extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                usuarioLogado[2],
+                urlImagem,
                 width: 100,
                 height: 100,
               ),
@@ -32,24 +32,20 @@ class Perfil extends StatelessWidget {
               Text(
                   'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : "Usuário Desconhecido"}'),
               const SizedBox(height: 30.0),
-              Text(
-                'Nome:  ${usuarioLogado[0]} ${usuarioLogado[1]}',
-              ),
+              Text('Nome: ${usuarioLogado[0]} ${usuarioLogado[1]}'),
               const SizedBox(height: 10.0),
               Text(
-                'Endereço de entrega:  ${usuarioLogado[3]}',
-              ),
+                  'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : ''}'),
               const SizedBox(height: 10.0),
               Text(
-                  'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado[5]}'),
+                  'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : ''}'),
               const SizedBox(height: 40.0),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate to the second screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Login()),
-                  );
+                  Provider.of<DataProvider>(context, listen: false)
+                      .limparUsuario();
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login', (route) => false);
                 },
                 child: const Text('Logout'),
               ),

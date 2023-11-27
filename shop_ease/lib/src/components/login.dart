@@ -3,6 +3,8 @@
 //  "username": "atuny0",
 //  "password": "9uQFF1Lh"
 
+// user_model e api_service para controlar a API --- site faz o modelo com base na api que vc mandar: https://app.quicktype.io/
+
 import 'package:flutter/material.dart';
 import '../model/user_model.dart';
 import '../service/api_service.dart';
@@ -11,9 +13,7 @@ import 'package:provider/provider.dart';
 Widget build(BuildContext context) {
   return Provider<DataProvider>(
       create: (_) => DataProvider(),
-      // we use `builder` to obtain a new `BuildContext` that has access to the provider
       builder: (context, child) {
-        // No longer throws
         return Text(context.watch<DataProvider>().toString());
       });
 }
@@ -120,6 +120,11 @@ class DataProvider with ChangeNotifier {
 
   void adicionarItem(String item) {
     _usuarioLogado.add(item);
+    notifyListeners();
+  }
+
+  void limparUsuario() {
+    _usuarioLogado = [];
     notifyListeners();
   }
 }
