@@ -8,6 +8,7 @@ class PagamentoSelecao extends StatefulWidget {
   const PagamentoSelecao({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PagamentoSelecao createState() => _PagamentoSelecao();
 }
 

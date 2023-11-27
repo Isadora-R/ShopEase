@@ -27,7 +27,7 @@ class PagamentoPix extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         flex: 2,
-                        child: Container(
+                        child: SizedBox(
                           //color: const Color.fromARGB(255, 243, 200, 237),
                           height: 280, //altura
                           child: Center(

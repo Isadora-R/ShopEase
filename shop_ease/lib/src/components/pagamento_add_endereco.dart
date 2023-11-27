@@ -26,7 +26,7 @@ class PagamentoAddEndereco extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         flex: 2,
-                        child: Container(
+                        child: SizedBox(
                           //color: Colors.white,
 
                           height: 600, // altura
