@@ -104,11 +104,32 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Text('Banco:'),
-                                                Text('Agência:'),
-                                                Text('Conta Corrente:'),
-                                                Text('Titular:'),
-                                                Text('CPF:'),
+                                                Text('Banco do Brasil'),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text('Agência: 3663-3'),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text('Conta Corrente: 25206-4'),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                    'Titular: Enzo Bento Duarte'),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                    'CNPJ: 65.935.613/0001-66'),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                Text(
+                                                    'Após o depósito ou transferência, enviar o comprovante para o email'),
+                                                Text(
+                                                    'contato.shopeasy@gmail.com'),
                                               ],
                                             ),
                                             actions: <Widget>[

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/cupom.dart';
 import 'package:shop_ease/src/components/pagamento_add_endereco.dart';
 import 'package:shop_ease/src/components/pagamento_selecao.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/login.dart';
 
 class PagamentoEndereco extends StatefulWidget {
   const PagamentoEndereco({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PagamentoEndereco createState() => _PagamentoEndereco();
 }
 
@@ -31,6 +34,9 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> usuarioLogado =
+        Provider.of<DataProvider>(context).usuarioLogado;
+
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: const Image(
@@ -78,7 +84,12 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                                         ? const Icon(
                                             Icons.check_circle_outline_outlined)
                                         : const Icon(Icons.circle_outlined),
-                                    label: const Text('Endereço salvo'),
+                                    label: Row(
+                                      children: [
+                                        Text(
+                                            'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[6] : ''}, ${usuarioLogado.isNotEmpty ? usuarioLogado[8] : ''}. ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : ''}'),
+                                      ],
+                                    ),
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(0),
@@ -133,7 +144,7 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                       Flexible(
                         flex: 1,
                         child: Container(
-                          color: const Color.fromARGB(255, 248, 240, 250),
+                          //color: const Color.fromARGB(255, 248, 240, 250),
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
                           //height: 200, //altura

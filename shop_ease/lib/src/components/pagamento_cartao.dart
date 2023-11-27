@@ -4,10 +4,16 @@ import 'package:shop_ease/src/components/pagamento_checkout.dart';
 import 'package:shop_ease/src/service/api_service.dart';
 import '../model/user_model.dart';
 
+// "cardExpire": "06/22"
+// "cardNumber": "50380955204220685"
+// "firstName": "Terry",
+// "lastName": "Medhurst",
+
 class PagamentoCartao extends StatefulWidget {
   const PagamentoCartao({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PagamentoCartao createState() => _PagamentoCartao();
 }
 
@@ -211,6 +217,7 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                           cardexpireChecked &&
                                           firstNameChecked &&
                                           lastNameChecked) {
+                                        // ignore: use_build_context_synchronously
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -221,6 +228,7 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                       } else {
                                         // Se os dados do cartão não forem verificados corretamente, exiba uma mensagem ou tome outra ação.
                                         // Por exemplo, mostrar um snackbar informando que os dados do cartão estão incorretos.
+                                        // ignore: use_build_context_synchronously
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           const SnackBar(

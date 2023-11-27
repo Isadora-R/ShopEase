@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
 class PagamentoCheckout extends StatelessWidget {
   const PagamentoCheckout({super.key});
@@ -30,9 +31,9 @@ class PagamentoCheckout extends StatelessWidget {
                           color: Colors.white,
 
                           //height: 200, // altura
-                          child: Center(
+                          child: const Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(20.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [],
@@ -49,70 +50,84 @@ class PagamentoCheckout extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(20),
                           //height: 200, //altura
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Resumo da compra',
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Divider(
+                              const Divider(
                                 color: Colors.grey,
                                 height: 20,
                                 thickness: 2,
                                 indent: 0,
                                 endIndent: 20,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Text(
+                              const Text(
                                 'Produto',
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.normal),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Text(
+                              const Text(
                                 'Frete',
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.normal),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Text(
+                              const Text(
                                 'Desconto',
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.normal),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
-                              Divider(
+                              const Divider(
                                 color: Colors.grey,
                                 height: 20,
                                 thickness: 2,
                                 indent: 0,
                                 endIndent: 20,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Text(
+                              const Text(
                                 'Total',
                                 style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.normal),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PagamentoAprovado()),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(150, 50),
+                                ),
+                                child: const Text('Pagar'),
                               ),
                             ],
                           ),
