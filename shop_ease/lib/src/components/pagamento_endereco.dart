@@ -12,7 +12,7 @@ class PagamentoEndereco extends StatefulWidget {
 }
 
 class _PagamentoEndereco extends State<PagamentoEndereco> {
-  bool enderecoSelecionado = false;
+  bool enderecoSelecionado = false; // variável para liberar botão continuar
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -206,7 +206,7 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
   }
 
   void initializeButtonStates() {
-    // Inicialize a lista de estados dos botões
+    // Inicializa a lista de estados dos botões
     buttonStates = List.generate(
       Endereco.listaDeEnderecos.length,
       (index) => false,
@@ -231,13 +231,14 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
                 onPressed: () {
                   setState(() {
                     for (int i = 0; i < buttonStates.length; i++) {
-                      // Desmarcar todos os botões
+                      // Desmarca todos os botões
                       buttonStates[i] = false;
                     }
-                    // Marcar apenas o botão atual
+                    // Marca apenas o botão atual
                     buttonStates[index] = true;
                   });
-                  widget.onEnderecoSelected(true);
+                  widget.onEnderecoSelected(
+                      true); //altera enderecoSelecionado para true quando botão selecionado
                 },
                 icon: buttonStates[index]
                     ? const Icon(Icons.check_circle_outline_outlined)
