@@ -2,7 +2,6 @@
 import 'package:provider/provider.dart';
 import 'package:shop_ease/src/components/criar_perfil.dart';
 import 'package:shop_ease/src/components/login.dart';
-import 'perfil.dart';
 
 Widget build(BuildContext context) {
   return Provider<EditarPerfilProvider>(
@@ -13,7 +12,7 @@ Widget build(BuildContext context) {
 }
 
 class EditarPerfil extends StatefulWidget {
-  const EditarPerfil({Key? key}) : super(key: key);
+  const EditarPerfil({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -280,13 +279,7 @@ class _EditalPerfilState extends State<EditarPerfil>
                 const SizedBox(height: 5.0),
                 ElevatedButton(
                   onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const Perfil() // Substitua true pelo valor real
-                          ),
-                    );
+                    Navigator.pop(context);
                     print(
                         'Dados após salvar: ${context.read<EditarPerfilProvider>().usuarioLogado}');
                   },
