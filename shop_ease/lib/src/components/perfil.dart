@@ -1,4 +1,4 @@
-﻿//  Perfis de usuário: os usuários podem criar perfis, onde possam gerenciar informações pessoais, endereços de entrega, histórico de pedidos e preferências de comunicação.
+﻿/* Perfis de usuário: os usuários podem criar perfis, onde possam gerenciar informações pessoais, endereços de entrega, histórico de pedidos e preferências de comunicação.*/
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
