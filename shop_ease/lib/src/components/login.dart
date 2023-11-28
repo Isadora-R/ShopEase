@@ -175,7 +175,7 @@ class DataProvider with ChangeNotifier {
   }
 
   void limparUsuario() {
-    _usuarioLogado = [];
+    _usuarioLogado.clear();
     notifyListeners();
   }
 }
