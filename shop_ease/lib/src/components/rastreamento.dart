@@ -13,11 +13,14 @@ class Rastreamento extends StatefulWidget {
   _RastreamentoState createState() => _RastreamentoState();
 }
 
-class _RastreamentoState extends State<Rastreamento> {
+class _RastreamentoState extends State<Rastreamento>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
-  final bool pagamentoAprovado = false;
+  final bool pagamentoAprovado = true;
 
   bool _isMounted = false;
 
@@ -35,7 +38,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _separandoPedido() async {
-    Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     setState(() {
       mensagem = 'O vendedor separou seu pedido!';
       progresso = incremento + 0.2;
@@ -44,7 +47,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _enviarPedido() async {
-    Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 10));
     setState(() {
       mensagem = 'O vendedor enviou seu pedido!';
       progresso = incremento + 0.2;
@@ -53,7 +56,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _pedidoCaminho() async {
-    Future.delayed(const Duration(seconds: 15));
+    await Future.delayed(const Duration(seconds: 15));
     setState(() {
       mensagem = 'Seu pedido foi recolhido e está a caminho!';
       progresso = incremento + 0.2;
@@ -62,7 +65,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _saiuEntrega() async {
-    Future.delayed(const Duration(seconds: 20));
+    await Future.delayed(const Duration(seconds: 20));
     setState(() {
       mensagem = 'Seu pedido saiu para entrega!';
       progresso = incremento + 0.3;
@@ -71,7 +74,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _pedidoEntregue() async {
-    Future.delayed(const Duration(seconds: 25));
+    await Future.delayed(const Duration(seconds: 25));
     setState(() {
       mensagem = 'Seu pedido foi entregue!';
       progresso = 1.0;
@@ -90,6 +93,7 @@ class _RastreamentoState extends State<Rastreamento> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (pagamentoAprovado == true) {
       return Scaffold(
         appBar: AppBar(
