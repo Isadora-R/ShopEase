@@ -1,5 +1,5 @@
 ﻿import 'package:flutter/material.dart';
-import 'package:shop_ease/src/components/pagamento_endereco.dart';
+import 'package:shop_ease/src/components/pagamento_add_endereco.dart';
 
 class Carrinho extends StatelessWidget {
   const Carrinho({super.key});
@@ -13,7 +13,7 @@ class Carrinho extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const PagamentoEndereco()),
+                  builder: (context) => const PagamentoAddEndereco()),
             );
           },
           style: ElevatedButton.styleFrom(

@@ -1,7 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:shop_ease/src/components/pagamento_endereco.dart';
+import '../model/endereco.dart';
 
-class PagamentoAddEndereco extends StatelessWidget {
-  const PagamentoAddEndereco({super.key});
+class PagamentoAddEndereco extends StatefulWidget {
+  const PagamentoAddEndereco({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _PagamentoAddEndereco createState() => _PagamentoAddEndereco();
+}
+
+class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
+  //List<List<String>> listaDeEnderecos = [];
+
+  TextEditingController nomeController = TextEditingController();
+  TextEditingController estadoController = TextEditingController();
+  TextEditingController cidadeController = TextEditingController();
+  TextEditingController bairroController = TextEditingController();
+  TextEditingController ruaController = TextEditingController();
+  TextEditingController numeroController = TextEditingController();
+  TextEditingController complementoController = TextEditingController();
+
+  void adicionarEndereco() {
+    String nome = nomeController.text;
+    String estado = estadoController.text;
+    String cidade = cidadeController.text;
+    String bairro = bairroController.text;
+    String rua = ruaController.text;
+    String numero = numeroController.text;
+    String complemento = complementoController.text;
+
+    // Verifique se os campos não estão vazios
+    if (nome.isNotEmpty &&
+        estado.isNotEmpty &&
+        cidade.isNotEmpty &&
+        bairro.isNotEmpty &&
+        rua.isNotEmpty &&
+        numero.isNotEmpty &&
+        complemento.isNotEmpty) {
+      List<String> novoEndereco = [
+        nome,
+        cidade,
+        estado,
+        bairro,
+        rua,
+        numero,
+        complemento
+      ];
+      // Adicione o novo endereço à lista em EnderecoData
+      Endereco.listaDeEnderecos.add(novoEndereco);
+
+      // Limpe os campos de texto após adicionar o endereço
+      nomeController.clear();
+      estadoController.clear();
+      cidadeController.clear();
+      bairroController.clear();
+      ruaController.clear();
+      numeroController.clear();
+      complementoController.clear();
+
+      setState(() {}); // Atualize o estado para refletir a mudança na lista
+    }
+  }
+
+  @override
+  void dispose() {
+    nomeController.dispose();
+    estadoController.dispose();
+    cidadeController.dispose();
+    bairroController.dispose();
+    ruaController.dispose();
+    numeroController.dispose();
+    complementoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +113,11 @@ class PagamentoAddEndereco extends StatelessWidget {
                                   const SizedBox(
                                     height: 10.0,
                                   ),
-                                  const Text(
-                                      style: TextStyle(fontSize: 16),
-                                      'Nome completo'),
-                                  const SizedBox(
-                                    height: 50.0,
-                                    width: 500,
+                                  SizedBox(
                                     child: TextField(
-                                      decoration: InputDecoration(
-                                        labelText:
-                                            'Preencha idêntico ao Rg ou CNH',
+                                      controller: nomeController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Nome completo',
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
@@ -58,48 +125,33 @@ class PagamentoAddEndereco extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
-                                  const Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                            style: TextStyle(fontSize: 16),
-                                            'Estado'),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                            style: TextStyle(fontSize: 16),
-                                            'Cidade'),
-                                      ),
-                                    ],
-                                  ),
-                                  const Row(
+                                  Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: [
+                                          inputFormatters: const [
                                             //LengthLimitingTextInputFormatter(2),
                                           ],
-                                          decoration: InputDecoration(
-                                            labelText: '',
+                                          controller: estadoController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Estado',
                                             border: OutlineInputBorder(),
                                             filled: true,
                                             fillColor: Colors.white,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 100,
                                       ),
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: [
+                                          inputFormatters: const [
                                             //LengthLimitingTextInputFormatter(2),
                                           ],
-                                          decoration: InputDecoration(
-                                            labelText: '',
+                                          controller: cidadeController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Cidade',
                                             border: OutlineInputBorder(),
                                             filled: true,
                                             fillColor: Colors.white,
@@ -109,14 +161,11 @@ class PagamentoAddEndereco extends StatelessWidget {
                                     ],
                                   ),
                                   const SizedBox(height: 10.0),
-                                  const Text(
-                                      style: TextStyle(fontSize: 16), 'Bairro'),
-                                  const SizedBox(
-                                    height: 50.0,
-                                    width: 500,
+                                  SizedBox(
                                     child: TextField(
-                                      decoration: InputDecoration(
-                                        labelText: ' ',
+                                      controller: bairroController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Bairro',
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
@@ -124,48 +173,33 @@ class PagamentoAddEndereco extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
-                                  const Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                            style: TextStyle(fontSize: 16),
-                                            'Rua/Avenida'),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                            style: TextStyle(fontSize: 16),
-                                            'Número'),
-                                      ),
-                                    ],
-                                  ),
-                                  const Row(
+                                  Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: [
+                                          inputFormatters: const [
                                             //LengthLimitingTextInputFormatter(2),
                                           ],
-                                          decoration: InputDecoration(
-                                            labelText: '',
+                                          controller: ruaController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Rua/Avenida',
                                             border: OutlineInputBorder(),
                                             filled: true,
                                             fillColor: Colors.white,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 100,
                                       ),
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: [
+                                          inputFormatters: const [
                                             //LengthLimitingTextInputFormatter(2),
                                           ],
-                                          decoration: InputDecoration(
-                                            labelText: '',
+                                          controller: numeroController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Número',
                                             border: OutlineInputBorder(),
                                             filled: true,
                                             fillColor: Colors.white,
@@ -175,15 +209,11 @@ class PagamentoAddEndereco extends StatelessWidget {
                                     ],
                                   ),
                                   const SizedBox(height: 10.0),
-                                  const Text(
-                                      style: TextStyle(fontSize: 16),
-                                      'Complemento'),
-                                  const SizedBox(
-                                    height: 50.0,
-                                    width: 500,
+                                  SizedBox(
                                     child: TextField(
-                                      decoration: InputDecoration(
-                                        labelText: '',
+                                      controller: complementoController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Complemento',
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
@@ -194,11 +224,20 @@ class PagamentoAddEndereco extends StatelessWidget {
                                     height: 60,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      adicionarEndereco();
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PagamentoEndereco()),
+                                      );
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(150, 50),
                                     ),
-                                    child: const Text('Continuar'),
+                                    child: const Text('Adicionar'),
                                   ),
                                 ],
                               ),
