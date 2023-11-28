@@ -17,7 +17,10 @@ class CriarPerfil extends StatefulWidget {
   _CriarPerfilState createState() => _CriarPerfilState();
 }
 
-class _CriarPerfilState extends State<CriarPerfil> {
+class _CriarPerfilState extends State<CriarPerfil>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final TextEditingController _criarUsernameController =
       TextEditingController();
   final TextEditingController _criarPasswordController =
@@ -66,6 +69,7 @@ class _CriarPerfilState extends State<CriarPerfil> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         body: SingleChildScrollView(
       child: Stack(
@@ -252,5 +256,9 @@ class CriarPerfilProvider with ChangeNotifier {
   void limparUsuario() {
     _usuarioLogado.clear();
     notifyListeners();
+  }
+
+  List<String> obterDadosUsuario() {
+    return List.from(_usuarioLogado);
   }
 }

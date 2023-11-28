@@ -1,7 +1,6 @@
 ﻿//Rastreamento de pedidos: deve-se ter um acompanhamento e o status de seus pedidos, desde o processamento até a entrega, fornecendo informações sobre o envio e a previsão de chegada.
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 //import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
@@ -20,7 +19,7 @@ class _RastreamentoState extends State<Rastreamento>
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
-  final bool pagamentoAprovado = true;
+  bool pagamentoAprovado = true;
   // List<String> _pedidosFeitos = [];
   // List<String> get pedidosFeitos => _pedidosFeitos;
 
@@ -42,8 +41,9 @@ class _RastreamentoState extends State<Rastreamento>
   Future<void> _separandoPedido() async {
     await Future.delayed(const Duration(seconds: 5));
     setState(() {
-      mensagem = 'O vendedor separou seu pedido!';
       progresso = incremento + 0.2;
+      mensagem =
+          'O vendedor separou seu pedido! Previsão de chegada: em ${((2 / progresso).ceil())} dias';
       incremento = progresso;
     });
   }
@@ -51,27 +51,30 @@ class _RastreamentoState extends State<Rastreamento>
   Future<void> _enviarPedido() async {
     await Future.delayed(const Duration(seconds: 10));
     setState(() {
-      mensagem = 'O vendedor enviou seu pedido!';
       progresso = incremento + 0.2;
       incremento = progresso;
+      mensagem =
+          'O vendedor enviou seu pedido! Previsão de chegada: em ${((2.8 / progresso).ceil())} dias';
     });
   }
 
   Future<void> _pedidoCaminho() async {
     await Future.delayed(const Duration(seconds: 15));
     setState(() {
-      mensagem = 'Seu pedido foi recolhido e está a caminho!';
       progresso = incremento + 0.2;
       incremento = progresso;
+      mensagem =
+          'Seu pedido foi recolhido e está a caminho! Previsão de chegada: em ${((3 / progresso).ceil())} dias';
     });
   }
 
   Future<void> _saiuEntrega() async {
     await Future.delayed(const Duration(seconds: 20));
     setState(() {
-      mensagem = 'Seu pedido saiu para entrega!';
       progresso = incremento + 0.3;
       incremento = progresso;
+      mensagem =
+          'Seu pedido saiu para entrega! Previsão de chegada: em até ${((1.8 / progresso).ceil())} dias';
     });
   }
 
@@ -80,6 +83,7 @@ class _RastreamentoState extends State<Rastreamento>
     setState(() {
       mensagem = 'Seu pedido foi entregue!';
       progresso = 1.0;
+      pagamentoAprovado = false;
     });
   }
 
@@ -118,7 +122,11 @@ class _RastreamentoState extends State<Rastreamento>
                 value: progresso,
               ),
               const SizedBox(height: 16.0),
-              Text(mensagem),
+              Text(
+                mensagem,
+                style: TextStyle(
+                    backgroundColor: Colors.purple[600], color: Colors.white),
+              ),
             ],
           ),
         ),
