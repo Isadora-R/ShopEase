@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_ease/src/components/cupom.dart';
 import 'package:shop_ease/src/components/pagamento_add_endereco.dart';
 import 'package:shop_ease/src/components/pagamento_selecao.dart';
-import 'package:provider/provider.dart';
-import 'package:shop_ease/src/components/login.dart';
+import '../model/endereco.dart';
 
 class PagamentoEndereco extends StatefulWidget {
   const PagamentoEndereco({super.key});
@@ -14,29 +12,9 @@ class PagamentoEndereco extends StatefulWidget {
 }
 
 class _PagamentoEndereco extends State<PagamentoEndereco> {
-  void desmarca(String botaoSelecionado) {
-    setState(() {
-      if (botaoSelecionado == 'cartao') {
-        pacChecked = true;
-        sedexChecked = false;
-        transpChecked = false;
-      } else if (botaoSelecionado == 'transf') {
-        pacChecked = false;
-        sedexChecked = true;
-        transpChecked = false;
-      } else if (botaoSelecionado == 'pix') {
-        pacChecked = false;
-        sedexChecked = false;
-        transpChecked = true;
-      }
-    });
-  }
-
+  bool enderecoSelecionado = false;
   @override
   Widget build(BuildContext context) {
-    List<String> usuarioLogado =
-        Provider.of<DataProvider>(context).usuarioLogado;
-
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: const Image(
@@ -72,34 +50,6 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                                   const SizedBox(
                                     height: 10.0,
                                   ),
-                                  ElevatedButton.icon(
-                                    onPressed: () {
-                                      setState(() {
-                                        pacChecked = !pacChecked;
-                                        desmarca('cartao');
-                                      });
-                                    },
-                                    icon: pacChecked
-                                        ? const Icon(
-                                            Icons.check_circle_outline_outlined)
-                                        : const Icon(Icons.circle_outlined),
-                                    label: Row(
-                                      children: [
-                                        Text(
-                                            'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[6] : ''}, ${usuarioLogado.isNotEmpty ? usuarioLogado[8] : ''}. ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : ''}'),
-                                      ],
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      minimumSize: const Size(150, 100),
-                                      alignment: Alignment.centerLeft,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
                                   ElevatedButton(
                                     onPressed: () {
                                       Navigator.push(
@@ -116,20 +66,51 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                                       minimumSize: const Size(150, 100),
                                       alignment: Alignment.centerLeft,
                                     ),
-                                    child: const Text('Adicionar endereço'),
+                                    child:
+                                        const Text('Adicionar novo endereço'),
                                   ),
+                                  EnderecoBotoes(
+                                      onEnderecoSelected: (bool selected) {
+                                    setState(() {
+                                      enderecoSelecionado = selected;
+                                    });
+                                  }),
                                   const SizedBox(
                                     height: 60,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PagamentoSelecao()),
-                                      );
-                                    },
+                                    onPressed: enderecoSelecionado
+                                        ? () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const PagamentoSelecao(),
+                                              ),
+                                            );
+                                          }
+                                        : () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Nenhum endereço selecionado'),
+                                                  content: const Text(
+                                                      'Por favor, selecione um endereço para continuar.'),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(150, 50),
                                     ),
@@ -202,5 +183,80 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                 ),
               )),
         ));
+  }
+}
+
+class EnderecoBotoes extends StatefulWidget {
+  final ValueChanged<bool> onEnderecoSelected;
+  const EnderecoBotoes({Key? key, required this.onEnderecoSelected})
+      : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _EnderecoBotoes createState() => _EnderecoBotoes();
+}
+
+class _EnderecoBotoes extends State<EnderecoBotoes> {
+  List<bool> buttonStates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initializeButtonStates();
+  }
+
+  void initializeButtonStates() {
+    // Inicialize a lista de estados dos botões
+    buttonStates = List.generate(
+      Endereco.listaDeEnderecos.length,
+      (index) => false,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(
+        itemCount: Endereco.listaDeEnderecos.length,
+        itemBuilder: (context, index) {
+          List<String> endereco = Endereco.listaDeEnderecos[index];
+
+          return Column(
+            children: [
+              const SizedBox(
+                height: 2,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    for (int i = 0; i < buttonStates.length; i++) {
+                      // Desmarcar todos os botões
+                      buttonStates[i] = false;
+                    }
+                    // Marcar apenas o botão atual
+                    buttonStates[index] = true;
+                  });
+                  widget.onEnderecoSelected(true);
+                },
+                icon: buttonStates[index]
+                    ? const Icon(Icons.check_circle_outline_outlined)
+                    : const Icon(Icons.circle_outlined),
+                label: Text(
+                  'Endereço ${index + 1}: Rua ${endereco[4]} ${endereco[5]} - ${endereco[1]}',
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  minimumSize: const Size(1220, 100),
+                  alignment: Alignment.centerLeft,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
