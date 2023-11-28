@@ -1,26 +1,30 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/criar_perfil.dart';
+import 'package:shop_ease/src/components/login.dart';
+import 'perfil.dart';
 
 Widget build(BuildContext context) {
-  return Provider<CriarPerfilProvider>(
-      create: (_) => CriarPerfilProvider(),
+  return Provider<EditarPerfilProvider>(
+      create: (_) => EditarPerfilProvider(),
       builder: (context, child) {
-        return Text(context.watch<CriarPerfilProvider>().toString());
+        return Text(context.watch<EditarPerfilProvider>().toString());
       });
 }
 
-class CriarPerfil extends StatefulWidget {
-  const CriarPerfil({super.key});
+class EditarPerfil extends StatefulWidget {
+  const EditarPerfil({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _CriarPerfilState createState() => _CriarPerfilState();
+  _EditalPerfilState createState() => _EditalPerfilState();
 }
 
-class _CriarPerfilState extends State<CriarPerfil>
+class _EditalPerfilState extends State<EditarPerfil>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
   final TextEditingController _criarUsernameController =
       TextEditingController();
   final TextEditingController _criarPasswordController =
@@ -38,32 +42,57 @@ class _CriarPerfilState extends State<CriarPerfil>
   final TextEditingController _criarEstadoController = TextEditingController();
   final TextEditingController _criarPostalController = TextEditingController();
 
-  List<String> usuarioLogou = [];
+  @override
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-  Future<void> _fazerLogin() async {
-    try {
-      usuarioLogou.add(_criarUsernameController.text);
-      usuarioLogou.add(_criarPasswordController.text);
-      usuarioLogou.add(_criarEmailController.text);
-      usuarioLogou.add(_criarNomeController.text);
-      usuarioLogou.add(_criarSobrenomeController.text);
-      usuarioLogou.add(_criarEnderecoController.text);
-      usuarioLogou.add(_criarCartaoController.text);
-      usuarioLogou.add(_criarCartaoValidadeController.text);
-      usuarioLogou.add(_criarCidadeController.text);
-      usuarioLogou.add(_criarEstadoController.text);
-      usuarioLogou.add(_criarPostalController.text);
-      Navigator.pushReplacementNamed(
-        context,
-        '/home',
-      );
-      return;
-    } catch (error) {
-      // ignore: avoid_print
-      print('Erro ao fazer login: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Erro ao fazer login')),
-      );
+    var perfilProvider = Provider.of<CriarPerfilProvider>(context);
+    var perfilProvider_ = Provider.of<DataProvider>(context);
+    var dadosUsuario = perfilProvider.usuarioLogado;
+    var dadosUsuario_ = perfilProvider_.usuarioLogado;
+
+    // Restante do código para inicializar os controladores
+
+    // Inicializar controladores de texto com dados existentes
+    if (dadosUsuario.isNotEmpty) {
+      _criarUsernameController.text = dadosUsuario[0];
+      _criarPasswordController.text = dadosUsuario[1];
+      _criarEmailController.text = dadosUsuario[2];
+      _criarNomeController.text = dadosUsuario[3];
+      _criarSobrenomeController.text = dadosUsuario[4];
+      _criarEnderecoController.text = dadosUsuario[5];
+      _criarCartaoController.text = dadosUsuario[6];
+      _criarCartaoValidadeController.text = dadosUsuario[7];
+      _criarCidadeController.text = dadosUsuario[8];
+      _criarEstadoController.text = dadosUsuario[9];
+      _criarPostalController.text = dadosUsuario[10];
+    }
+    {
+      /* 
+             0 user.firstName,
+             1 user.lastName,
+             2 user.image,
+             3 user.address.address,
+             4 user.bank.cardNumber,
+             5 user.bank.cardExpire,
+             6 user.address.city ?? '',
+             7 user.address.postalCode,
+             8 user.address.state,
+             9 user.email,
+             10 user.username
+             11 user.password */
+      _criarUsernameController.text = dadosUsuario_[10];
+      _criarPasswordController.text = dadosUsuario_[11];
+      _criarEmailController.text = dadosUsuario_[9];
+      _criarNomeController.text = dadosUsuario_[0];
+      _criarSobrenomeController.text = dadosUsuario_[1];
+      _criarEnderecoController.text = dadosUsuario_[3];
+      _criarCartaoController.text = dadosUsuario_[4];
+      _criarCartaoValidadeController.text = dadosUsuario_[5];
+      _criarCidadeController.text = dadosUsuario_[6];
+      _criarEstadoController.text = dadosUsuario_[8];
+      _criarPostalController.text = dadosUsuario_[7];
     }
   }
 
@@ -80,7 +109,7 @@ class _CriarPerfilState extends State<CriarPerfil>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Bem vindo, faça seu cadastro!',
+                  'Edite seus dados',
                   style: TextStyle(
                     color: Colors.purple,
                     decorationThickness: 2.0,
@@ -94,7 +123,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarUsernameController,
                   decoration: const InputDecoration(
-                      labelText: 'Crie um nome de usuário',
+                      labelText: 'Editar nome de usuário',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -107,7 +136,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                   controller: _criarPasswordController,
                   obscureText: true,
                   decoration: const InputDecoration(
-                      labelText: 'Crie uma senha',
+                      labelText: 'Editar senha',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -119,7 +148,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEmailController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite seu email',
+                      labelText: 'Editar email',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -131,7 +160,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarNomeController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite seu primeiro nome',
+                      labelText: 'Editar primeiro nome',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -143,7 +172,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarSobrenomeController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite seu sobrenome',
+                      labelText: 'Editar sobrenome',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -155,7 +184,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEnderecoController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite seu endereço (Número, Rua)',
+                      labelText: 'Editar endereço (Número, Rua)',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -167,7 +196,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCartaoController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite o número do seu cartão',
+                      labelText: 'Editar número do cartão',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -179,7 +208,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCartaoValidadeController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite a validade do seu cartão (MM/AA)',
+                      labelText: 'Editar validade do cartão (MM/AA)',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -191,7 +220,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCidadeController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite sua cidade',
+                      labelText: 'Editar cidade',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -203,7 +232,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEstadoController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite seu estado (XX)',
+                      labelText: 'Editar estado (XX)',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
@@ -215,23 +244,53 @@ class _CriarPerfilState extends State<CriarPerfil>
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarPostalController,
                   decoration: const InputDecoration(
-                      labelText: 'Digite seu código postal (00000)',
+                      labelText: 'Editar código postal (00000)',
                       labelStyle: TextStyle(
                           color: Colors.black, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black))),
                 ),
+                const SizedBox(height: 10.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    List<String> novosDados = [
+                      _criarUsernameController.text,
+                      _criarPasswordController.text,
+                      _criarEmailController.text,
+                      _criarNomeController.text,
+                      _criarSobrenomeController.text,
+                      _criarEnderecoController.text,
+                      _criarCartaoController.text,
+                      _criarCartaoValidadeController.text,
+                      _criarCidadeController.text,
+                      _criarEstadoController.text,
+                      _criarPostalController.text,
+                    ];
+                    print(
+                        'Dados antes de salvar: ${context.read<EditarPerfilProvider>().usuarioLogado}');
+                    context
+                        .read<EditarPerfilProvider>()
+                        .salvarDados(novosDados);
+                    print(
+                        'Dados após salvar: ${context.read<EditarPerfilProvider>().usuarioLogado}');
+                  },
+                  child: const Text('Salvar'),
+                ),
+                const SizedBox(height: 10.0),
                 const SizedBox(height: 5.0),
                 ElevatedButton(
                   onPressed: () async {
-                    _fazerLogin();
-                    for (int i = 0; i < usuarioLogou.length; i++) {
-                      context
-                          .read<CriarPerfilProvider>()
-                          .adicionarItem(usuarioLogou[i]);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const Perfil() // Substitua true pelo valor real
+                          ),
+                    );
+                    print(
+                        'Dados após salvar: ${context.read<EditarPerfilProvider>().usuarioLogado}');
                   },
-                  child: const Text('Login'),
+                  child: const Text('Voltar'),
                 ),
               ],
             ),
@@ -242,19 +301,14 @@ class _CriarPerfilState extends State<CriarPerfil>
   }
 }
 
-class CriarPerfilProvider with ChangeNotifier {
+class EditarPerfilProvider with ChangeNotifier {
   // ignore: prefer_final_fields
   List<String> _usuarioLogado = [];
 
   List<String> get usuarioLogado => _usuarioLogado;
 
-  void adicionarItem(String item) {
-    _usuarioLogado.add(item);
-    notifyListeners();
-  }
-
-  void limparUsuario() {
-    _usuarioLogado.clear();
+  void salvarDados(List<String> novosDados) {
+    _usuarioLogado = List.from(novosDados);
     notifyListeners();
   }
 

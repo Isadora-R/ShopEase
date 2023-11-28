@@ -1,13 +1,21 @@
-//  Perfis de usuário: os usuários podem criar perfis, onde possam gerenciar informações pessoais, endereços de entrega, histórico de pedidos e preferências de comunicação.
+﻿//  Perfis de usuário: os usuários podem criar perfis, onde possam gerenciar informações pessoais, endereços de entrega, histórico de pedidos e preferências de comunicação.
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_ease/src/components/criar_perfil.dart';
+import 'package:shop_ease/src/components/editar_perfil.dart';
 import 'package:shop_ease/src/components/login.dart';
 
-class Perfil extends StatelessWidget {
-  const Perfil({super.key});
+class Perfil extends StatefulWidget {
+  const Perfil({Key? key}) : super(key: key);
 
+  @override
+  // ignore: library_private_types_in_public_api
+  _PerfilState createState() => _PerfilState();
+}
+
+class _PerfilState extends State<Perfil> {
+  @override
   @override
   Widget build(BuildContext context) {
     List<String> usuarioLogado =
@@ -58,6 +66,22 @@ class Perfil extends StatelessWidget {
             Text(
                 'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : usuarioLogado_2[7]}'),
             const SizedBox(height: 40.0),
+            const SizedBox(height: 40.0),
+            ElevatedButton(
+              onPressed: () async {
+                // Navegar para a tela de edição e aguardar o retorno
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditarPerfil(),
+                  ),
+                );
+
+                // Atualizar os dados na tela de perfil após a edição
+                setState(() {});
+              },
+              child: const Text('Editar perfil'),
+            ),
             const SizedBox(height: 40.0),
             ElevatedButton(
               onPressed: () {
