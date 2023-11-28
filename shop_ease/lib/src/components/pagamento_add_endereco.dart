@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_ease/src/components/pagamento_endereco.dart';
 import '../model/endereco.dart';
 
@@ -11,8 +12,6 @@ class PagamentoAddEndereco extends StatefulWidget {
 }
 
 class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
-  //List<List<String>> listaDeEnderecos = [];
-
   TextEditingController nomeController = TextEditingController();
   TextEditingController estadoController = TextEditingController();
   TextEditingController cidadeController = TextEditingController();
@@ -30,7 +29,6 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
     String numero = numeroController.text;
     String complemento = complementoController.text;
 
-    // Verifique se os campos não estão vazios
     if (nome.isNotEmpty &&
         estado.isNotEmpty &&
         cidade.isNotEmpty &&
@@ -47,10 +45,9 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
         numero,
         complemento
       ];
-      // Adicione o novo endereço à lista em EnderecoData
+
       Endereco.listaDeEnderecos.add(novoEndereco);
 
-      // Limpe os campos de texto após adicionar o endereço
       nomeController.clear();
       estadoController.clear();
       cidadeController.clear();
@@ -59,7 +56,7 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
       numeroController.clear();
       complementoController.clear();
 
-      setState(() {}); // Atualize o estado para refletir a mudança na lista
+      setState(() {});
     }
   }
 
@@ -115,6 +112,11 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                   ),
                                   SizedBox(
                                     child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'[a-zA-Z\s]')),
+                                      ],
                                       controller: nomeController,
                                       decoration: const InputDecoration(
                                         labelText: 'Nome completo',
@@ -129,8 +131,11 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                     children: <Widget>[
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
+                                          keyboardType: TextInputType.text,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2),
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'[a-zA-Z]')),
                                           ],
                                           controller: estadoController,
                                           decoration: const InputDecoration(
@@ -146,8 +151,10 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                       ),
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
+                                          keyboardType: TextInputType.text,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'[a-zA-Z\s]')),
                                           ],
                                           controller: cidadeController,
                                           decoration: const InputDecoration(
@@ -163,6 +170,11 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                   const SizedBox(height: 10.0),
                                   SizedBox(
                                     child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'[a-zA-Z\s]')),
+                                      ],
                                       controller: bairroController,
                                       decoration: const InputDecoration(
                                         labelText: 'Bairro',
@@ -177,8 +189,10 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                     children: <Widget>[
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
+                                          keyboardType: TextInputType.text,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'[a-zA-Z\s]')),
                                           ],
                                           controller: ruaController,
                                           decoration: const InputDecoration(
@@ -194,8 +208,10 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                       ),
                                       Expanded(
                                         child: TextField(
-                                          inputFormatters: const [
-                                            //LengthLimitingTextInputFormatter(2),
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
                                           ],
                                           controller: numeroController,
                                           decoration: const InputDecoration(
@@ -211,6 +227,11 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                   const SizedBox(height: 10.0),
                                   SizedBox(
                                     child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'[a-zA-Z\s]')),
+                                      ],
                                       controller: complementoController,
                                       decoration: const InputDecoration(
                                         labelText: 'Complemento',
@@ -225,14 +246,44 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      adicionarEndereco();
+                                      if (nomeController.text.isNotEmpty &&
+                                          estadoController.text.isNotEmpty &&
+                                          cidadeController.text.isNotEmpty &&
+                                          bairroController.text.isNotEmpty &&
+                                          ruaController.text.isNotEmpty &&
+                                          numeroController.text.isNotEmpty &&
+                                          complementoController
+                                              .text.isNotEmpty) {
+                                        adicionarEndereco();
 
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
                                             builder: (context) =>
-                                                const PagamentoEndereco()),
-                                      );
+                                                const PagamentoEndereco(),
+                                          ),
+                                        );
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'Campos obrigatórios'),
+                                              content: const Text(
+                                                  'Preencha todos os campos para adicionar o endereço.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(150, 50),
