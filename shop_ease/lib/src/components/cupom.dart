@@ -28,10 +28,6 @@ double desconto(List<dynamic> lista, double valorTotal, String cupom) {
   }
 }
 
-bool pacChecked = false;
-bool sedexChecked = false;
-bool transpChecked = false;
-
 //Array com os cupons de desconto
 List<dynamic> listaDeValores = [
   'promo5',
