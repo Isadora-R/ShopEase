@@ -21,6 +21,8 @@ class _RastreamentoState extends State<Rastreamento>
   double progresso = 0.0;
   double incremento = 0.0;
   final bool pagamentoAprovado = true;
+  // List<String> _pedidosFeitos = [];
+  // List<String> get pedidosFeitos => _pedidosFeitos;
 
   bool _isMounted = false;
 

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'src/components/tab_control.dart';
 import 'src/components/login.dart';
+import 'src/components/criar_perfil.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => DataProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => DataProvider()),
+        ChangeNotifierProvider(create: (context) => CriarPerfilProvider())
+        // Adicione outros providers conforme necessário
+        // ChangeNotifierProvider(create: (context) => OutroProvider()),
+      ],
       child: MaterialApp(
         title: 'ShopEase',
         theme: ThemeData(
