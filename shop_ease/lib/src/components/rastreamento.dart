@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+//import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
 class Rastreamento extends StatefulWidget {
   const Rastreamento({super.key});
@@ -16,19 +17,25 @@ class _RastreamentoState extends State<Rastreamento> {
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
+  final bool pagamentoAprovado = false;
+
+  bool _isMounted = false;
 
   @override
   void initState() {
     super.initState();
-    _separandoPedido();
-    _enviarPedido();
-    _pedidoCaminho();
-    _saiuEntrega();
-    _pedidoEntregue();
+    _isMounted = true;
+    _iniciarRastreamento();
+  }
+
+  @override
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
   }
 
   Future<void> _separandoPedido() async {
-    await Future.delayed(const Duration(seconds: 5));
+    Future.delayed(const Duration(seconds: 5));
     setState(() {
       mensagem = 'O vendedor separou seu pedido!';
       progresso = incremento + 0.2;
@@ -37,7 +44,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _enviarPedido() async {
-    await Future.delayed(const Duration(seconds: 10));
+    Future.delayed(const Duration(seconds: 10));
     setState(() {
       mensagem = 'O vendedor enviou seu pedido!';
       progresso = incremento + 0.2;
@@ -46,7 +53,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _pedidoCaminho() async {
-    await Future.delayed(const Duration(seconds: 15));
+    Future.delayed(const Duration(seconds: 15));
     setState(() {
       mensagem = 'Seu pedido foi recolhido e está a caminho!';
       progresso = incremento + 0.2;
@@ -55,7 +62,7 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _saiuEntrega() async {
-    await Future.delayed(const Duration(seconds: 20));
+    Future.delayed(const Duration(seconds: 20));
     setState(() {
       mensagem = 'Seu pedido saiu para entrega!';
       progresso = incremento + 0.3;
@@ -64,41 +71,66 @@ class _RastreamentoState extends State<Rastreamento> {
   }
 
   Future<void> _pedidoEntregue() async {
-    await Future.delayed(const Duration(seconds: 25));
+    Future.delayed(const Duration(seconds: 25));
     setState(() {
       mensagem = 'Seu pedido foi entregue!';
       progresso = 1.0;
     });
   }
 
+  Future<void> _iniciarRastreamento() async {
+    if (_isMounted) {
+      await _separandoPedido();
+      await _enviarPedido();
+      await _pedidoCaminho();
+      await _saiuEntrega();
+      await _pedidoEntregue();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ACOMPANHE SUA ENTREGA'),
-        titleTextStyle: const TextStyle(
-          color: Colors.deepPurple,
-          fontWeight: FontWeight.bold,
+    if (pagamentoAprovado == true) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('ACOMPANHE SUA ENTREGA'),
+          titleTextStyle: const TextStyle(
+            color: Colors.deepPurple,
+            fontWeight: FontWeight.bold,
+          ),
+          centerTitle: true,
+          forceMaterialTransparency: true,
         ),
-        centerTitle: true,
-        forceMaterialTransparency: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LinearProgressIndicator(
-              backgroundColor: Colors.grey,
-              // ignore: prefer_const_constructors
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-              value: progresso,
-            ),
-            const SizedBox(height: 16.0),
-            Text(mensagem),
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LinearProgressIndicator(
+                backgroundColor: Colors.grey,
+                // ignore: prefer_const_constructors
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                value: progresso,
+              ),
+              const SizedBox(height: 16.0),
+              Text(mensagem),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title:
+              const Text('Você não tem entregas pendente! Realize um pedido!'),
+          titleTextStyle: const TextStyle(
+            color: Colors.deepPurple,
+            fontWeight: FontWeight.bold,
+          ),
+          centerTitle: true,
+          forceMaterialTransparency: true,
+        ),
+      );
+    }
   }
 }
 
