@@ -28,10 +28,6 @@ double desconto(List<dynamic> lista, double valorTotal, String cupom) {
   }
 }
 
-bool cartaoChecked = false;
-bool transfChecked = false;
-bool pixChecked = false;
-
 bool pacChecked = false;
 bool sedexChecked = false;
 bool transpChecked = false;

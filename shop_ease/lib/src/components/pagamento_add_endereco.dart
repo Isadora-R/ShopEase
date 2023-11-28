@@ -4,7 +4,7 @@ import 'package:shop_ease/src/components/pagamento_endereco.dart';
 import '../model/endereco.dart';
 
 class PagamentoAddEndereco extends StatefulWidget {
-  const PagamentoAddEndereco({Key? key}) : super(key: key);
+  const PagamentoAddEndereco({super.key});
 
   @override
   // ignore: library_private_types_in_public_api

@@ -188,8 +188,7 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
 
 class EnderecoBotoes extends StatefulWidget {
   final ValueChanged<bool> onEnderecoSelected;
-  const EnderecoBotoes({Key? key, required this.onEnderecoSelected})
-      : super(key: key);
+  const EnderecoBotoes({super.key, required this.onEnderecoSelected});
 
   @override
   // ignore: library_private_types_in_public_api

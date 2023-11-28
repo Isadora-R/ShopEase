@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shop_ease/src/components/pagamento_checkout.dart';
 import 'package:shop_ease/src/components/pagamento_selecao.dart';
-import 'package:shop_ease/src/service/api_service.dart';
 import '../model/endereco.dart';
-
-// "cardExpire": "06/22"
-// "cardNumber": "50380955204220685"
-// "firstName": "Terry",
-// "lastName": "Medhurst",
 
 class PagamentoCartao extends StatefulWidget {
   const PagamentoCartao({super.key});
@@ -108,6 +101,11 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                   height: 50.0,
                                   width: 500,
                                   child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(16),
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
                                     controller: numeroCartaoController,
                                     decoration: const InputDecoration(
                                       labelText: 'Número de Cartão',
@@ -122,6 +120,11 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                   height: 50.0,
                                   width: 500,
                                   child: TextField(
+                                    keyboardType: TextInputType.text,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[a-zA-Z\s]')),
+                                    ],
                                     controller: nomeCartaoController,
                                     decoration: const InputDecoration(
                                       labelText: 'Nome no Cartão',
@@ -132,25 +135,18 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                   ),
                                 ),
                                 const SizedBox(height: 10.0),
-                                const Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                          style: TextStyle(fontSize: 16),
-                                          'Validade'),
-                                    ),
-                                  ],
-                                ),
                                 Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: TextField(
                                         controller: validadeCartaoController,
-                                        inputFormatters: const [
-                                          //LengthLimitingTextInputFormatter(2),
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(5),
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'[0-9/]')),
                                         ],
                                         decoration: const InputDecoration(
-                                          labelText: 'MM/AA',
+                                          labelText: 'Validade (MM/AA)',
                                           border: OutlineInputBorder(),
                                           filled: true,
                                           fillColor: Colors.white,
@@ -165,10 +161,13 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                     ),
                                     Expanded(
                                       child: TextField(
-                                        controller: codSegurancaController,
+                                        keyboardType: TextInputType.number,
                                         inputFormatters: [
                                           LengthLimitingTextInputFormatter(3),
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
                                         ],
+                                        controller: codSegurancaController,
                                         decoration: const InputDecoration(
                                           labelText: 'Cód. de Segurança',
                                           border: OutlineInputBorder(),
@@ -184,6 +183,10 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                   height: 50.0,
                                   width: 500,
                                   child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
                                     controller: cpfController,
                                     decoration: const InputDecoration(
                                       labelText: 'CPF do titular do cartão',

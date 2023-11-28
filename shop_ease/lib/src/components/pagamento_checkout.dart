@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
+bool pagamentoAprovado = false;
+
 class PagamentoCheckout extends StatelessWidget {
   const PagamentoCheckout({super.key});
 
@@ -113,6 +115,8 @@ class PagamentoCheckout extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 onPressed: () {
+                                  //variável para pagamento aprovado
+                                  pagamentoAprovado = true;
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
