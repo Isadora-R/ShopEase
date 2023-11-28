@@ -83,6 +83,10 @@ class _RastreamentoState extends State<Rastreamento>
     setState(() {
       mensagem = 'Seu pedido foi entregue!';
       progresso = 1.0;
+    });
+
+    await Future.delayed(const Duration(seconds: 5));
+    setState(() {
       pagamentoAprovado = false;
     });
   }

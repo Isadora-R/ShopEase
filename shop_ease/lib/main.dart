@@ -3,13 +3,16 @@ import 'src/components/tab_control.dart';
 import 'src/components/login.dart';
 import 'src/components/criar_perfil.dart';
 import 'package:provider/provider.dart';
+import 'src/components/editar_perfil.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DataProvider()),
-        ChangeNotifierProvider(create: (context) => CriarPerfilProvider())
+        ChangeNotifierProvider(create: (context) => CriarPerfilProvider()),
+        ChangeNotifierProvider(create: (context) => EditarPerfilProvider())
+
         // Adicione outros providers conforme necessário
         // ChangeNotifierProvider(create: (context) => OutroProvider()),
       ],

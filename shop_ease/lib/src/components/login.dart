@@ -55,6 +55,9 @@ class _LoginState extends State<Login> {
               user.address.city ?? '',
               user.address.postalCode,
               user.address.state,
+              user.email,
+              user.username,
+              user.password,
             ];
             Navigator.pushReplacementNamed(
               context,
