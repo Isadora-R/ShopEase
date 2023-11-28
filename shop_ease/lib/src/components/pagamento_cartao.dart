@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shop_ease/src/components/pagamento_checkout.dart';
+import 'package:shop_ease/src/components/pagamento_selecao.dart';
 import 'package:shop_ease/src/service/api_service.dart';
-import '../model/user_model.dart';
+import '../model/endereco.dart';
 
 // "cardExpire": "06/22"
 // "cardNumber": "50380955204220685"
@@ -18,46 +19,51 @@ class PagamentoCartao extends StatefulWidget {
 }
 
 class _PagamentoCartao extends State<PagamentoCartao> {
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _cardExpireController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  TextEditingController numeroCartaoController = TextEditingController();
+  TextEditingController nomeCartaoController = TextEditingController();
+  TextEditingController validadeCartaoController = TextEditingController();
+  TextEditingController codSegurancaController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  void adicionarCartao() {
+    String numero = numeroCartaoController.text;
+    String nome = nomeCartaoController.text;
+    String validade = validadeCartaoController.text;
+    String codigo = codSegurancaController.text;
+    String cpf = cpfController.text;
 
-  bool cardNumberChecked = false;
-  bool cardexpireChecked = false;
-  bool firstNameChecked = false;
-  bool lastNameChecked = false;
-  Future<void> verificarCartao() async {
-    final userLogin = await getUserLogin();
-    {
-      for (User user in userLogin.users) {
-        if (_cardNumberController.text == user.bank.cardNumber) {
-          cardNumberChecked = true;
-          break;
-        }
-      }
+    if (numero.isNotEmpty &&
+        nome.isNotEmpty &&
+        validade.isNotEmpty &&
+        codigo.isNotEmpty &&
+        cpf.isNotEmpty) {
+      List<String> novoCartao = [
+        numero,
+        validade,
+        nome,
+        codigo,
+        cpf,
+      ];
 
-      for (User user in userLogin.users) {
-        if (_cardExpireController.text == user.bank.cardExpire) {
-          cardexpireChecked = true;
-          break;
-        }
-      }
+      Cartao.listaDeCartoes.add(novoCartao);
 
-      for (User user in userLogin.users) {
-        if (_firstNameController.text == user.firstName) {
-          firstNameChecked = true;
-          break;
-        }
-      }
+      numeroCartaoController.clear();
+      nomeCartaoController.clear();
+      validadeCartaoController.clear();
+      codSegurancaController.clear();
+      cpfController.clear();
 
-      for (User user in userLogin.users) {
-        if (_lastNameController.text == user.lastName) {
-          lastNameChecked = true;
-          break;
-        }
-      }
+      setState(() {});
     }
+  }
+
+  @override
+  void dispose() {
+    numeroCartaoController.dispose();
+    nomeCartaoController.dispose();
+    validadeCartaoController.dispose();
+    codSegurancaController.dispose();
+    cpfController.dispose();
+    super.dispose();
   }
 
   @override
@@ -98,52 +104,27 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                 const SizedBox(
                                   height: 10.0,
                                 ),
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: TextField(
-                                        controller: _firstNameController,
-                                        inputFormatters: const [
-                                          //LengthLimitingTextInputFormatter(2),
-                                        ],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Nome',
-                                          border: OutlineInputBorder(),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                        ),
-                                      ),
+                                SizedBox(
+                                  height: 50.0,
+                                  width: 500,
+                                  child: TextField(
+                                    controller: numeroCartaoController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Número de Cartão',
+                                      border: OutlineInputBorder(),
+                                      filled: true,
+                                      fillColor: Colors.white,
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Expanded(
-                                      child: TextField(
-                                        controller: _lastNameController,
-                                        inputFormatters: const [
-                                          //LengthLimitingTextInputFormatter(2),
-                                        ],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Sobrenome',
-                                          border: OutlineInputBorder(),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                                 const SizedBox(height: 10.0),
                                 SizedBox(
                                   height: 50.0,
                                   width: 500,
                                   child: TextField(
-                                    controller: _cardNumberController,
+                                    controller: nomeCartaoController,
                                     decoration: const InputDecoration(
-                                      labelText: 'Número do Cartão',
+                                      labelText: 'Nome no Cartão',
                                       border: OutlineInputBorder(),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -164,7 +145,7 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                   children: <Widget>[
                                     Expanded(
                                       child: TextField(
-                                        controller: _cardExpireController,
+                                        controller: validadeCartaoController,
                                         inputFormatters: const [
                                           //LengthLimitingTextInputFormatter(2),
                                         ],
@@ -184,6 +165,7 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                     ),
                                     Expanded(
                                       child: TextField(
+                                        controller: codSegurancaController,
                                         inputFormatters: [
                                           LengthLimitingTextInputFormatter(3),
                                         ],
@@ -197,38 +179,67 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(height: 10.0),
+                                SizedBox(
+                                  height: 50.0,
+                                  width: 500,
+                                  child: TextField(
+                                    controller: cpfController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'CPF do titular do cartão',
+                                      border: OutlineInputBorder(),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 60,
                                 ),
                                 ElevatedButton(
-                                  onPressed: () async {
-                                    await verificarCartao();
-                                    if (cardNumberChecked &&
-                                        cardexpireChecked &&
-                                        firstNameChecked &&
-                                        lastNameChecked) {
-                                      // ignore: use_build_context_synchronously
+                                  onPressed: () {
+                                    if (numeroCartaoController.text.isNotEmpty &&
+                                        nomeCartaoController.text.isNotEmpty &&
+                                        validadeCartaoController
+                                            .text.isNotEmpty &&
+                                        codSegurancaController
+                                            .text.isNotEmpty &&
+                                        cpfController.text.isNotEmpty) {
+                                      adicionarCartao();
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const PagamentoCheckout(),
+                                              const PagamentoSelecao(),
                                         ),
                                       );
                                     } else {
-                                      // ignore: use_build_context_synchronously
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text(
-                                                'Dados do cartão inválidos')),
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                'Campos obrigatórios'),
+                                            content: const Text(
+                                                'Preencha todos os campos para adicionar o cartão.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: const Size(150, 50),
                                   ),
-                                  child: const Text('Continuar'),
+                                  child: const Text('Adicionar'),
                                 ),
                               ],
                             ),

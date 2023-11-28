@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/cupom.dart';
 import 'package:shop_ease/src/components/pagamento_cartao.dart';
 import 'package:shop_ease/src/components/pagamento_checkout.dart';
-import 'package:shop_ease/src/components/pagamento_pix.dart';
+import '../model/endereco.dart';
 
 class PagamentoSelecao extends StatefulWidget {
   const PagamentoSelecao({super.key});
@@ -13,18 +13,13 @@ class PagamentoSelecao extends StatefulWidget {
 }
 
 class _PagamentoSelecao extends State<PagamentoSelecao> {
+  bool cartaoSelecionado = false; // variável para liberar botão continuar
   void desmarca(String botaoSelecionado) {
     setState(() {
-      if (botaoSelecionado == 'cartao') {
-        cartaoChecked = true;
-        transfChecked = false;
-        pixChecked = false;
-      } else if (botaoSelecionado == 'transf') {
-        cartaoChecked = false;
+      if (botaoSelecionado == 'transf') {
         transfChecked = true;
         pixChecked = false;
       } else if (botaoSelecionado == 'pix') {
-        cartaoChecked = false;
         transfChecked = false;
         pixChecked = true;
       }
@@ -68,18 +63,17 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                   const SizedBox(
                                     height: 10.0,
                                   ),
-                                  ElevatedButton.icon(
+                                  ElevatedButton(
                                     onPressed: () {
                                       setState(() {
-                                        cartaoChecked = !cartaoChecked;
-                                        desmarca('cartao');
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PagamentoCartao()),
+                                        );
                                       });
                                     },
-                                    icon: cartaoChecked
-                                        ? const Icon(
-                                            Icons.check_circle_outline_outlined)
-                                        : const Icon(Icons.circle_outlined),
-                                    label: const Text('Novo cartão de crédito'),
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(0),
@@ -87,6 +81,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                       minimumSize: const Size(150, 100),
                                       alignment: Alignment.centerLeft,
                                     ),
+                                    child: const Text('Novo cartão de crédito'),
                                   ),
                                   const SizedBox(
                                     height: 2,
@@ -136,6 +131,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                               TextButton(
                                                 onPressed: () {
                                                   setState(() {
+                                                    cartaoSelecionado = true;
                                                     transfChecked =
                                                         !transfChecked;
                                                     desmarca('transf');
@@ -169,6 +165,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                   ElevatedButton.icon(
                                     onPressed: () {
                                       setState(() {
+                                        cartaoSelecionado = true;
                                         pixChecked = !pixChecked;
                                         desmarca('pix');
                                       });
@@ -186,34 +183,48 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                       alignment: Alignment.centerLeft,
                                     ),
                                   ),
+                                  CartaoBotoes(
+                                      onEnderecoSelected: (bool selected) {
+                                    setState(() {
+                                      cartaoSelecionado = selected;
+                                    });
+                                  }),
                                   const SizedBox(
                                     height: 60,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {
-                                      if (cartaoChecked) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PagamentoCartao()),
-                                        );
-                                      } else if (transfChecked) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PagamentoCheckout()),
-                                        );
-                                      } else if (pixChecked) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PagamentoPix()),
-                                        );
-                                      }
-                                    },
+                                    onPressed: cartaoSelecionado
+                                        ? () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const PagamentoCheckout(),
+                                              ),
+                                            );
+                                          }
+                                        : () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Nenhum método de pagamento selecionado'),
+                                                  content: const Text(
+                                                      'Por favor, selecione um método para continuar.'),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(150, 50),
                                     ),
@@ -322,5 +333,81 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                 ),
               )),
         ));
+  }
+}
+
+class CartaoBotoes extends StatefulWidget {
+  final ValueChanged<bool> onEnderecoSelected;
+  const CartaoBotoes({Key? key, required this.onEnderecoSelected})
+      : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _EnderecoBotoes createState() => _EnderecoBotoes();
+}
+
+class _EnderecoBotoes extends State<CartaoBotoes> {
+  List<bool> buttonStates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initializeButtonStates();
+  }
+
+  void initializeButtonStates() {
+    // Inicializa a lista de estados dos botões
+    buttonStates = List.generate(
+      Cartao.listaDeCartoes.length,
+      (index) => false,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(
+        itemCount: Cartao.listaDeCartoes.length,
+        itemBuilder: (context, index) {
+          List<String> cartao = Cartao.listaDeCartoes[index];
+
+          return Column(
+            children: [
+              const SizedBox(
+                height: 2,
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    for (int i = 0; i < buttonStates.length; i++) {
+                      // Desmarca todos os botões
+                      buttonStates[i] = false;
+                    }
+                    // Marca apenas o botão atual
+                    buttonStates[index] = true;
+                  });
+                  widget.onEnderecoSelected(
+                      true); //altera enderecoSelecionado para true quando botão selecionado
+                },
+                icon: buttonStates[index]
+                    ? const Icon(Icons.check_circle_outline_outlined)
+                    : const Icon(Icons.circle_outlined),
+                label: Text(
+                  'Cartao ${index + 1} de final: ***** ${cartao[0].substring(cartao[0].length - 4)}',
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  minimumSize: const Size(1220, 100),
+                  alignment: Alignment.centerLeft,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
