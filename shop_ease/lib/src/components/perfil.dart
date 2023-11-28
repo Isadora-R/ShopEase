@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/criar_perfil.dart';
 import 'package:shop_ease/src/components/login.dart';
 
 class Perfil extends StatelessWidget {
@@ -11,24 +12,31 @@ class Perfil extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> usuarioLogado =
         Provider.of<DataProvider>(context).usuarioLogado;
+    List<String> usuarioLogado_2 =
+        Provider.of<CriarPerfilProvider>(context).usuarioLogado;
     String numeroDoCartao = '';
     String urlImagem = '';
 
     if (usuarioLogado.length >= 5) {
       numeroDoCartao = usuarioLogado[4];
+    } else if (usuarioLogado_2.length >= 7) {
+      numeroDoCartao = usuarioLogado_2[6];
     }
 
     if (usuarioLogado.length >= 5) {
       urlImagem = usuarioLogado[2];
+    } else if (usuarioLogado_2.length >= 7) {
+      urlImagem = 'https://robohash.org/RFH.png?set=set4';
     }
-    if (usuarioLogado.isNotEmpty) {
+
+    if (usuarioLogado.isNotEmpty || usuarioLogado_2.isNotEmpty) {
       return Scaffold(
           body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : "Usuário Desconhecido"}',
+              'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : usuarioLogado_2[3]}',
               style: const TextStyle(
                 fontSize: 20.2,
                 fontWeight: FontWeight.bold,
@@ -42,18 +50,20 @@ class Perfil extends StatelessWidget {
             ),
             const SizedBox(height: 10.0),
             Text(
-                'Nome: ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : "Usuário Desconhecido"} ${usuarioLogado.isNotEmpty ? usuarioLogado[1] : "Usuário Desconhecido"}'),
+                'Nome: ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : usuarioLogado_2[3]} ${usuarioLogado.isNotEmpty ? usuarioLogado[1] : usuarioLogado_2[4]}'),
             const SizedBox(height: 10.0),
             Text(
-                'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : ''}'),
+                'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : usuarioLogado_2[5]}'),
             const SizedBox(height: 10.0),
             Text(
-                'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : ''}'),
+                'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : usuarioLogado_2[7]}'),
             const SizedBox(height: 40.0),
             const SizedBox(height: 40.0),
             ElevatedButton(
               onPressed: () {
                 Provider.of<DataProvider>(context, listen: false)
+                    .limparUsuario();
+                Provider.of<CriarPerfilProvider>(context, listen: false)
                     .limparUsuario();
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil('/login', (route) => false);

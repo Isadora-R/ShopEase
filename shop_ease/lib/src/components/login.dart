@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../model/user_model.dart';
 import '../service/api_service.dart';
 import 'package:provider/provider.dart';
+import 'criar_perfil.dart';
 
 Widget build(BuildContext context) {
   return Provider<DataProvider>(
@@ -153,6 +154,19 @@ class _LoginState extends State<Login> {
                     }
                   },
                   child: const Text('Login'),
+                ),
+                const SizedBox(height: 10.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const CriarPerfil() // Substitua true pelo valor real
+                          ),
+                    );
+                  },
+                  child: const Text('Criar uma conta'),
                 ),
               ],
             ),
