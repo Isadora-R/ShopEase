@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/pagamento_aprovado.dart';
+import 'package:shop_ease/src/components/pagamento_resumo.dart';
 
 bool pagamentoAprovado = false;
 
@@ -42,97 +43,8 @@ class PagamentoCheckout extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 30),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          color: Colors.white70,
-                          alignment: Alignment.topLeft,
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Resumo da compra',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 20,
-                                thickness: 2,
-                                indent: 0,
-                                endIndent: 20,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text(
-                                'Produto',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Frete',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Desconto',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 20,
-                                thickness: 2,
-                                indent: 0,
-                                endIndent: 20,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              const Text(
-                                'Total',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  //variável para pagamento aprovado
-                                  pagamentoAprovado = true;
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PagamentoAprovado()),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(150, 50),
-                                ),
-                                child: const Text('Pagar'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // ignore: prefer_const_constructors
+                      Resumo()
                     ],
                   ),
                 ),

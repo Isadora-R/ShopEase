@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/pagamento_add_endereco.dart';
-import 'package:shop_ease/src/components/pagamento_selecao.dart';
+import 'package:shop_ease/src/components/pagamento_frete.dart';
+import 'package:shop_ease/src/components/pagamento_resumo.dart';
 import '../model/endereco.dart';
 
 class PagamentoEndereco extends StatefulWidget {
@@ -85,7 +86,7 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const PagamentoSelecao(),
+                                                    const PagamentoFrete(),
                                               ),
                                             );
                                           }
@@ -121,63 +122,8 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                         ),
                       ),
                       const SizedBox(width: 30),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          color: Colors.white70,
-                          alignment: Alignment.topLeft,
-                          padding: const EdgeInsets.all(20),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Resumo da compra',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Divider(
-                                color: Colors.grey,
-                                height: 20,
-                                thickness: 2,
-                                indent: 0,
-                                endIndent: 20,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Produto',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Divider(
-                                color: Colors.grey,
-                                height: 20,
-                                thickness: 2,
-                                indent: 0,
-                                endIndent: 20,
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                'Total',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // ignore: prefer_const_constructors
+                      Resumo()
                     ],
                   ),
                 ),
