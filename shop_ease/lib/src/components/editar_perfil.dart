@@ -46,15 +46,15 @@ class _EditalPerfilState extends State<EditarPerfil>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    var perfilProvider = Provider.of<CriarPerfilProvider>(context);
-    var perfilProvider_ = Provider.of<DataProvider>(context);
-    var dadosUsuario = perfilProvider.usuarioLogado;
-    var dadosUsuario_ = perfilProvider_.usuarioLogado;
+    var editarPerfilProvider = Provider.of<CriarPerfilProvider>(context);
+    var editarPerfilProvider_ = Provider.of<DataProvider>(context);
+    var dadosUsuario = editarPerfilProvider.usuarioLogado;
+    var dadosUsuario_ = editarPerfilProvider_.usuarioLogado;
 
     // Restante do código para inicializar os controladores
 
     // Inicializar controladores de texto com dados existentes
-    if (dadosUsuario.isNotEmpty) {
+    if (dadosUsuario.isNotEmpty && dadosUsuario.length == 11) {
       _criarUsernameController.text = dadosUsuario[0];
       _criarPasswordController.text = dadosUsuario[1];
       _criarEmailController.text = dadosUsuario[2];
@@ -66,8 +66,7 @@ class _EditalPerfilState extends State<EditarPerfil>
       _criarCidadeController.text = dadosUsuario[8];
       _criarEstadoController.text = dadosUsuario[9];
       _criarPostalController.text = dadosUsuario[10];
-    }
-    {
+    } else if (dadosUsuario_.isNotEmpty && dadosUsuario_.length == 12) {
       /* 
              0 user.firstName,
              1 user.lastName,
@@ -92,6 +91,8 @@ class _EditalPerfilState extends State<EditarPerfil>
       _criarCidadeController.text = dadosUsuario_[6];
       _criarEstadoController.text = dadosUsuario_[8];
       _criarPostalController.text = dadosUsuario_[7];
+    } else {
+      print('Não foi possível editar o perfil.');
     }
   }
 

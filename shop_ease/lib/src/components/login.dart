@@ -164,9 +164,7 @@ class _LoginState extends State<Login> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const CriarPerfil() // Substitua true pelo valor real
-                          ),
+                          builder: (context) => const CriarPerfil()),
                     );
                   },
                   child: const Text('Criar uma conta'),

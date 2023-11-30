@@ -7,7 +7,7 @@ import 'package:shop_ease/src/components/editar_perfil.dart';
 import 'package:shop_ease/src/components/login.dart';
 
 class Perfil extends StatefulWidget {
-  const Perfil({Key? key}) : super(key: key);
+  const Perfil({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -69,16 +69,12 @@ class _PerfilState extends State<Perfil> {
             const SizedBox(height: 40.0),
             ElevatedButton(
               onPressed: () async {
-                // Navegar para a tela de edição e aguardar o retorno
                 await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const EditarPerfil(),
                   ),
                 );
-
-                // Atualizar os dados na tela de perfil após a edição
-                setState(() {});
               },
               child: const Text('Editar perfil'),
             ),
