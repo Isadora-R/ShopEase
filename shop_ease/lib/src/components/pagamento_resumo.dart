@@ -1,20 +1,135 @@
 import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/pagamento_frete.dart';
 
-class Resumo extends StatelessWidget {
+//variável temporária
+double controle = 200;
+
+class Resumo extends StatefulWidget {
   const Resumo({super.key});
+
+  @override
+  State<Resumo> createState() => _ResumoState();
+}
+
+class _ResumoState extends State<Resumo> {
+  TextEditingController cupomController = TextEditingController();
+  double produto = controle;
+  bool aplicado = false;
+
+  void aplicarOuRemover() {
+    if (cupomController.text == '') {
+    } else {
+      setState(() {
+        aplicado = !aplicado; // Alterna o estado ao ser chamado
+      });
+      if (aplicado) {
+        verificaCupom(listaDeValores);
+      } else {
+        cupomController.text = '';
+      }
+    }
+  }
 
   String freteSelecionado(bool pac, bool sedex, bool transportadora) {
     if (pac) {
+      produto = controle;
+      produto = produto + fretepac;
       return 'R\$ $fretepac';
     } else if (sedex) {
+      produto = controle;
+      produto = produto + fretesedex;
       return 'R\$ $fretesedex';
     } else if (transportadora) {
+      produto = controle;
+      produto = produto + fretetransp;
       return 'R\$ $fretetransp';
     } else {
       return ' ';
     }
   }
+
+  //função que retorna cupom registrado como string
+  String desconto(List<dynamic> lista, String cupom) {
+    double promo = 0;
+    if (verificaCupom(lista)) {
+      for (var i = 0; i < lista.length; i++) {
+        if (lista[i] is double &&
+            lista[i - 1] is String &&
+            lista[i - 1] == cupom) {
+          promo = lista[i];
+        }
+      }
+      promo = promo * produto;
+      return 'R\$ -$promo';
+    } else {
+      return ' ';
+    }
+  }
+
+  //função que verifica se o cupom é valido
+  bool verificaCupom(List<dynamic> lista) {
+    for (var item in lista) {
+      if (item is String && item == cupomController.text) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //função que calcula e retorna valor total com desconto
+  double total(List<dynamic> lista, double valorTotal) {
+    double promo = 0;
+    if (verificaCupom(lista)) {
+      for (var i = 0; i < lista.length; i++) {
+        if (lista[i] is double &&
+            lista[i - 1] is String &&
+            lista[i - 1] == cupomController.text) {
+          promo = lista[i];
+        }
+      }
+      promo = promo * valorTotal;
+      promo = valorTotal - promo;
+      return promo;
+    } else {
+      return valorTotal;
+    }
+  }
+
+//Array com os cupons de desconto
+  List<dynamic> listaDeValores = [
+    'promo05',
+    0.05,
+    'promo10',
+    0.1,
+    'promo15',
+    0.15,
+    'promo20',
+    0.20,
+    'promo25',
+    0.25,
+    'promo30',
+    0.3,
+    'promo35',
+    0.35,
+    'promo40',
+    0.4,
+    'promo45',
+    0.45,
+    'promo50',
+    0.5,
+    'promo55',
+    0.55,
+    'promo60',
+    0.6,
+    'promo65',
+    0.65,
+    'promo70',
+    0.7,
+    'promo75',
+    0.75,
+    'promo80',
+    0.8
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +159,20 @@ class Resumo extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Produto',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Produto',
+                  style:
+                      TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+                ),
+                Text(
+                  'R\$ $controle ',
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.normal),
+                ),
+              ],
             ),
             const SizedBox(
               height: 5,
@@ -69,27 +195,49 @@ class Resumo extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const Text(
-              'Desconto',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Desconto',
+                  style:
+                      TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+                ),
+                Text(
+                  '${desconto(listaDeValores, cupomController.text)} ',
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.normal),
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(
-              height: 35.0,
-              width: 200,
-              child: Align(
-                alignment: Alignment.center,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Cupom Shopeasy',
-                    border: OutlineInputBorder(),
-                    filled: true,
-                    fillColor: Colors.white,
+            Row(
+              children: [
+                SizedBox(
+                  height: 35.0,
+                  width: 200,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: TextField(
+                      controller: cupomController,
+                      decoration: const InputDecoration(
+                        labelText: 'Cupom Shopeasy',
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                    onPressed: aplicarOuRemover,
+                    child: Text(aplicado ? 'Remover' : 'Aplicar'))
+              ],
             ),
             const SizedBox(
               height: 5,
@@ -104,9 +252,20 @@ class Resumo extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              'Total',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Total',
+                  style:
+                      TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+                ),
+                Text(
+                  '${total(listaDeValores, produto)} ',
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.normal),
+                ),
+              ],
             ),
           ],
         ),

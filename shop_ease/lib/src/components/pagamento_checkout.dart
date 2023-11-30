@@ -44,7 +44,18 @@ class PagamentoCheckout extends StatelessWidget {
                       ),
                       const SizedBox(width: 30),
                       // ignore: prefer_const_constructors
-                      Resumo()
+                      Resumo(),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PagamentoAprovado(),
+                            ),
+                          );
+                        },
+                        child: const Text('OK'),
+                      )
                     ],
                   ),
                 ),
