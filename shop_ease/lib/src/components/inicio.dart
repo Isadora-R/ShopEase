@@ -12,6 +12,7 @@ class Inicio extends StatefulWidget {
 }
 
 class _InicioState extends State<Inicio> {
+  
   late Future<Welcome> produtosFuture;
   @override
   void initState() {
