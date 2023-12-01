@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 Widget build(BuildContext context) {
   return Provider<CriarPerfilProvider>(
@@ -118,6 +119,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEmailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       labelText: 'Digite seu email',
                       labelStyle: TextStyle(
@@ -154,6 +156,7 @@ class _CriarPerfilState extends State<CriarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEnderecoController,
+                  keyboardType: TextInputType.streetAddress,
                   decoration: const InputDecoration(
                       labelText: 'Digite seu endereço (Número, Rua)',
                       labelStyle: TextStyle(
@@ -166,6 +169,11 @@ class _CriarPerfilState extends State<CriarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCartaoController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(16),
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Digite o número do seu cartão',
                       labelStyle: TextStyle(
@@ -178,6 +186,10 @@ class _CriarPerfilState extends State<CriarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCartaoValidadeController,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(5),
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Digite a validade do seu cartão (MM/AA)',
                       labelStyle: TextStyle(
@@ -202,6 +214,10 @@ class _CriarPerfilState extends State<CriarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEstadoController,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(2),
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Digite seu estado (XX)',
                       labelStyle: TextStyle(
@@ -214,6 +230,11 @@ class _CriarPerfilState extends State<CriarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarPostalController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(5),
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Digite seu código postal (00000)',
                       labelStyle: TextStyle(

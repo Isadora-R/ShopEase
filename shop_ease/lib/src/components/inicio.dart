@@ -40,7 +40,7 @@ class _InicioState extends State<Inicio> {
             return Center(
               child: CarouselSlider(
                 options: CarouselOptions(
-                  aspectRatio: 16 / 9,
+                  aspectRatio: 4 / 3,
                   viewportFraction: 0.8,
                   initialPage: 0,
                   enableInfiniteScroll: true,
