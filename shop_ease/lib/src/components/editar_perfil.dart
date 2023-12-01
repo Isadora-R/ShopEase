@@ -2,6 +2,7 @@
 import 'package:provider/provider.dart';
 import 'package:shop_ease/src/components/criar_perfil.dart';
 import 'package:shop_ease/src/components/login.dart';
+import 'package:flutter/services.dart';
 
 Widget build(BuildContext context) {
   return Provider<EditarPerfilProvider>(
@@ -16,10 +17,10 @@ class EditarPerfil extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
-  _EditalPerfilState createState() => _EditalPerfilState();
+  _EditarPerfilState createState() => _EditarPerfilState();
 }
 
-class _EditalPerfilState extends State<EditarPerfil>
+class _EditarPerfilState extends State<EditarPerfil>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -183,6 +184,7 @@ class _EditalPerfilState extends State<EditarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEnderecoController,
+                  keyboardType: TextInputType.streetAddress,
                   decoration: const InputDecoration(
                       labelText: 'Editar endereço (Número, Rua)',
                       labelStyle: TextStyle(
@@ -195,6 +197,11 @@ class _EditalPerfilState extends State<EditarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCartaoController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(16),
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Editar número do cartão',
                       labelStyle: TextStyle(
@@ -207,6 +214,10 @@ class _EditalPerfilState extends State<EditarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarCartaoValidadeController,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(5),
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Editar validade do cartão (MM/AA)',
                       labelStyle: TextStyle(
@@ -228,9 +239,14 @@ class _EditalPerfilState extends State<EditarPerfil>
                 ),
                 const SizedBox(height: 5.0),
                 TextField(
+                  keyboardType: TextInputType.text,
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarEstadoController,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(2),
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Editar estado (XX)',
                       labelStyle: TextStyle(
@@ -243,6 +259,11 @@ class _EditalPerfilState extends State<EditarPerfil>
                   style: const TextStyle(
                       color: Colors.black, decorationThickness: 2.0),
                   controller: _criarPostalController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(5),
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
                   decoration: const InputDecoration(
                       labelText: 'Editar código postal (00000)',
                       labelStyle: TextStyle(
@@ -309,4 +330,7 @@ class EditarPerfilProvider with ChangeNotifier {
   List<String> obterDadosUsuario() {
     return List.from(_usuarioLogado);
   }
+
+  @override
+  notifyListeners();
 }
