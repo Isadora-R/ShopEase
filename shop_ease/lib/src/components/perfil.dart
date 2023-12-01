@@ -25,6 +25,38 @@ class _PerfilState extends State<Perfil> {
     String numeroDoCartao = '';
     String urlImagem = '';
 
+    List<String> usuarioEditado =
+        Provider.of<EditarPerfilProvider>(context).usuarioLogado;
+
+    void editouPerfil() {
+      setState(() {
+        usuarioEditado;
+      });
+    }
+
+    if (usuarioEditado.isNotEmpty && usuarioLogado.isNotEmpty) {
+      print('Tem usuário editado: $usuarioEditado');
+      editouPerfil();
+      {
+        usuarioLogado[0] = usuarioEditado[3];
+        usuarioLogado[1] = usuarioEditado[4];
+        usuarioLogado[3] = usuarioEditado[5];
+        usuarioLogado[4] = usuarioEditado[6];
+        usuarioLogado[5] = usuarioEditado[7];
+        usuarioLogado[6] = usuarioEditado[8];
+        usuarioLogado[7] = usuarioEditado[10];
+        usuarioLogado[8] = usuarioEditado[9];
+        usuarioLogado[9] = usuarioEditado[2];
+        usuarioLogado[10] = usuarioEditado[0];
+        usuarioLogado[11] = usuarioEditado[1];
+      }
+    } else if (usuarioEditado.isNotEmpty && usuarioLogado_2.isNotEmpty) {
+      print('Tem usuário editado: $usuarioEditado');
+      usuarioLogado_2 = usuarioEditado;
+    } else {
+      print('Usuário original');
+    }
+
     if (usuarioLogado.length >= 5) {
       numeroDoCartao = usuarioLogado[4];
     } else if (usuarioLogado_2.length >= 7) {
@@ -87,6 +119,7 @@ class _PerfilState extends State<Perfil> {
                     .limparUsuario();
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil('/login', (route) => false);
+                usuarioEditado.clear();
               },
               child: const Text('Logout'),
             ),
@@ -111,6 +144,7 @@ class _PerfilState extends State<Perfil> {
                       .limparUsuario();
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil('/login', (route) => false);
+                  usuarioEditado.clear();
                 },
                 child: const Text('Logout'),
               ),
