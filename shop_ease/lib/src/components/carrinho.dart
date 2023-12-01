@@ -1,5 +1,14 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/pagamento_endereco.dart';
+import 'package:provider/provider.dart';
+
+Widget build(BuildContext context) {
+  return Provider<CarrinhoProvider>(
+      create: (_) => CarrinhoProvider(),
+      builder: (context, child) {
+        return Text(context.watch<CarrinhoProvider>().toString());
+      });
+}
 
 class Carrinho extends StatelessWidget {
   const Carrinho({super.key});
@@ -25,3 +34,5 @@ class Carrinho extends StatelessWidget {
     );
   }
 }
+
+class CarrinhoProvider with ChangeNotifier {}
