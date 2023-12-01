@@ -10,12 +10,15 @@ Future<Welcome> getProducts() async {
     List<dynamic> productsList = json.decode(resp.body)["products"];
 
     Welcome produtos = Welcome(
-      products: productsList.map((productJson) => Product.fromJson(productJson)).toList(),
+      products: productsList
+          .map((productJson) => Product.fromJson(productJson))
+          .toList(),
       total: json.decode(resp.body)["total"],
       skip: json.decode(resp.body)["skip"],
       limit: json.decode(resp.body)["limit"],
     );
-
+    // print('produtos antes de retornar:'); //APAGAR
+    // print(produtos.runtimeType); // APAGAR
     return produtos;
   } else {
     throw Exception("Erro na requisao dos produtos");
