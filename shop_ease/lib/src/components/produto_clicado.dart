@@ -74,6 +74,8 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
               widget.product.description,
               style: const TextStyle(fontSize: 15.0),
             ),
+
+            //Colocar o restante das descrições e um botão que adiciona ao carrinho!!!
           ],
         ),
       ),
