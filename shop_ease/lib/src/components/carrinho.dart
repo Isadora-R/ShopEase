@@ -38,14 +38,6 @@ class Carrinho extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            // const Text(
-            //   'Produtos no Carrinho:',
-            //   style: TextStyle(
-            //     fontSize: 20.0,
-            //     fontWeight: FontWeight.bold,
-            //     color: Colors.white,
-            //   ),
-            // ),
             Expanded(
               child: ListView.builder(
                 itemCount: carrinhoProvider.itensNoCarrinho.length,
@@ -66,7 +58,6 @@ class Carrinho extends StatelessWidget {
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          // Chame a função de remoção aqui
                           carrinhoProvider.removerDoCarrinho(produto);
                         },
                       ),
@@ -77,10 +68,10 @@ class Carrinho extends StatelessWidget {
             ),
             const SizedBox(height: 5.0),
             Text(
-                'Total no carrinho: R\$ ${carrinhoProvider.calcularTotalCarrinho()}'),
+                'Total no carrinho: R\$ ${carrinhoProvider.calcularTotalCarrinho().toStringAsFixed(2)}'),
             const SizedBox(height: 5.0),
             Text(
-                'Total com desconto: R\$ ${carrinhoProvider.calculaDesconto()}'),
+                'Total com desconto: R\$ ${carrinhoProvider.calculaDesconto().toStringAsFixed(2)}'),
             const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
