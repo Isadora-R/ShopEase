@@ -13,7 +13,6 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
   String mensagem = 'Aguarde... processando pagamento';
   double progresso = 0.0;
   double incremento = 0.0;
-  bool aprovado = false;
 
   @override
   void initState() {
@@ -43,7 +42,7 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
       context,
       MaterialPageRoute(
           builder: (context) =>
-              Rastreamento(aprovado: true)), // redireciona para rastreamento
+              const Rastreamento()), // redireciona para rastreamento
     );
   }
 

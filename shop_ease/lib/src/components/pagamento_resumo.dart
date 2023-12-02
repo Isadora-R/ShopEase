@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_ease/src/components/pagamento_frete.dart';
 import 'package:provider/provider.dart';
 import 'carrinho.dart';
 
 //variável temporária
-double controle = 200;
+double produtoFrete = 0;
 
 class Resumo extends StatefulWidget {
   const Resumo({super.key});
@@ -15,7 +16,7 @@ class Resumo extends StatefulWidget {
 
 class _ResumoState extends State<Resumo> {
   TextEditingController cupomController = TextEditingController();
-  double produto = controle;
+
   bool aplicado = false;
 
   void aplicarOuRemover() {
@@ -37,16 +38,16 @@ class _ResumoState extends State<Resumo> {
       bool pac, bool sedex, bool transportadora, double produto) {
     double resetaFrete = produto;
     if (pac) {
-      produto = controle;
-      produto = produto + fretepac;
+      produtoFrete = resetaFrete;
+      produtoFrete = produtoFrete + fretepac;
       return 'R\$ $fretepac';
     } else if (sedex) {
-      produto = controle;
-      produto = produto + fretesedex;
+      produtoFrete = resetaFrete;
+      produtoFrete = produtoFrete + fretesedex;
       return 'R\$ $fretesedex';
     } else if (transportadora) {
-      produto = controle;
-      produto = produto + fretetransp;
+      produtoFrete = resetaFrete;
+      produtoFrete = produtoFrete + fretetransp;
       return 'R\$ $fretetransp';
     } else {
       return ' ';
@@ -175,7 +176,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  'R\$ $controle ',
+                  'R\$ $produto ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),

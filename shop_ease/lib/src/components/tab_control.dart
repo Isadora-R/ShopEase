@@ -80,14 +80,12 @@ class _MyTabControlState extends State<MyTabControl>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          const Inicio(),
-          const Pesquisa(),
-          const Carrinho(),
-          Rastreamento(
-            aprovado: false,
-          ),
-          const Perfil(),
+        children: const [
+          Inicio(),
+          Pesquisa(),
+          Carrinho(),
+          Rastreamento(),
+          Perfil(),
         ],
       ),
     );
