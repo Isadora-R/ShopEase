@@ -91,7 +91,8 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
                     .adicionarAoCarrinho(Produto(
                         nome: widget.product.title,
                         preco: widget.product.price.toDouble(),
-                        imagem: widget.product.thumbnail));
+                        imagem: widget.product.thumbnail,
+                        desconto: widget.product.discountPercentage));
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Carrinho()),

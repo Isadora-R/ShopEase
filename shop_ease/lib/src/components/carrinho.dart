@@ -14,8 +14,13 @@ class Produto {
   final String nome;
   final double preco;
   final String imagem;
+  final double desconto;
 
-  Produto({required this.nome, required this.preco, required this.imagem});
+  Produto(
+      {required this.nome,
+      required this.preco,
+      required this.imagem,
+      required this.desconto});
 }
 
 class Carrinho extends StatelessWidget {
@@ -72,7 +77,10 @@ class Carrinho extends StatelessWidget {
             ),
             const SizedBox(height: 5.0),
             Text(
-                'Total no carrinho: ${carrinhoProvider.calcularTotalCarrinho()}'),
+                'Total no carrinho: R\$ ${carrinhoProvider.calcularTotalCarrinho()}'),
+            const SizedBox(height: 5.0),
+            Text(
+                'Total com desconto: R\$ ${carrinhoProvider.calculaDesconto()}'),
             const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
@@ -115,5 +123,12 @@ class CarrinhoProvider with ChangeNotifier {
   double calcularTotalCarrinho() {
     return _itensNoCarrinho.fold(
         0.0, (total, produto) => total + produto.preco);
+  }
+
+  double calculaDesconto() {
+    return _itensNoCarrinho.fold(
+        0.0,
+        (total, produto) =>
+            total + (produto.preco * (100.0 - produto.desconto) / 100));
   }
 }
