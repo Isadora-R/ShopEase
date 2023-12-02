@@ -1,4 +1,4 @@
-﻿import 'dart:html';
+﻿// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import '../model/products_model.dart';
@@ -38,12 +38,13 @@ class _PesquisaCreate extends State<Pesquisa> {
             List<Product> products = snapshot.data!.products;
             return ListView.builder(
               itemCount: products.length,
+              // itemExtent: 150,
               itemBuilder: (context, index) {
                 Product produto = products[index];
                 return ListTile(
                   title: Text(produto.title, style: TextStyle(fontSize: 20)),
                   subtitle: Text(produto.description),
-                  leading: Image(image: NetworkImage(produto.thumbnail), width: 150, height: 300),
+                  leading: Image(image: NetworkImage(produto.thumbnail), fit: BoxFit.cover, height: 100, width: 100),
                   onTap: () => {
                           Navigator.push(
                             context,
