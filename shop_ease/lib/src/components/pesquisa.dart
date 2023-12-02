@@ -1,4 +1,6 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'dart:html';
+
+import 'package:flutter/material.dart';
 import '../model/products_model.dart';
 import '../service/products_service.dart';
 import 'produto_clicado.dart';
@@ -39,11 +41,18 @@ class _PesquisaCreate extends State<Pesquisa> {
               itemBuilder: (context, index) {
                 Product produto = products[index];
                 return ListTile(
-                  title: Text(produto.title),
+                  title: Text(produto.title, style: TextStyle(fontSize: 20)),
                   subtitle: Text(produto.description),
-                  leading: Image(image: NetworkImage(produto.thumbnail)),
-                  onTap: () => print('tab'),
-                  trailing: Text(produto.price.toString() + ',00'),
+                  leading: Image(image: NetworkImage(produto.thumbnail), width: 150, height: 300),
+                  onTap: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProdutoClicado(product: produto)),
+                          )
+                        },
+                  trailing: Text('R\$ ${produto.price},00', style: TextStyle(fontSize: 15)),
                 );
               },
             );
