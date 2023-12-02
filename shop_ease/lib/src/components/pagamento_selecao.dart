@@ -91,7 +91,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                 },
                               ),
                               const SizedBox(
-                                height: 60,
+                                height: 10,
                               ),
                               ElevatedButton(
                                 onPressed: metodoSelecionado
@@ -332,7 +332,7 @@ class _CartaoBotoes extends State<CartaoBotoes> {
           },
         ),
         SizedBox(
-          height: 200,
+          height: 95,
           child: ListView.builder(
             itemCount: Cartao.listaDeCartoes.length,
             itemBuilder: (context, index) {
@@ -369,7 +369,10 @@ class _CartaoBotoes extends State<CartaoBotoes> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
                       ),
-                      minimumSize: const Size(1220, 100),
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width,
+                        100,
+                      ),
                       alignment: Alignment.centerLeft,
                     ),
                   ),
