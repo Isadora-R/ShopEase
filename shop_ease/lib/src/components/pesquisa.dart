@@ -1,4 +1,4 @@
-﻿// import 'dart:html';
+﻿﻿// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import '../model/products_model.dart';
@@ -23,7 +23,6 @@ class _PesquisaCreate extends State<Pesquisa> {
     produtosFuture = getProducts();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,16 +43,20 @@ class _PesquisaCreate extends State<Pesquisa> {
                 return ListTile(
                   title: Text(produto.title, style: TextStyle(fontSize: 20)),
                   subtitle: Text(produto.description),
-                  leading: Image(image: NetworkImage(produto.thumbnail), fit: BoxFit.cover, height: 100, width: 100),
+                  leading: Image(
+                      image: NetworkImage(produto.thumbnail),
+                      width: 150,
+                      height: 300),
                   onTap: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ProdutoClicado(product: produto)),
-                          )
-                        },
-                  trailing: Text('R\$ ${produto.price},00', style: TextStyle(fontSize: 15)),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProdutoClicado(product: produto)),
+                    )
+                  },
+                  trailing: Text('R\$ ${produto.price},00',
+                      style: TextStyle(fontSize: 15)),
                 );
               },
             );
