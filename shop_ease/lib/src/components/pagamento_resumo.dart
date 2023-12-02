@@ -6,7 +6,7 @@ import 'package:shop_ease/src/components/pagamento_selecao.dart';
 import 'carrinho.dart';
 import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
-//variável temporária
+//variável com frete adicionado
 double produtoFrete = 0;
 
 class Resumo extends StatefulWidget {
@@ -146,6 +146,7 @@ class _ResumoState extends State<Resumo> {
     return Flexible(
       flex: 1,
       child: Container(
+        height: 600,
         color: Colors.white70,
         alignment: Alignment.topLeft,
         padding: const EdgeInsets.all(20),
@@ -164,7 +165,6 @@ class _ResumoState extends State<Resumo> {
               height: 20,
               thickness: 2,
               indent: 0,
-              //endIndent: 20,
             ),
             const SizedBox(
               height: 10,
@@ -233,7 +233,6 @@ class _ResumoState extends State<Resumo> {
                     flex: 2,
                     child: SizedBox(
                       height: 35.0,
-                      //width: 200,
                       child: TextField(
                         controller: cupomController,
                         inputFormatters: [
@@ -268,7 +267,6 @@ class _ResumoState extends State<Resumo> {
               height: 20,
               thickness: 2,
               indent: 0,
-              //endIndent: 20,
             ),
             const SizedBox(
               height: 10,
@@ -291,11 +289,13 @@ class _ResumoState extends State<Resumo> {
             const SizedBox(
               height: 10,
             ),
+            //opção para confirmar a compra só irá aparecer no checkout
             Center(
                 child: Visibility(
               visible: checkoutVerdadeiro,
               child: ElevatedButton(
                 onPressed: () {
+                  checkoutVerdadeiro = false;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

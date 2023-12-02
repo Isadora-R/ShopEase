@@ -4,6 +4,8 @@ import 'package:shop_ease/src/components/pagamento_frete.dart';
 import 'package:shop_ease/src/components/pagamento_resumo.dart';
 import '../model/endereco.dart';
 
+int passaIndexEndereco = 0;
+
 class PagamentoEndereco extends StatefulWidget {
   const PagamentoEndereco({super.key});
 
@@ -77,7 +79,7 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                                     });
                                   }),
                                   const SizedBox(
-                                    height: 60,
+                                    height: 10,
                                   ),
                                   ElevatedButton(
                                     onPressed: enderecoSelecionado
@@ -161,7 +163,7 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 300,
       child: ListView.builder(
         itemCount: Endereco.listaDeEnderecos.length,
         itemBuilder: (context, index) {
@@ -181,6 +183,7 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
                     }
                     // Marca apenas o botão atual
                     buttonStates[index] = true;
+                    passaIndexEndereco = index;
                   });
                   widget.onEnderecoSelected(
                       true); //altera enderecoSelecionado para true quando botão selecionado

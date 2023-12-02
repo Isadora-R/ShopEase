@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:shop_ease/src/components/cupom.dart';
 import 'package:shop_ease/src/components/pagamento_resumo.dart';
 import 'package:shop_ease/src/components/pagamento_cartao.dart';
 import 'package:shop_ease/src/components/pagamento_checkout.dart';
@@ -8,6 +7,9 @@ import '../model/endereco.dart';
 bool transfChecked = false;
 bool pixChecked = false;
 bool checkoutVerdadeiro = false;
+int passaIndexCartao = -1;
+bool passaPixCheckout = false;
+bool passaTransCheckout = false;
 
 class PagamentoSelecao extends StatefulWidget {
   const PagamentoSelecao({super.key});
@@ -170,6 +172,8 @@ class _MetodosPagamento extends State<MetodosPagamento> {
     setState(() {
       transfChecked = false;
       pixChecked = false;
+      passaPixCheckout = false;
+      passaTransCheckout = false;
     });
   }
 
@@ -180,11 +184,13 @@ class _MetodosPagamento extends State<MetodosPagamento> {
       children: [
         ElevatedButton.icon(
           onPressed: () {
+            passaIndexCartao = -1;
             resetCheckStates();
             widget.onMetodoSelected(true);
             widget.onCartaoSelected(false);
             setState(() {
               transfChecked = true;
+              passaTransCheckout = true;
             });
 
             showDialog(
@@ -250,11 +256,13 @@ class _MetodosPagamento extends State<MetodosPagamento> {
         ),
         ElevatedButton.icon(
           onPressed: () {
+            passaIndexCartao = -1;
             resetCheckStates();
             widget.onMetodoSelected(true);
             widget.onCartaoSelected(false);
             setState(() {
               pixChecked = true;
+              passaPixCheckout = true;
             });
           },
           icon: pixChecked
@@ -359,7 +367,10 @@ class _CartaoBotoes extends State<CartaoBotoes> {
                         }
                         // Marca apenas o botão atual
                         buttonStates[index] = true;
+                        passaIndexCartao = index;
                       });
+                      passaPixCheckout = false;
+                      passaTransCheckout = false;
                       widget.onMetodoSelected(true);
                       widget.onCartaoSelected(true);
 
