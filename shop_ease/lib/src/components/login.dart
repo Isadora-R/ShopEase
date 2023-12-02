@@ -128,8 +128,7 @@ class _LoginState extends State<Login> {
                   decoration: const InputDecoration(
                       labelText: 'Nome de Usuário ou Email',
                       labelStyle: TextStyle(
-                          color: Colors.white,
-                          decorationThickness: 2.0),
+                          color: Colors.white, decorationThickness: 2.0),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white))),
                 ),
