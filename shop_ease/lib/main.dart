@@ -4,6 +4,7 @@ import 'src/components/login.dart';
 import 'src/components/criar_perfil.dart';
 import 'package:provider/provider.dart';
 import 'src/components/editar_perfil.dart';
+import 'src/components/carrinho.dart';
 
 void main() {
   runApp(
@@ -11,7 +12,8 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => DataProvider()),
         ChangeNotifierProvider(create: (context) => CriarPerfilProvider()),
-        ChangeNotifierProvider(create: (context) => EditarPerfilProvider())
+        ChangeNotifierProvider(create: (context) => EditarPerfilProvider()),
+        ChangeNotifierProvider(create: (context) => CarrinhoProvider()),
 
         // Adicione outros providers conforme necessário
         // ChangeNotifierProvider(create: (context) => OutroProvider()),

@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:shop_ease/src/components/carrinho.dart';
 import 'package:shop_ease/src/model/products_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -82,6 +83,20 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
               ),
             ),
             const SizedBox(height: 20.0),
+
+            ElevatedButton(
+              onPressed: () {
+                // Adicionar o produto ao carrinho
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Carrinho()),
+                );
+              },
+              child: const Text('Adicionar ao Carrinho'),
+            ),
+
+            const SizedBox(height: 10.0),
 
             Container(
               padding: const EdgeInsets.all(8.0),
