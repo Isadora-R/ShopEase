@@ -23,20 +23,21 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          flexibleSpace: const Image(
-            image: AssetImage('lib/src/assets/logooo.png'),
-            fit: BoxFit.contain,
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0, // Remove a sombra da AppBar
+      appBar: AppBar(
+        flexibleSpace: const Image(
+          image: AssetImage('lib/src/assets/logooo.png'),
+          fit: BoxFit.contain,
         ),
-        body: Center(
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remove a sombra da AppBar
+      ),
+      body: SingleChildScrollView(
+        child: Center(
           child: SizedBox(
               //width: 1220,
               child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -44,7 +45,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                     flex: 2,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
@@ -141,7 +142,9 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
               ),
             ),
           )),
-        ));
+        ),
+      ),
+    );
   }
 }
 
