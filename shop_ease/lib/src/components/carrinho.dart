@@ -58,7 +58,7 @@ class Carrinho extends StatelessWidget {
                     child: ListTile(
                       title: Text(produto.nome,
                           style: const TextStyle(fontSize: 20)),
-                      subtitle: Text(produto.preco.toString()),
+                      subtitle: Text('R\$ ${produto.preco.toString()}'),
                       leading: Image(
                           image: NetworkImage(produto.imagem),
                           width: 150,
