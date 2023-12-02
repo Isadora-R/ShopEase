@@ -4,8 +4,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 //import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
+// ignore: must_be_immutable
 class Rastreamento extends StatefulWidget {
-  const Rastreamento({super.key});
+  bool aprovado;
+  Rastreamento({super.key, required this.aprovado});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -19,7 +21,7 @@ class _RastreamentoState extends State<Rastreamento>
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
-  bool pagamentoAprovado = true;
+
   // List<String> _pedidosFeitos = [];
   // List<String> get pedidosFeitos => _pedidosFeitos;
 
@@ -87,7 +89,7 @@ class _RastreamentoState extends State<Rastreamento>
 
     await Future.delayed(const Duration(seconds: 5));
     setState(() {
-      pagamentoAprovado = false;
+      widget.aprovado = false;
     });
   }
 
@@ -104,7 +106,7 @@ class _RastreamentoState extends State<Rastreamento>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (pagamentoAprovado == true) {
+    if (widget.aprovado == true) {
       return Scaffold(
         appBar: AppBar(
           title: const Text('ACOMPANHE SUA ENTREGA'),
@@ -147,13 +149,24 @@ class _RastreamentoState extends State<Rastreamento>
           centerTitle: true,
           forceMaterialTransparency: true,
         ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', (route) => false);
+            },
+            child: const Text('Voltar'),
+          ),
+        ),
       );
     }
   }
 }
 
 void main() {
-  runApp(const MaterialApp(
-    home: Rastreamento(),
+  runApp(MaterialApp(
+    home: Rastreamento(
+      aprovado: true,
+    ),
   ));
 }

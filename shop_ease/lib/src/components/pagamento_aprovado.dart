@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_ease/src/components/rastreamento.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/carrinho.dart';
+import 'rastreamento.dart';
 
 class PagamentoAprovado extends StatefulWidget {
   const PagamentoAprovado({super.key});
@@ -13,6 +15,7 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
   String mensagem = 'Aguarde... processando pagamento';
   double progresso = 0.0;
   double incremento = 0.0;
+  bool aprovado = false;
 
   @override
   void initState() {
@@ -38,11 +41,11 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
     });
     await Future.delayed(const Duration(seconds: 2));
     // ignore: use_build_context_synchronously
+    Provider.of<CarrinhoProvider>(context, listen: false).limpaCarrinho();
+
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-          builder: (context) =>
-              const Rastreamento()), // redireciona para rastreamento
+      MaterialPageRoute(builder: (context) => Rastreamento(aprovado: true)),
     );
   }
 

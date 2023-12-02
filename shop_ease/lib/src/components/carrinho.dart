@@ -75,14 +75,20 @@ class Carrinho extends StatelessWidget {
             const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PagamentoEndereco(),
-                    settings: RouteSettings(
-                        arguments: carrinhoProvider.calcularTotalCarrinho()),
-                  ),
-                );
+                if (carrinhoProvider.calcularTotalCarrinho().sign > 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PagamentoEndereco(),
+                      settings: RouteSettings(
+                          arguments: carrinhoProvider.calcularTotalCarrinho()),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Seu carrinho está vazio!')),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.purple[300],
@@ -121,5 +127,9 @@ class CarrinhoProvider with ChangeNotifier {
         0.0,
         (total, produto) =>
             total + (produto.preco * (100.0 - produto.desconto) / 100));
+  }
+
+  void limpaCarrinho() {
+    itensNoCarrinho.clear();
   }
 }

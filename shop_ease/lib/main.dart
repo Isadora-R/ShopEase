@@ -19,7 +19,7 @@ void main() {
         // ChangeNotifierProvider(create: (context) => OutroProvider()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,//tira a 'faixinha vermelha'
+        debugShowCheckedModeBanner: false, //tira a 'faixinha vermelha'
         title: 'ShopEase',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.purple[200],
