@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 import 'package:shop_ease/src/components/pagamento_resumo.dart';
 
 bool pagamentoAprovado = false;
@@ -45,17 +44,6 @@ class PagamentoCheckout extends StatelessWidget {
                       const SizedBox(width: 30),
                       // ignore: prefer_const_constructors
                       Resumo(),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PagamentoAprovado(),
-                            ),
-                          );
-                        },
-                        child: const Text('OK'),
-                      )
                     ],
                   ),
                 ),

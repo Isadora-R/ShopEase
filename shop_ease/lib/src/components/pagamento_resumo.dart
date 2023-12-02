@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shop_ease/src/components/pagamento_frete.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/pagamento_selecao.dart';
 import 'carrinho.dart';
+import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
 //variável temporária
 double produtoFrete = 0;
@@ -221,38 +223,42 @@ class _ResumoState extends State<Resumo> {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(
-                    height: 35.0,
-                    //width: 200,
-                    child: TextField(
-                      controller: cupomController,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(7),
-                      ],
-                      decoration: const InputDecoration(
-                        labelText: 'Cupom Shopeasy',
-                        border: OutlineInputBorder(),
-                        filled: true,
-                        fillColor: Colors.white,
+            //opção para adicionar cupom só irá aparecer no checkout
+            Visibility(
+              visible: checkoutVerdadeiro,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                      height: 35.0,
+                      //width: 200,
+                      child: TextField(
+                        controller: cupomController,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(7),
+                        ],
+                        decoration: const InputDecoration(
+                          labelText: 'Cupom Shopeasy',
+                          border: OutlineInputBorder(),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                      onPressed: aplicarOuRemover,
-                      child: Text(aplicado ? 'Remover' : 'Aplicar')),
-                )
-              ],
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                        onPressed: aplicarOuRemover,
+                        child: Text(aplicado ? 'Remover' : 'Aplicar')),
+                  )
+                ],
+              ),
             ),
             const SizedBox(
               height: 5,
@@ -265,7 +271,7 @@ class _ResumoState extends State<Resumo> {
               //endIndent: 20,
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -282,6 +288,24 @@ class _ResumoState extends State<Resumo> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            Center(
+                child: Visibility(
+              visible: checkoutVerdadeiro,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PagamentoAprovado(),
+                    ),
+                  );
+                },
+                child: const Text('Confirmar a compra'),
+              ),
+            ))
           ],
         ),
       ),

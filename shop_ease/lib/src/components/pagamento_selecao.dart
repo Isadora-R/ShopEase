@@ -7,6 +7,7 @@ import '../model/endereco.dart';
 
 bool transfChecked = false;
 bool pixChecked = false;
+bool checkoutVerdadeiro = false;
 
 class PagamentoSelecao extends StatefulWidget {
   const PagamentoSelecao({super.key});
@@ -97,6 +98,7 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                               ElevatedButton(
                                 onPressed: metodoSelecionado
                                     ? () {
+                                        checkoutVerdadeiro = true;
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -335,7 +337,8 @@ class _CartaoBotoes extends State<CartaoBotoes> {
           },
         ),
         SizedBox(
-          height: 95,
+          //height: 95,
+          height: 200,
           child: ListView.builder(
             itemCount: Cartao.listaDeCartoes.length,
             itemBuilder: (context, index) {
