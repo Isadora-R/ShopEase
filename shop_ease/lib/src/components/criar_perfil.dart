@@ -40,7 +40,6 @@ class _CriarPerfilState extends State<CriarPerfil>
   final TextEditingController _criarPostalController = TextEditingController();
 
   List<String> usuarioLogou = [];
-
   bool testaCampos() {
     if (_criarUsernameController.text.isNotEmpty &&
         _criarPasswordController.text.isNotEmpty &&
@@ -61,18 +60,18 @@ class _CriarPerfilState extends State<CriarPerfil>
 
   Future<void> _fazerLogin() async {
     try {
-      usuarioLogou.add(_criarUsernameController.text);
-      usuarioLogou.add(_criarPasswordController.text);
-      usuarioLogou.add(_criarEmailController.text);
-      usuarioLogou.add(_criarNomeController.text);
-      usuarioLogou.add(_criarSobrenomeController.text);
-      usuarioLogou.add(_criarEnderecoController.text);
-      usuarioLogou.add(_criarCartaoController.text);
-      usuarioLogou.add(_criarCartaoValidadeController.text);
-      usuarioLogou.add(_criarCidadeController.text);
-      usuarioLogou.add(_criarEstadoController.text);
-      usuarioLogou.add(_criarPostalController.text);
-      if (usuarioLogou.isNotEmpty && testaCampos()) {
+      if (testaCampos()) {
+        usuarioLogou.add(_criarUsernameController.text);
+        usuarioLogou.add(_criarPasswordController.text);
+        usuarioLogou.add(_criarEmailController.text);
+        usuarioLogou.add(_criarNomeController.text);
+        usuarioLogou.add(_criarSobrenomeController.text);
+        usuarioLogou.add(_criarEnderecoController.text);
+        usuarioLogou.add(_criarCartaoController.text);
+        usuarioLogou.add(_criarCartaoValidadeController.text);
+        usuarioLogou.add(_criarCidadeController.text);
+        usuarioLogou.add(_criarEstadoController.text);
+        usuarioLogou.add(_criarPostalController.text);
         Navigator.pushReplacementNamed(
           context,
           '/home',
