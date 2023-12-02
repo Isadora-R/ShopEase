@@ -33,115 +33,114 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
         ),
         body: Center(
           child: SizedBox(
-              width: 1220,
+              //width: 1220,
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const Text(
-                                    'Escolha um método de pagamento',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text(
+                                'Escolha um método de pagamento',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PagamentoCartao()),
+                                    );
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
                                   ),
-                                  const SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
+                                  minimumSize: const Size(150, 100),
+                                  alignment: Alignment.centerLeft,
+                                ),
+                                child: const Text('Novo cartão de crédito'),
+                              ),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              CartaoBotoes(
+                                onCartaoSelected: (bool selected) {
+                                  setState(() {
+                                    cartaoSelecionado = selected;
+                                  });
+                                },
+                                onMetodoSelected: (bool selected) {
+                                  metodoSelecionado = selected;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 60,
+                              ),
+                              ElevatedButton(
+                                onPressed: metodoSelecionado
+                                    ? () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PagamentoCartao()),
+                                            builder: (context) =>
+                                                const PagamentoCheckout(),
+                                          ),
                                         );
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      minimumSize: const Size(150, 100),
-                                      alignment: Alignment.centerLeft,
-                                    ),
-                                    child: const Text('Novo cartão de crédito'),
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  CartaoBotoes(
-                                    onCartaoSelected: (bool selected) {
-                                      setState(() {
-                                        cartaoSelecionado = selected;
-                                      });
-                                    },
-                                    onMetodoSelected: (bool selected) {
-                                      metodoSelecionado = selected;
-                                    },
-                                  ),
-                                  const SizedBox(
-                                    height: 60,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: metodoSelecionado
-                                        ? () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PagamentoCheckout(),
-                                              ),
-                                            );
-                                          }
-                                        : () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  title: const Text(
-                                                      'Nenhum método de pagamento selecionado'),
-                                                  content: const Text(
-                                                      'Por favor, selecione um método para continuar.'),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: const Text('Ok'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
+                                      }
+                                    : () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'Nenhum método de pagamento selecionado'),
+                                              content: const Text(
+                                                  'Por favor, selecione um método para continuar.'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('Ok'),
+                                                ),
+                                              ],
                                             );
                                           },
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(150, 50),
-                                    ),
-                                    child: const Text('Continuar'),
-                                  ),
-                                ]),
-                          ),
-                        ),
+                                        );
+                                      },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(150, 50),
+                                ),
+                                child: const Text('Continuar'),
+                              ),
+                            ]),
                       ),
-
-                      // ignore: prefer_const_constructors
-                      Resumo()
-                    ],
+                    ),
                   ),
-                ),
-              )),
+
+                  // ignore: prefer_const_constructors
+                  Resumo()
+                ],
+              ),
+            ),
+          )),
         ));
   }
 }
@@ -333,7 +332,7 @@ class _CartaoBotoes extends State<CartaoBotoes> {
           },
         ),
         SizedBox(
-          height: 300,
+          height: 200,
           child: ListView.builder(
             itemCount: Cartao.listaDeCartoes.length,
             itemBuilder: (context, index) {

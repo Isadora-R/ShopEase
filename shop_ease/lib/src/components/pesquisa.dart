@@ -1,4 +1,4 @@
-﻿﻿// import 'dart:html';
+﻿// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import '../model/products_model.dart';
@@ -41,7 +41,7 @@ class _PesquisaCreate extends State<Pesquisa> {
               itemBuilder: (context, index) {
                 Product produto = products[index];
                 return ListTile(
-                  title: Text(produto.title, style: TextStyle(fontSize: 20)),
+                  title: Text(produto.title, style: const TextStyle(fontSize: 20)),
                   subtitle: Text(produto.description),
                   leading: Image(
                       image: NetworkImage(produto.thumbnail),
@@ -56,7 +56,7 @@ class _PesquisaCreate extends State<Pesquisa> {
                     )
                   },
                   trailing: Text('R\$ ${produto.price},00',
-                      style: TextStyle(fontSize: 15)),
+                      style: const TextStyle(fontSize: 15)),
                 );
               },
             );

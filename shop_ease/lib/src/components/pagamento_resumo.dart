@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_ease/src/components/pagamento_frete.dart';
+import 'package:provider/provider.dart';
+import 'carrinho.dart';
 
 //variável temporária
-double controle = 200;
+double produtoFrete = 0;
 
 class Resumo extends StatefulWidget {
   const Resumo({super.key});
@@ -13,14 +16,14 @@ class Resumo extends StatefulWidget {
 
 class _ResumoState extends State<Resumo> {
   TextEditingController cupomController = TextEditingController();
-  double produto = controle;
+
   bool aplicado = false;
 
   void aplicarOuRemover() {
     if (cupomController.text == '') {
     } else {
       setState(() {
-        aplicado = !aplicado; // Alterna o estado ao ser chamado
+        aplicado = !aplicado; //Alterna o estado ao ser chamado
       });
       if (aplicado) {
         verificaCupom(listaDeValores);
@@ -30,26 +33,29 @@ class _ResumoState extends State<Resumo> {
     }
   }
 
-  String freteSelecionado(bool pac, bool sedex, bool transportadora) {
+  //função para retornar frete selecionado
+  String freteSelecionado(
+      bool pac, bool sedex, bool transportadora, double produto) {
+    double resetaFrete = produto;
     if (pac) {
-      produto = controle;
-      produto = produto + fretepac;
+      produtoFrete = resetaFrete;
+      produtoFrete = produtoFrete + fretepac;
       return 'R\$ $fretepac';
     } else if (sedex) {
-      produto = controle;
-      produto = produto + fretesedex;
+      produtoFrete = resetaFrete;
+      produtoFrete = produtoFrete + fretesedex;
       return 'R\$ $fretesedex';
     } else if (transportadora) {
-      produto = controle;
-      produto = produto + fretetransp;
+      produtoFrete = resetaFrete;
+      produtoFrete = produtoFrete + fretetransp;
       return 'R\$ $fretetransp';
     } else {
       return ' ';
     }
   }
 
-  //função que retorna cupom registrado como string
-  String desconto(List<dynamic> lista, String cupom) {
+  //função que retorna valor cupom registrado como string
+  String desconto(List<dynamic> lista, String cupom, double produto) {
     double promo = 0;
     if (verificaCupom(lista)) {
       for (var i = 0; i < lista.length; i++) {
@@ -133,6 +139,8 @@ class _ResumoState extends State<Resumo> {
 
   @override
   Widget build(BuildContext context) {
+    var controle = context.watch<CarrinhoProvider>();
+    double produto = controle.calcularTotalCarrinho();
     return Flexible(
       flex: 1,
       child: Container(
@@ -154,7 +162,7 @@ class _ResumoState extends State<Resumo> {
               height: 20,
               thickness: 2,
               indent: 0,
-              endIndent: 20,
+              //endIndent: 20,
             ),
             const SizedBox(
               height: 10,
@@ -168,7 +176,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  'R\$ $controle ',
+                  'R\$ $produto ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -186,7 +194,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${freteSelecionado(pacChecked, sedexChecked, transpChecked)} ',
+                  '${freteSelecionado(pacChecked, sedexChecked, transpChecked, produto)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -204,7 +212,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${desconto(listaDeValores, cupomController.text)} ',
+                  '${desconto(listaDeValores, cupomController.text, produto)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -214,14 +222,18 @@ class _ResumoState extends State<Resumo> {
               height: 10,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 35.0,
-                  width: 200,
-                  child: Align(
-                    alignment: Alignment.center,
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    height: 35.0,
+                    //width: 200,
                     child: TextField(
                       controller: cupomController,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(7),
+                      ],
                       decoration: const InputDecoration(
                         labelText: 'Cupom Shopeasy',
                         border: OutlineInputBorder(),
@@ -234,9 +246,12 @@ class _ResumoState extends State<Resumo> {
                 const SizedBox(
                   width: 10,
                 ),
-                ElevatedButton(
-                    onPressed: aplicarOuRemover,
-                    child: Text(aplicado ? 'Remover' : 'Aplicar'))
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                      onPressed: aplicarOuRemover,
+                      child: Text(aplicado ? 'Remover' : 'Aplicar')),
+                )
               ],
             ),
             const SizedBox(
@@ -247,7 +262,7 @@ class _ResumoState extends State<Resumo> {
               height: 20,
               thickness: 2,
               indent: 0,
-              endIndent: 20,
+              //endIndent: 20,
             ),
             const SizedBox(
               height: 20,
@@ -261,7 +276,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${total(listaDeValores, produto)} ',
+                  '${total(listaDeValores, produtoFrete)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
