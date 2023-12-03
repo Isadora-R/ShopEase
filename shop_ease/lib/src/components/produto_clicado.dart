@@ -96,7 +96,6 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
             const SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: () {
-                // Adicionar o produto ao carrinho
                 Provider.of<CarrinhoProvider>(context, listen: false)
                     .adicionarAoCarrinho(Produto(
                         nome: widget.product.title,
@@ -116,7 +115,7 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
             Container(
                 transformAlignment: Alignment.center,
                 width: 900,
-                height: 70,
+                height: 90,
                 color: Colors.purple,
                 child: Center(
                   child: Column(
@@ -173,9 +172,9 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
               child: Center(
                   child: Column(
                 children: [
-                  const Text(
-                    'Avaliação dos usuários:',
-                    style: TextStyle(
+                  Text(
+                    'Avaliação dos compradores: (${widget.product.rating.toString()})',
+                    style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   RatingBarIndicator(

@@ -29,6 +29,7 @@ class Carrinho extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var carrinhoProvider = context.watch<CarrinhoProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gerencie seus pedidos'),
@@ -66,9 +67,9 @@ class Carrinho extends StatelessWidget {
                           width: 150,
                           height: 300),
                       trailing: IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.delete,
-                          color: Colors.deepPurple,
+                          color: Colors.purple[900],
                         ),
                         onPressed: () {
                           carrinhoProvider.removerDoCarrinho(produto);
@@ -116,7 +117,8 @@ class Carrinho extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => const PagamentoEndereco(),
                       settings: RouteSettings(
-                          arguments: carrinhoProvider.calcularTotalCarrinho()),
+                        arguments: carrinhoProvider.calcularTotalCarrinho(),
+                      ),
                     ),
                   );
                 } else {

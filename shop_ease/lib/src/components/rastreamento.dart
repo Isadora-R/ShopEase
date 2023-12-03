@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-//import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
 // ignore: must_be_immutable
 class Rastreamento extends StatefulWidget {
@@ -108,19 +107,26 @@ class _RastreamentoState extends State<Rastreamento>
     super.build(context);
     if (widget.aprovado == true) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('ACOMPANHE SUA ENTREGA'),
-          titleTextStyle: const TextStyle(
-            color: Colors.deepPurple,
-            fontWeight: FontWeight.bold,
-          ),
-          centerTitle: true,
-          forceMaterialTransparency: true,
-        ),
         body: Center(
+            child: Container(
+          transformAlignment: Alignment.center,
+          width: 900,
+          height: 450,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Text(
+                'Acompanhe sua entrega',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16.0),
               LinearProgressIndicator(
                 backgroundColor: Colors.grey,
                 // ignore: prefer_const_constructors
@@ -130,32 +136,56 @@ class _RastreamentoState extends State<Rastreamento>
               const SizedBox(height: 16.0),
               Text(
                 mensagem,
-                style: TextStyle(
-                    backgroundColor: Colors.purple[600], color: Colors.white),
+                style:
+                    const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/home', (route) => false);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(150, 35),
+                ),
+                child: const Text('Início'),
               ),
             ],
           ),
-        ),
+        )),
       );
     } else {
       return Scaffold(
-        appBar: AppBar(
-          title:
-              const Text('Você não tem entregas pendente! Realize um pedido!'),
-          titleTextStyle: const TextStyle(
-            color: Colors.deepPurple,
-            fontWeight: FontWeight.bold,
-          ),
-          centerTitle: true,
-          forceMaterialTransparency: true,
-        ),
         body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false);
-            },
-            child: const Text('Voltar'),
+          child: Container(
+            transformAlignment: Alignment.center,
+            width: 900,
+            height: 450,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(children: [
+              const SizedBox(height: 50.0),
+              const Text(
+                'Você não tem entregas pendente. Realize um pedido!',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 100.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/home', (route) => false);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(150, 35),
+                ),
+                child: const Text('CATÁLOGO'),
+              ),
+            ]),
           ),
         ),
       );

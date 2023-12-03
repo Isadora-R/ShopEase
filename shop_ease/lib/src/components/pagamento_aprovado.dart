@@ -16,6 +16,7 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
   double progresso = 0.0;
   double incremento = 0.0;
   bool aprovado = false;
+  int contador = CarrinhoProvider().itensNoCarrinho.length;
 
   @override
   void initState() {
@@ -42,10 +43,17 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
     await Future.delayed(const Duration(seconds: 2));
     // ignore: use_build_context_synchronously
     Provider.of<CarrinhoProvider>(context, listen: false).limpaCarrinho();
+    print(contador);
 
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Rastreamento(aprovado: true)),
+      MaterialPageRoute(
+        builder: (context) => Rastreamento(aprovado: true),
+        settings: RouteSettings(
+          arguments: contador,
+        ),
+      ),
     );
   }
 

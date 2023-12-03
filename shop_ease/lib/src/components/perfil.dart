@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/carrinho.dart';
 import 'package:shop_ease/src/components/criar_perfil.dart';
 import 'package:shop_ease/src/components/editar_perfil.dart';
 import 'package:shop_ease/src/components/login.dart';
@@ -169,6 +170,8 @@ class _PerfilState extends State<Perfil> {
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil('/login', (route) => false);
                   usuarioEditado.clear();
+                  // Provider.of<CarrinhoProvider>(context, listen: false)
+                  //     .limpaCarrinho();
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(150, 35),

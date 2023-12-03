@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/criar_perfil.dart';
+import 'package:shop_ease/src/components/login.dart';
 import 'package:shop_ease/src/components/pagamento_endereco.dart';
 import 'package:shop_ease/src/components/pagamento_resumo.dart';
 import '../model/endereco.dart';
@@ -20,6 +23,44 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
   TextEditingController ruaController = TextEditingController();
   TextEditingController numeroController = TextEditingController();
   TextEditingController complementoController = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    var enderecoProvider = Provider.of<CriarPerfilProvider>(context);
+    var enderecoProvider_ = Provider.of<DataProvider>(context);
+    var endereco = enderecoProvider.usuarioLogado;
+    var endereco_ = enderecoProvider_.usuarioLogado;
+    String numeroCasa = '';
+    String nomeCompleto = '';
+    String ruaCasa = '';
+
+    if (endereco.length >= 5) {
+      numeroCasa = endereco[5].replaceAll(RegExp(r'[^0-9]'), '');
+      nomeCompleto = '${endereco[3]} ${endereco[4]}';
+      ruaCasa = endereco[5].replaceAll(RegExp(r'[^a-zA-Z ]'), '');
+    } else if (endereco_.length >= 3) {
+      nomeCompleto = '${endereco_[0]} ${endereco_[1]}';
+      numeroCasa = endereco_[3].replaceAll(RegExp(r'[^0-9]'), '');
+      ruaCasa = endereco_[3].replaceAll(RegExp(r'[^a-zA-Z ]'), '');
+    }
+    if (endereco.isNotEmpty && endereco.length == 11) {
+      nomeController.text = nomeCompleto;
+      ruaController.text = ruaCasa;
+      cidadeController.text = endereco[8];
+      estadoController.text = endereco[9];
+      numeroController.text = numeroCasa;
+    } else if (endereco_.isNotEmpty && endereco_.length == 12) {
+      nomeController.text = nomeCompleto;
+      ruaController.text = ruaCasa;
+      cidadeController.text = endereco_[6];
+      estadoController.text = endereco_[8];
+      numeroController.text = numeroCasa;
+    } else {
+      print('Não há endereço para este perfil.');
+    }
+  }
 
   void adicionarEndereco() {
     String nome = nomeController.text;
