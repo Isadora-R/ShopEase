@@ -20,10 +20,6 @@ class _RastreamentoState extends State<Rastreamento>
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
-  int dia = 1;
-
-  // List<String> _pedidosFeitos = [];
-  // List<String> get pedidosFeitos => _pedidosFeitos;
 
   bool _isMounted = false;
 

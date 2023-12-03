@@ -71,9 +71,9 @@ class _ResumoState extends State<Resumo> {
         }
         promo = promo * produtoPix;
         promo = promo + (produto - produtoPix);
-        return 'R\$ -$promo';
+        return '$promo';
       } else {
-        return 'R\$ -${produto - produtoPix} ';
+        return '${produto - produtoPix} ';
       }
     } else {
       if (verificaCupom(lista)) {
@@ -85,7 +85,7 @@ class _ResumoState extends State<Resumo> {
           }
         }
         promo = promo * produto;
-        return 'R\$ -$promo';
+        return '$promo';
       } else {
         return ' ';
       }
@@ -250,7 +250,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${desconto(listaDeValores, cupomController.text, produto, produtoPix)} ',
+                  '-R\$ ${double.parse(desconto(listaDeValores, cupomController.text, produto, produtoPix)).toStringAsFixed(2)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -275,7 +275,7 @@ class _ResumoState extends State<Resumo> {
                           LengthLimitingTextInputFormatter(7),
                         ],
                         decoration: const InputDecoration(
-                          labelText: 'Cupom Shopeasy',
+                          labelText: 'Cupom ShopEase',
                           border: OutlineInputBorder(),
                           filled: true,
                           fillColor: Colors.white,
@@ -316,7 +316,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${total(listaDeValores, produtoFrete, produtoPix)} ',
+                  '${total(listaDeValores, produtoFrete, produtoPix).toStringAsFixed(2)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
