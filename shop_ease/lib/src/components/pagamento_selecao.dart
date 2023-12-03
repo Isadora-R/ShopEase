@@ -79,7 +79,14 @@ class _PagamentoSelecao extends State<PagamentoSelecao> {
                                   minimumSize: const Size(150, 100),
                                   alignment: Alignment.centerLeft,
                                 ),
-                                child: const Text('Novo cartão de crédito'),
+                                child: Row(
+                                  children: [
+                                    Image.asset('lib/src/assets/cartao.png',
+                                        width: 24, height: 24),
+                                    const SizedBox(width: 5),
+                                    const Text('Novo cartão de crédito'),
+                                  ],
+                                ),
                               ),
                               const SizedBox(
                                 height: 2,
@@ -242,7 +249,13 @@ class _MetodosPagamento extends State<MetodosPagamento> {
           icon: transfChecked
               ? const Icon(Icons.check_circle_outline_outlined)
               : const Icon(Icons.circle_outlined),
-          label: const Text('Transferência bancária'),
+          label: Row(
+            children: [
+              Image.asset('lib/src/assets/banco.png', width: 24, height: 24),
+              const SizedBox(width: 5),
+              const Text('Transferência bancária'),
+            ],
+          ),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
@@ -268,7 +281,13 @@ class _MetodosPagamento extends State<MetodosPagamento> {
           icon: pixChecked
               ? const Icon(Icons.check_circle_outline_outlined)
               : const Icon(Icons.circle_outlined),
-          label: const Text('PIX'),
+          label: Row(
+            children: [
+              Image.asset('lib/src/assets/pix.png', width: 24, height: 24),
+              const SizedBox(width: 5),
+              const Text('PIX'),
+            ],
+          ),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
