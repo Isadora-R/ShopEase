@@ -71,61 +71,85 @@ class _PerfilState extends State<Perfil> {
 
     if (usuarioLogado.isNotEmpty || usuarioLogado_2.isNotEmpty) {
       return Scaffold(
-          body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : usuarioLogado_2[3]}',
-              style: const TextStyle(
-                fontSize: 20.2,
-                fontWeight: FontWeight.bold,
-              ),
+        body: Center(
+          child: Container(
+            transformAlignment: Alignment.center,
+            width: 450,
+            height: 650,
+            decoration: BoxDecoration(
+              color: Colors.white70,
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(height: 30.0),
-            Image.network(
-              urlImagem,
-              width: 100,
-              height: 100,
-            ),
-            const SizedBox(height: 10.0),
-            Text(
-                'Nome: ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : usuarioLogado_2[3]} ${usuarioLogado.isNotEmpty ? usuarioLogado[1] : usuarioLogado_2[4]}'),
-            const SizedBox(height: 10.0),
-            Text(
-                'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : usuarioLogado_2[5]}'),
-            const SizedBox(height: 10.0),
-            Text(
-                'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : usuarioLogado_2[7]}'),
-            const SizedBox(height: 40.0),
-            const SizedBox(height: 40.0),
-            ElevatedButton(
-              onPressed: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const EditarPerfil(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Bem vindo(a), ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : usuarioLogado_2[3]}',
+                  style: const TextStyle(
+                    fontSize: 20.2,
+                    fontWeight: FontWeight.bold,
                   ),
-                );
-              },
-              child: const Text('Editar perfil'),
+                ),
+                const SizedBox(height: 30.0),
+                Image.network(
+                  urlImagem,
+                  width: 100,
+                  height: 100,
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'Nome: ${usuarioLogado.isNotEmpty ? usuarioLogado[0] : usuarioLogado_2[3]} ${usuarioLogado.isNotEmpty ? usuarioLogado[1] : usuarioLogado_2[4]}',
+                  style: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'Endereço de entrega: ${usuarioLogado.isNotEmpty ? usuarioLogado[3] : usuarioLogado_2[5]}',
+                  style: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'Cartão de final: ${numeroDoCartao.substring(numeroDoCartao.length - 4)} com expiração em ${usuarioLogado.isNotEmpty ? usuarioLogado[5] : usuarioLogado_2[7]}',
+                  style: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditarPerfil(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
+                  child: const Text('Editar perfil'),
+                ),
+                const SizedBox(height: 2.0),
+                ElevatedButton(
+                  onPressed: () {
+                    Provider.of<DataProvider>(context, listen: false)
+                        .limparUsuario();
+                    Provider.of<CriarPerfilProvider>(context, listen: false)
+                        .limparUsuario();
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/login', (route) => false);
+                    usuarioEditado.clear();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
+                  child: const Text('Logout'),
+                ),
+              ],
             ),
-            const SizedBox(height: 40.0),
-            ElevatedButton(
-              onPressed: () {
-                Provider.of<DataProvider>(context, listen: false)
-                    .limparUsuario();
-                Provider.of<CriarPerfilProvider>(context, listen: false)
-                    .limparUsuario();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/login', (route) => false);
-                usuarioEditado.clear();
-              },
-              child: const Text('Logout'),
-            ),
-          ],
+          ),
         ),
-      ));
+      );
     } else {
       return Scaffold(
         body: Center(
@@ -146,6 +170,9 @@ class _PerfilState extends State<Perfil> {
                       .pushNamedAndRemoveUntil('/login', (route) => false);
                   usuarioEditado.clear();
                 },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(150, 35),
+                ),
                 child: const Text('Logout'),
               ),
             ],

@@ -12,7 +12,6 @@ class Inicio extends StatefulWidget {
 }
 
 class _InicioState extends State<Inicio> {
-  
   late Future<Welcome> produtosFuture;
   @override
   void initState() {
@@ -70,7 +69,7 @@ class _InicioState extends State<Inicio> {
                           margin: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 8.0),
                           decoration: const BoxDecoration(
-                            color: Colors.purple,
+                            color: Colors.white,
                           ),
                           child: Image.network(
                             product.thumbnail,

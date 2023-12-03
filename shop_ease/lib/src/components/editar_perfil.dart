@@ -295,6 +295,9 @@ class _EditarPerfilState extends State<EditarPerfil>
                     print(
                         'Dados após salvar: ${context.read<EditarPerfilProvider>().usuarioLogado}');
                   },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
                   child: const Text('Salvar'),
                 ),
                 const SizedBox(height: 10.0),
@@ -305,6 +308,9 @@ class _EditarPerfilState extends State<EditarPerfil>
                     print(
                         'Dados após salvar: ${context.read<EditarPerfilProvider>().usuarioLogado}');
                   },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
                   child: const Text('Voltar'),
                 ),
               ],

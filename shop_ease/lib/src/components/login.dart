@@ -156,6 +156,9 @@ class _LoginState extends State<Login> {
                           .adicionarItem(usuarioLogou[i]);
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
                   child: const Text('Login'),
                 ),
                 const SizedBox(height: 10.0),
@@ -167,6 +170,9 @@ class _LoginState extends State<Login> {
                           builder: (context) => const CriarPerfil()),
                     );
                   },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
                   child: const Text('Criar uma conta'),
                 ),
               ],

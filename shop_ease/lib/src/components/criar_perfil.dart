@@ -280,6 +280,9 @@ class _CriarPerfilState extends State<CriarPerfil>
                               .adicionarItem(usuarioLogou[i]);
                         }
                       },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(150, 35),
+                      ),
                       child: const Text('Login'),
                     ),
                   ],

@@ -92,16 +92,16 @@ class _PesquisaCreate extends State<Pesquisa> {
                                       nome: produto.title,
                                       preco: produto.price.toDouble(),
                                       imagem: produto.thumbnail,
-                                      desconto:
-                                          produto.discountPercentage));
+                                      desconto: produto.discountPercentage));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const Carrinho()),
                               );
                             },
-                            child: const Text('Adicionar ao carrinho',
-                                         style: TextStyle(fontSize: 10),
+                            child: const Text(
+                              'Adicionar ao carrinho',
+                              style: TextStyle(fontSize: 10),
                             ),
                           ),
                         ],

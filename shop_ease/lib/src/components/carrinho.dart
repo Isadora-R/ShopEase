@@ -32,6 +32,9 @@ class Carrinho extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gerencie seus pedidos'),
+        backgroundColor: Colors.transparent,
+        titleTextStyle: const TextStyle(
+            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         centerTitle: true,
         elevation: 0,
       ),
@@ -39,14 +42,21 @@ class Carrinho extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    color: Colors.grey,
+                    thickness: 1.0,
+                    height: 1.0,
+                  );
+                },
                 itemCount: carrinhoProvider.itensNoCarrinho.length,
                 itemBuilder: (context, index) {
                   var produto = carrinhoProvider.itensNoCarrinho[index];
                   return Container(
                     padding: const EdgeInsets.all(8.0),
                     width: double.infinity,
-                    color: Colors.purple[500],
+                    color: Colors.white,
                     child: ListTile(
                       title: Text(produto.nome,
                           style: const TextStyle(fontSize: 20)),
@@ -56,7 +66,10 @@ class Carrinho extends StatelessWidget {
                           width: 150,
                           height: 300),
                       trailing: IconButton(
-                        icon: const Icon(Icons.delete),
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.deepPurple,
+                        ),
                         onPressed: () {
                           carrinhoProvider.removerDoCarrinho(produto);
                         },
@@ -66,12 +79,34 @@ class Carrinho extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 5.0),
-            Text(
-                'Total no carrinho: R\$ ${carrinhoProvider.calcularTotalCarrinho().toStringAsFixed(2)}'),
-            const SizedBox(height: 5.0),
-            Text(
-                'Total com desconto: R\$ ${carrinhoProvider.calculaDesconto().toStringAsFixed(2)}'),
+            const Divider(
+              color: Colors.deepPurple,
+              height: 10,
+              thickness: 1,
+              indent: 0,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 5.0),
+                  Text(
+                      'Sub-total: R\$ ${carrinhoProvider.calcularTotalCarrinho().toStringAsFixed(2)}',
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    'Sub-total com desconto (pagamento no pix): R\$ ${carrinhoProvider.calculaDesconto().toStringAsFixed(2)}',
+                    style: const TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 5.0),
+                ],
+              ),
+            ),
             const SizedBox(height: 5.0),
             ElevatedButton(
               onPressed: () {
@@ -91,10 +126,11 @@ class Carrinho extends StatelessWidget {
                 }
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.purple[300],
+                minimumSize: const Size(150, 50),
               ),
               child: const Text('Fazer pedido'),
             ),
+            const SizedBox(height: 5.0),
           ],
         ),
       ),
