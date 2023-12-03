@@ -71,9 +71,9 @@ class _ResumoState extends State<Resumo> {
         }
         promo = promo * produtoPix;
         promo = promo + (produto - produtoPix);
-        return '$promo';
+        return 'R\$ -$promo';
       } else {
-        return '${produto - produtoPix} ';
+        return 'R\$ -${produto - produtoPix} ';
       }
     } else {
       if (verificaCupom(lista)) {
@@ -85,7 +85,7 @@ class _ResumoState extends State<Resumo> {
           }
         }
         promo = promo * produto;
-        return '$promo';
+        return 'R\$ -$promo';
       } else {
         return ' ';
       }
@@ -250,7 +250,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '-R\$ ${double.parse(desconto(listaDeValores, cupomController.text, produto, produtoPix)).toStringAsFixed(2)} ',
+                  '${desconto(listaDeValores, cupomController.text, produto, produtoPix)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
