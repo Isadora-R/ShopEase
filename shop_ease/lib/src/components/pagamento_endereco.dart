@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/historico.dart';
 import 'package:shop_ease/src/components/pagamento_add_endereco.dart';
 import 'package:shop_ease/src/components/pagamento_frete.dart';
 import 'package:shop_ease/src/components/pagamento_resumo.dart';
@@ -18,7 +20,19 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
   bool enderecoSelecionado = false; // variável para liberar botão continuar
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        // Obtendo a instância do PedidoProvider diretamente usando Provider.of
+        var pedidoProvider =
+            Provider.of<PedidoProvider>(context, listen: false);
+
+        // Chamando a função removePedido quando o botão de voltar é pressionado
+        pedidoProvider.removePedido();
+
+        // Permitindo a navegação de volta
+        return true;
+      },
+      child: Scaffold(
         appBar: AppBar(
           flexibleSpace: const Image(
             image: AssetImage('lib/src/assets/logooo.png'),
@@ -130,7 +144,9 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                   ),
                 ),
               )),
-        ));
+        ),
+      ),
+    );
   }
 }
 
