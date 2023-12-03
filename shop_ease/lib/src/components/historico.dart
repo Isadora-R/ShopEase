@@ -1,4 +1,6 @@
-﻿import 'package:flutter/material.dart';
+﻿// ignore_for_file: prefer_final_fields
+
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PedidoHistorico {
@@ -100,6 +102,10 @@ class PedidoProvider extends ChangeNotifier {
   void removePedido() {
     _historico.removeLast();
     notifyListeners();
+  }
+
+  void limpaHistorico() {
+    _historico.clear();
   }
 }
 

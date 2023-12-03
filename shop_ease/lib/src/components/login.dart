@@ -206,14 +206,4 @@ class DataProvider with ChangeNotifier {
     _usuarioLogado.clear();
     notifyListeners();
   }
-
-  void adicionarHistorico(String item) {
-    _historicoDePedido.add(item);
-    notifyListeners();
-  }
-
-  void removeHistorico(String item) {
-    _historicoDePedido.removeLast();
-    notifyListeners();
-  }
 }

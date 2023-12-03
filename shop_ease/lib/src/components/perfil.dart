@@ -151,6 +151,8 @@ class _PerfilState extends State<Perfil> {
                         .limparUsuario();
                     Provider.of<CriarPerfilProvider>(context, listen: false)
                         .limparUsuario();
+                    Provider.of<PedidoProvider>(context, listen: false)
+                        .limpaHistorico();
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/login', (route) => false);
                     usuarioEditado.clear();
