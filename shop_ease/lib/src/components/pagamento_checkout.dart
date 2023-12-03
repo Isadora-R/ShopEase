@@ -99,9 +99,17 @@ class _PagamentoCheckoutState extends State<PagamentoCheckout> {
                                 ),
                                 child: SizedBox(
                                   height: 200,
-                                  child: ListView.builder(
+                                  child: ListView.separated(
                                     itemCount:
                                         carrinhoProvider.itensNoCarrinho.length,
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const Divider(
+                                      color: Colors.grey,
+                                      height: 20,
+                                      thickness: 2,
+                                      indent: 0,
+                                    ),
                                     itemBuilder: (context, index) {
                                       var produto = carrinhoProvider
                                           .itensNoCarrinho[index];
@@ -150,34 +158,50 @@ class _PagamentoCheckoutState extends State<PagamentoCheckout> {
                                       child: Text(exibeCartao()),
                                     ),
                                     Visibility(
-                                        visible: passaPixCheckout,
-                                        child: const Text('Pix')),
+                                      visible: passaPixCheckout,
+                                      child: Row(
+                                        children: [
+                                          Image.asset('lib/src/assets/pix.png',
+                                              width: 24, height: 24),
+                                          const SizedBox(width: 5),
+                                          const Text('PIX'),
+                                        ],
+                                      ),
+                                    ),
                                     Visibility(
                                       visible: passaTransCheckout,
-                                      child: const Column(
+                                      child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            'Transferência bancária',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.normal),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                  'lib/src/assets/banco.png',
+                                                  width: 24,
+                                                  height: 24),
+                                              const SizedBox(width: 5),
+                                              const Text(
+                                                  'Transferência bancária'),
+                                            ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
-                                          Text('Banco do Brasil'),
-                                          Text('Agência: 3663-3'),
-                                          Text('Conta Corrente: 25206-4'),
-                                          Text('Titular: Enzo Bento Duarte'),
-                                          Text('CNPJ: 65.935.613/0001-66'),
-                                          SizedBox(
+                                          const Text('Banco do Brasil'),
+                                          const Text('Agência: 3663-3'),
+                                          const Text('Conta Corrente: 25206-4'),
+                                          const Text(
+                                              'Titular: Enzo Bento Duarte'),
+                                          const Text(
+                                              'CNPJ: 65.935.613/0001-66'),
+                                          const SizedBox(
                                             height: 15,
                                           ),
-                                          Text(
+                                          const Text(
                                               'Após o depósito ou transferência, enviar o comprovante para o email'),
-                                          Text('contato.shopeasy@gmail.com'),
+                                          const Text(
+                                              'contato.shopeasy@gmail.com'),
                                         ],
                                       ),
                                     ),

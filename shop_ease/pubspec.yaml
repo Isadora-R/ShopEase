@@ -27,3 +27,6 @@ flutter:
     - lib/src/assets/logo.png
     - lib/src/assets/logooo.png
     - lib/src/assets/user.png
+    - lib/src/assets/pix.png
+    - lib/src/assets/banco.png
+    - lib/src/assets/cartao.png

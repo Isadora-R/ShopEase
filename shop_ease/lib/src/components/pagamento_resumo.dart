@@ -57,20 +57,38 @@ class _ResumoState extends State<Resumo> {
   }
 
   //função que retorna valor cupom registrado como string
-  String desconto(List<dynamic> lista, String cupom, double produto) {
+  String desconto(
+      List<dynamic> lista, String cupom, double produto, double produtoPix) {
     double promo = 0;
-    if (verificaCupom(lista)) {
-      for (var i = 0; i < lista.length; i++) {
-        if (lista[i] is double &&
-            lista[i - 1] is String &&
-            lista[i - 1] == cupom) {
-          promo = lista[i];
+    if (passaPixCheckout) {
+      if (verificaCupom(lista)) {
+        for (var i = 0; i < lista.length; i++) {
+          if (lista[i] is double &&
+              lista[i - 1] is String &&
+              lista[i - 1] == cupom) {
+            promo = lista[i];
+          }
         }
+        promo = promo * produtoPix;
+        promo = promo + (produto - produtoPix);
+        return 'R\$ -$promo';
+      } else {
+        return 'R\$ -${produto - produtoPix} ';
       }
-      promo = promo * produto;
-      return 'R\$ -$promo';
     } else {
-      return ' ';
+      if (verificaCupom(lista)) {
+        for (var i = 0; i < lista.length; i++) {
+          if (lista[i] is double &&
+              lista[i - 1] is String &&
+              lista[i - 1] == cupom) {
+            promo = lista[i];
+          }
+        }
+        promo = promo * produto;
+        return 'R\$ -$promo';
+      } else {
+        return ' ';
+      }
     }
   }
 
@@ -85,21 +103,38 @@ class _ResumoState extends State<Resumo> {
   }
 
   //função que calcula e retorna valor total com desconto
-  double total(List<dynamic> lista, double valorTotal) {
+  double total(List<dynamic> lista, double produto, double produtoPix) {
     double promo = 0;
-    if (verificaCupom(lista)) {
-      for (var i = 0; i < lista.length; i++) {
-        if (lista[i] is double &&
-            lista[i - 1] is String &&
-            lista[i - 1] == cupomController.text) {
-          promo = lista[i];
+    if (passaPixCheckout) {
+      if (verificaCupom(lista)) {
+        for (var i = 0; i < lista.length; i++) {
+          if (lista[i] is double &&
+              lista[i - 1] is String &&
+              lista[i - 1] == cupomController.text) {
+            promo = lista[i];
+          }
         }
+        promo = promo * produtoPix;
+        promo = produtoPix - promo;
+        return promo;
+      } else {
+        return produtoPix;
       }
-      promo = promo * valorTotal;
-      promo = valorTotal - promo;
-      return promo;
     } else {
-      return valorTotal;
+      if (verificaCupom(lista)) {
+        for (var i = 0; i < lista.length; i++) {
+          if (lista[i] is double &&
+              lista[i - 1] is String &&
+              lista[i - 1] == cupomController.text) {
+            promo = lista[i];
+          }
+        }
+        promo = promo * produto;
+        promo = produto - promo;
+        return promo;
+      } else {
+        return produto;
+      }
     }
   }
 
@@ -143,6 +178,7 @@ class _ResumoState extends State<Resumo> {
   Widget build(BuildContext context) {
     var controle = context.watch<CarrinhoProvider>();
     double produto = controle.calcularTotalCarrinho();
+    double produtoPix = controle.calculaDesconto();
     return Flexible(
       flex: 1,
       child: Container(
@@ -214,7 +250,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${desconto(listaDeValores, cupomController.text, produto)} ',
+                  '${desconto(listaDeValores, cupomController.text, produto, produtoPix)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -280,7 +316,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${total(listaDeValores, produtoFrete)} ',
+                  '${total(listaDeValores, produtoFrete, produtoPix)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
