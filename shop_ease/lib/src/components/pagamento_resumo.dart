@@ -71,9 +71,9 @@ class _ResumoState extends State<Resumo> {
         }
         promo = promo * produtoPix;
         promo = promo + (produto - produtoPix);
-        return 'R\$ -$promo';
+        return promo.toStringAsFixed(2);
       } else {
-        return 'R\$ -${produto - produtoPix} ';
+        return 'R\$ -${(produto - produtoPix).toStringAsFixed(2)}';
       }
     } else {
       if (verificaCupom(lista)) {

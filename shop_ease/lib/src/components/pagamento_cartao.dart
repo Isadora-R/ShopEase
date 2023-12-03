@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/criar_perfil.dart';
+import 'package:shop_ease/src/components/login.dart';
 import 'package:shop_ease/src/components/pagamento_resumo.dart';
 import 'package:shop_ease/src/components/pagamento_selecao.dart';
 import '../model/endereco.dart';
@@ -18,6 +21,40 @@ class _PagamentoCartao extends State<PagamentoCartao> {
   TextEditingController validadeCartaoController = TextEditingController();
   TextEditingController codSegurancaController = TextEditingController();
   TextEditingController cpfController = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    var cartaoProvider = Provider.of<CriarPerfilProvider>(context);
+    var cartaoProvicer_ = Provider.of<DataProvider>(context);
+    var cartaoUser = cartaoProvider.usuarioLogado;
+    var cartaiUser_ = cartaoProvicer_.usuarioLogado;
+
+    String nomeCompleto = '';
+
+    // _criarCartaoController.text = dadosUsuario[6];
+    // _criarCartaoValidadeController.text = dadosUsuario[7];
+    if (cartaoUser.length >= 5) {
+      nomeCompleto = '${cartaoUser[3]} ${cartaoUser[4]}';
+    } else if (cartaiUser_.length >= 3) {
+      nomeCompleto = '${cartaiUser_[0]} ${cartaiUser_[1]}';
+    }
+    if (cartaoUser.isNotEmpty && cartaoUser.length == 11) {
+      nomeCartaoController.text = nomeCompleto;
+      numeroCartaoController.text = cartaoUser[6];
+      validadeCartaoController.text = cartaoUser[7];
+    } else if (cartaiUser_.isNotEmpty && cartaiUser_.length == 12) {
+      //  _criarCartaoController.text = dadosUsuario_[4];
+      //  _criarCartaoValidadeController.text = dadosUsuario_[5];
+      nomeCartaoController.text = nomeCompleto;
+      numeroCartaoController.text = cartaiUser_[4];
+      validadeCartaoController.text = cartaiUser_[5];
+    } else {
+      print('Não há cartão para este perfil.');
+    }
+  }
+
   void adicionarCartao() {
     String numero = numeroCartaoController.text;
     String nome = nomeCartaoController.text;

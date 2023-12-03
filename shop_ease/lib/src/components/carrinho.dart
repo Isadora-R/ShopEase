@@ -160,10 +160,13 @@ class CarrinhoProvider with ChangeNotifier {
   }
 
   double calculaDesconto() {
-    return _itensNoCarrinho.fold(
-        0.0,
-        (total, produto) =>
-            total + (produto.preco * (100.0 - produto.desconto) / 100));
+    double resultado = _itensNoCarrinho.fold(
+      0.0,
+      (total, produto) =>
+          total + (produto.preco * (100.0 - produto.desconto) / 100),
+    );
+
+    return double.parse(resultado.toStringAsFixed(2));
   }
 
   void limpaCarrinho() {
