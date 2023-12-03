@@ -69,7 +69,7 @@ class Carrinho extends StatelessWidget {
                       trailing: IconButton(
                         icon: Icon(
                           Icons.delete,
-                          color: Colors.purple[900],
+                          color: Colors.deepPurple[900],
                         ),
                         onPressed: () {
                           carrinhoProvider.removerDoCarrinho(produto);
@@ -117,8 +117,7 @@ class Carrinho extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => const PagamentoEndereco(),
                       settings: RouteSettings(
-                        arguments: carrinhoProvider.calcularTotalCarrinho(),
-                      ),
+                          arguments: carrinhoProvider.calcularTotalCarrinho()),
                     ),
                   );
                 } else {

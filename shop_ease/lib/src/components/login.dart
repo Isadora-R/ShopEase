@@ -3,6 +3,9 @@
 //  "username": "atuny0",
 //  "password": "9uQFF1Lh"
 
+// "username": "vcholdcroftg",
+// "password": "mSPzYZfR",
+
 // user_model e api_service para controlar a API --- site faz o modelo com base na api que vc mandar: https://app.quicktype.io/
 
 import 'package:flutter/material.dart';
@@ -187,6 +190,10 @@ class _LoginState extends State<Login> {
 class DataProvider with ChangeNotifier {
   // ignore: prefer_final_fields
   List<String> _usuarioLogado = [];
+  // ignore: prefer_final_fields
+  List<String> _historicoDePedido = [];
+
+  List<String> get historicoDePedido => _historicoDePedido;
 
   List<String> get usuarioLogado => _usuarioLogado;
 
@@ -197,6 +204,16 @@ class DataProvider with ChangeNotifier {
 
   void limparUsuario() {
     _usuarioLogado.clear();
+    notifyListeners();
+  }
+
+  void adicionarHistorico(String item) {
+    _historicoDePedido.add(item);
+    notifyListeners();
+  }
+
+  void removeHistorico(String item) {
+    _historicoDePedido.removeLast();
     notifyListeners();
   }
 }

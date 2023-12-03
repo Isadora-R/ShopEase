@@ -20,6 +20,7 @@ class _RastreamentoState extends State<Rastreamento>
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
+  int dia = 1;
 
   // List<String> _pedidosFeitos = [];
   // List<String> get pedidosFeitos => _pedidosFeitos;
@@ -105,7 +106,7 @@ class _RastreamentoState extends State<Rastreamento>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.aprovado == true) {
+    if (widget.aprovado && _isMounted) {
       return Scaffold(
         body: Center(
             child: Container(
@@ -196,7 +197,7 @@ class _RastreamentoState extends State<Rastreamento>
 void main() {
   runApp(MaterialApp(
     home: Rastreamento(
-      aprovado: true,
+      aprovado: false,
     ),
   ));
 }
