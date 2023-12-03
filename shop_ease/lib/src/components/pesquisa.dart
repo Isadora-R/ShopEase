@@ -76,14 +76,17 @@ class _PesquisaCreate extends State<Pesquisa> {
                             height: 100,
                             fit: BoxFit.cover, //mudar para cover
                           ),
+                          const SizedBox(height: 7.0),
                           Text(
                             produto.title,
                             style: const TextStyle(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
+                          const SizedBox(height: 2.0),
                           Text(produto.description),
                           Text('R\$ ${produto.price},00',
                               style: const TextStyle(fontSize: 15)),
+                          const SizedBox(height: 5.0),
                           ElevatedButton(
                             onPressed: () {
                               Provider.of<CarrinhoProvider>(context,

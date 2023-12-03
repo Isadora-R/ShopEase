@@ -27,17 +27,25 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 10.0),
             Padding(
               padding: const EdgeInsets.all(0.5),
               child: Text(
                 widget.product.title,
                 style: const TextStyle(
                     fontSize: 30.0,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
             ),
+            const SizedBox(height: 15.0),
             Container(
+              width: 900,
+              height: 450,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
               alignment: Alignment.center,
               child: CarouselSlider(
                 options: CarouselOptions(
@@ -54,18 +62,20 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
                   scrollDirection: Axis.horizontal,
                 ),
                 items: widget.product.images
-                    .map((item) => Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 8.0),
-                          decoration: const BoxDecoration(
-                            color: Colors.purple,
-                          ),
-                          child: Image.network(
-                            item,
-                            fit: BoxFit.contain,
-                          ),
-                        ))
+                    .map(
+                      (item) => Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 8.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Image.network(
+                          item,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
             ),
@@ -73,17 +83,17 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
             Container(
               padding: const EdgeInsets.all(8.0),
               width: double.infinity,
-              color: Colors.deepPurple[500],
+              color: Colors.transparent,
               child: Text(
                 'Preço: R\$ ${widget.product.price} - Oferta: ${widget.product.discountPercentage}% de desconto no pagamento com PIX',
                 style: const TextStyle(
                     fontSize: 20.0,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: () {
                 // Adicionar o produto ao carrinho
@@ -104,64 +114,82 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
             const SizedBox(height: 10.0),
 
             Container(
-              padding: const EdgeInsets.all(8.0),
-              width: double.infinity,
-              color: Colors.deepPurple[500],
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                transformAlignment: Alignment.center,
+                width: 900,
+                height: 70,
+                color: Colors.purple,
+                child: Center(
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Descrição:',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        '${widget.product.description}, da marca: ${widget.product.brand}',
+                        style: const TextStyle(
+                            fontSize: 15.0, color: Colors.white),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ],
+                  ),
+                )),
+            Container(
+              transformAlignment: Alignment.center,
+              width: 900,
+              height: 70,
+              color: Colors.purple,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LinearProgressIndicator(
+                      backgroundColor: Colors.grey,
+                      // ignore: prefer_const_constructors
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                      value: (widget.product.stock.toDouble() / 200),
+                    ),
+                    const SizedBox(height: 5.0),
+                    Text(
+                      'Quantidade em estoque: ${widget.product.stock}',
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              transformAlignment: Alignment.center,
+              width: 900,
+              height: 70,
+              color: Colors.purple,
+              child: Center(
+                  child: Column(
                 children: [
                   const Text(
-                    'Descrição:',
+                    'Avaliação dos usuários:',
                     style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    '${widget.product.description}, da marca: ${widget.product.brand}',
-                    style: const TextStyle(fontSize: 15.0, color: Colors.white),
-                    textAlign: TextAlign.justify,
+                  RatingBarIndicator(
+                    rating: widget.product.rating,
+                    itemBuilder: (context, index) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    itemCount: 5,
+                    itemSize: 50.0,
+                    direction: Axis.horizontal,
                   ),
                 ],
-              ),
-            ),
-
-            const SizedBox(height: 20.0),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LinearProgressIndicator(
-                  backgroundColor: Colors.grey,
-                  // ignore: prefer_const_constructors
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                  value: (widget.product.stock.toDouble() / 200),
-                ),
-                const SizedBox(height: 5.0),
-                Text(
-                  'Quantidade em estoque: ${widget.product.stock}',
-                  style: const TextStyle(
-                      color: Colors.deepPurple, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10.0),
-            const Text(
-              'Avaliação dos usuários:',
-              style: TextStyle(
-                  color: Colors.deepPurple, fontWeight: FontWeight.bold),
-            ),
-            RatingBarIndicator(
-              rating: widget.product.rating,
-              itemBuilder: (context, index) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              itemCount: 5,
-              itemSize: 50.0,
-              direction: Axis.horizontal,
+              )),
             ),
 
             //Colocar o restante das descrições e um botão que adiciona ao carrinho!!!
