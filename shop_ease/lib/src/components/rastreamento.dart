@@ -90,11 +90,11 @@ class _RastreamentoState extends State<Rastreamento>
       progresso = 1.0;
     });
     await Future.delayed(const Duration(seconds: 3));
+    // ignore: unused_local_variable
     var carrinhoProvider =
         // ignore: use_build_context_synchronously
         Provider.of<CarrinhoProvider>(context, listen: false);
 
-    // Limpe o carrinho
     carrinhoProvider.limpaCarrinho();
     print('Limpou carrinho');
   }
@@ -112,30 +112,26 @@ class _RastreamentoState extends State<Rastreamento>
       await _cancelCompleter.future;
     } catch (error) {
       if (error.toString() == 'disposed') {
+        _isMounted = false;
         print('Não acompanhando rastreamento!');
       }
     }
   }
 
   Future<void> _acabouEntrega() async {
-    await Future.delayed(const Duration(seconds: 3));
+    if (!_isMounted) return;
 
+    await Future.delayed(const Duration(seconds: 3));
     // Ignore: use_build_context_synchronously
+    // ignore: unused_local_variable
     var carrinhoProvider =
         // ignore: use_build_context_synchronously
         Provider.of<CarrinhoProvider>(context, listen: false);
 
-    // Limpe o carrinho
-    carrinhoProvider.limpaCarrinho();
-    print('Limpou carrinho');
-
     await Future.delayed(const Duration(seconds: 3));
 
-    // Verifique se o widget ainda está montado antes de chamar setState
     if (_isMounted) {
-      setState(() {
-        widget.aprovado = false;
-      });
+      widget.aprovado = false;
     }
   }
 
@@ -271,7 +267,6 @@ class _RastreamentoState extends State<Rastreamento>
               const SizedBox(height: 100.0),
               ElevatedButton(
                 onPressed: () {
-                  _cancelCompleter.completeError('disposed');
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/home', (route) => false);
                 },
@@ -291,7 +286,7 @@ class _RastreamentoState extends State<Rastreamento>
 void main() {
   runApp(MaterialApp(
     home: Rastreamento(
-      aprovado: false,
+      aprovado: true,
     ),
   ));
 }

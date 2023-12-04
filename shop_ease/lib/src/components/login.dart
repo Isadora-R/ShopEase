@@ -42,7 +42,6 @@ class _LoginState extends State<Login> {
   Future<void> _fazerLogin() async {
     try {
       final userLogin = await getUserLogin();
-      // print(userLogin.runtimeType);//APAGAR
       {
         for (User user in userLogin.users) {
           if ((_usernameController.text == user.username ||
