@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_ease/src/components/historico.dart';
 import 'src/components/tab_control.dart';
 import 'src/components/login.dart';
 import 'src/components/criar_perfil.dart';
@@ -14,6 +15,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => CriarPerfilProvider()),
         ChangeNotifierProvider(create: (context) => EditarPerfilProvider()),
         ChangeNotifierProvider(create: (context) => CarrinhoProvider()),
+        ChangeNotifierProvider(create: (context) => PedidoProvider())
 
         // Adicione outros providers conforme necessário
         // ChangeNotifierProvider(create: (context) => OutroProvider()),

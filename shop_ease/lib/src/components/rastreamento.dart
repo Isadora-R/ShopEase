@@ -20,10 +20,6 @@ class _RastreamentoState extends State<Rastreamento>
   String mensagem = 'Aguarde... seu pedido será separado';
   double progresso = 0.0;
   double incremento = 0.0;
-  int dia = 1;
-
-  // List<String> _pedidosFeitos = [];
-  // List<String> get pedidosFeitos => _pedidosFeitos;
 
   bool _isMounted = false;
 
@@ -41,6 +37,7 @@ class _RastreamentoState extends State<Rastreamento>
   }
 
   Future<void> _separandoPedido() async {
+    if (!_isMounted) return;
     await Future.delayed(const Duration(seconds: 5));
     setState(() {
       progresso = incremento + 0.2;
@@ -51,6 +48,7 @@ class _RastreamentoState extends State<Rastreamento>
   }
 
   Future<void> _enviarPedido() async {
+    if (!_isMounted) return;
     await Future.delayed(const Duration(seconds: 10));
     setState(() {
       progresso = incremento + 0.2;
@@ -61,6 +59,7 @@ class _RastreamentoState extends State<Rastreamento>
   }
 
   Future<void> _pedidoCaminho() async {
+    if (!_isMounted) return;
     await Future.delayed(const Duration(seconds: 15));
     setState(() {
       progresso = incremento + 0.2;
@@ -71,6 +70,7 @@ class _RastreamentoState extends State<Rastreamento>
   }
 
   Future<void> _saiuEntrega() async {
+    if (!_isMounted) return;
     await Future.delayed(const Duration(seconds: 20));
     setState(() {
       progresso = incremento + 0.3;
@@ -81,6 +81,7 @@ class _RastreamentoState extends State<Rastreamento>
   }
 
   Future<void> _pedidoEntregue() async {
+    if (!_isMounted) return;
     await Future.delayed(const Duration(seconds: 25));
     setState(() {
       mensagem = 'Seu pedido foi entregue!';
@@ -94,14 +95,26 @@ class _RastreamentoState extends State<Rastreamento>
   }
 
   Future<void> _iniciarRastreamento() async {
-    if (_isMounted) {
-      await _separandoPedido();
-      await _enviarPedido();
-      await _pedidoCaminho();
-      await _saiuEntrega();
-      await _pedidoEntregue();
+    if (!_isMounted) return;
+
+    try {
+      await Future.any<void>([
+        _separandoPedido(),
+        _enviarPedido(),
+        _pedidoCaminho(),
+        _saiuEntrega(),
+        _pedidoEntregue(),
+        _cancelCompleter.future,
+      ]);
+    } catch (error) {
+      // Handle the error, if needed
+      if (error.toString() == 'disposed') {
+        print('Não acompanhando rastreamento!');
+      }
     }
   }
+
+  Completer<void> _cancelCompleter = Completer<void>();
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +156,7 @@ class _RastreamentoState extends State<Rastreamento>
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
+                  _cancelCompleter.completeError('disposed');
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/home', (route) => false);
                 },
@@ -178,6 +192,7 @@ class _RastreamentoState extends State<Rastreamento>
               const SizedBox(height: 100.0),
               ElevatedButton(
                 onPressed: () {
+                  _cancelCompleter.completeError('disposed');
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/home', (route) => false);
                 },

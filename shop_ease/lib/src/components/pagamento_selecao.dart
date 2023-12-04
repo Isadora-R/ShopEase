@@ -231,7 +231,7 @@ class _MetodosPagamento extends State<MetodosPagamento> {
                       ),
                       Text(
                           'Após o depósito ou transferência, enviar o comprovante para o email'),
-                      Text('contato.shopeasy@gmail.com'),
+                      Text('contato.shopease@gmail.com'),
                     ],
                   ),
                   actions: <Widget>[

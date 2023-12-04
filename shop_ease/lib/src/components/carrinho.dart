@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:shop_ease/src/components/pagamento_endereco.dart';
 import 'package:provider/provider.dart';
+import 'historico.dart';
 
 Widget build(BuildContext context) {
   return Provider<CarrinhoProvider>(
@@ -29,6 +30,7 @@ class Carrinho extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var carrinhoProvider = context.watch<CarrinhoProvider>();
+    var pedidoProvider = Provider.of<PedidoProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -112,6 +114,15 @@ class Carrinho extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (carrinhoProvider.calcularTotalCarrinho().sign > 0) {
+                  // Criar um PedidoHistorico para cada produto no carrinho e adicionar ao histórico
+                  for (var produto in carrinhoProvider.itensNoCarrinho) {
+                    PedidoHistorico pedido = PedidoHistorico(
+                        nome: produto.nome, preco: produto.preco);
+
+                    // Adicionar o pedido ao histórico
+                    pedidoProvider.adicionarPedido(pedido);
+                  }
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -160,10 +171,13 @@ class CarrinhoProvider with ChangeNotifier {
   }
 
   double calculaDesconto() {
-    return _itensNoCarrinho.fold(
-        0.0,
-        (total, produto) =>
-            total + (produto.preco * (100.0 - produto.desconto) / 100));
+    double resultado = _itensNoCarrinho.fold(
+      0.0,
+      (total, produto) =>
+          total + (produto.preco * (100.0 - produto.desconto) / 100),
+    );
+
+    return double.parse(resultado.toStringAsFixed(2));
   }
 
   void limpaCarrinho() {

@@ -1,10 +1,10 @@
-﻿/* Perfis de usuário: os usuários podem criar perfis, onde possam gerenciar informações pessoais, endereços de entrega, histórico de pedidos e preferências de comunicação.*/
+/* Perfis de usuário: os usuários podem criar perfis, onde possam gerenciar informações pessoais, endereços de entrega, histórico de pedidos e preferências de comunicação.*/
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_ease/src/components/carrinho.dart';
 import 'package:shop_ease/src/components/criar_perfil.dart';
 import 'package:shop_ease/src/components/editar_perfil.dart';
+import 'package:shop_ease/src/components/historico.dart';
 import 'package:shop_ease/src/components/login.dart';
 
 class Perfil extends StatefulWidget {
@@ -126,9 +126,23 @@ class _PerfilState extends State<Perfil> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(150, 35),
+                    minimumSize: const Size(175, 35),
                   ),
                   child: const Text('Editar perfil'),
+                ),
+                const SizedBox(height: 2.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Historico()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(175, 35),
+                  ),
+                  child: const Text('Histórico de pedidos'),
                 ),
                 const SizedBox(height: 2.0),
                 ElevatedButton(
@@ -137,12 +151,14 @@ class _PerfilState extends State<Perfil> {
                         .limparUsuario();
                     Provider.of<CriarPerfilProvider>(context, listen: false)
                         .limparUsuario();
+                    Provider.of<PedidoProvider>(context, listen: false)
+                        .limpaHistorico();
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/login', (route) => false);
                     usuarioEditado.clear();
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(150, 35),
+                    minimumSize: const Size(175, 35),
                   ),
                   child: const Text('Logout'),
                 ),
