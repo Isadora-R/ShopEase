@@ -108,6 +108,30 @@ class _InicioState extends State<Inicio> {
               },
             ),
           ),
+          const SizedBox(height: 30.0),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.pix, color: Colors.white),
+                // SizedBox(width: 8),
+                Text(
+                  'Todos os itens com desconto para pagamentos via pix',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       )),
     );

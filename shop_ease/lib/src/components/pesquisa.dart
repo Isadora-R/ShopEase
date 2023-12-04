@@ -1,6 +1,4 @@
-﻿//import 'dart:html';
-
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../model/products_model.dart';
 import '../service/products_service.dart';
 import 'produto_clicado.dart';
@@ -20,6 +18,12 @@ class _PesquisaCreate extends State<Pesquisa> {
   //Aqui vem coisas alteraveis
   final TextEditingController textoPesq = TextEditingController();
   late Future<Welcome> produtosFuture;
+  String _textoPesq = '';
+  // List<Product> productsTudo;
+  dynamic productsTudo; // contem todos os produtos, recebidos da api
+  dynamic products; //é filtrado em relação à pesquisa
+  bool pesquisando = false;
+
 
   @override
   void initState() {
@@ -27,28 +31,52 @@ class _PesquisaCreate extends State<Pesquisa> {
     produtosFuture = getProducts();
   }
 
-/*
-Future<List<Product>> searchProducts(String query) async {
-  final products = await getProducts();
-  return products.where((product) => product.name.contains(query)).toList();
-}
-*/
+  List<Product> filtaLista() {
+    List<Product> temp = [];
+    products.forEach((item) {
+      if (item.title.toLowerCase().contains(_textoPesq.toLowerCase())) {
+        temp.add(item);
+      }
+    });
+    return temp;
+  }
+
+  void _pesquisa() {
+    //altera o valor da lista products
+    /*if (_textoPesq == '') {
+      products = productsTudo;
+      pesquisando = false;
+      setState(() {
+        products;
+      });
+    } else {
+      setState(() {
+        products = filtaLista(); //funcao que altere esta lista
+      });
+    }*/
+    products = productsTudo;
+    setState(() {
+      products = filtaLista();
+    });
+    pesquisando = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       /* appBar: AppBar(
-          // title: const Text('Pesquisar'),
-          actions: [
-            TextField(
-              controller: textoPesq,
+        appBar: AppBar(
+            title: TextField(
+              onChanged: (texto) {
+                _textoPesq = texto;
+                _pesquisa();
+              },
               decoration: const InputDecoration(
                 labelText: 'Pesquisar',
-                icon: Icon(Icons.search)
               ),
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-          ],
-        ),*/
+            actions: [
+              IconButton(onPressed: _pesquisa, icon: const Icon(Icons.search))
+            ]),
         body: Padding(
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: FutureBuilder<Welcome>(
@@ -60,10 +88,14 @@ Future<List<Product>> searchProducts(String query) async {
                 return Center(
                     child: Text('Algo deu errado: ${snapshot.error}'));
               } else {
-                List<Product> products = snapshot.data!.products;
+                if (!pesquisando) {
+                  productsTudo = snapshot.data!.products;
+                  products = productsTudo;
+                }
+
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
+                    crossAxisCount: 3,
                     crossAxisSpacing: 30,
                     mainAxisSpacing: 20,
                     mainAxisExtent: 500,
@@ -111,6 +143,17 @@ Future<List<Product>> searchProducts(String query) async {
                               Text('R\$ ${produto.price},00',
                                   style: const TextStyle(fontSize: 20)),
                               const SizedBox(height: 5.0),
+                              RatingBarIndicator(
+                                rating: produto.rating,
+                                itemBuilder: (context, index) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                itemCount: 5,
+                                itemSize: 15,
+                                direction: Axis.horizontal,
+                              ),
+                              const SizedBox(height: 8.0),
                               ElevatedButton(
                                 onPressed: () {
                                   Provider.of<CarrinhoProvider>(context,
@@ -129,18 +172,8 @@ Future<List<Product>> searchProducts(String query) async {
                                 },
                                 child: const Text(
                                   'Adicionar ao carrinho',
-                                  style: TextStyle(fontSize: 10),
+                                  style: TextStyle(fontSize: 13),
                                 ),
-                              ),
-                              RatingBarIndicator(
-                                rating: produto.rating,
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                itemCount: 5,
-                                itemSize: 20,
-                                direction: Axis.horizontal,
                               ),
                             ],
                           ),
