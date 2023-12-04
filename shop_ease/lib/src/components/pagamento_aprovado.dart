@@ -11,7 +11,7 @@ class PagamentoAprovado extends StatefulWidget {
 }
 
 class _PagamentoAprovado extends State<PagamentoAprovado> {
-  String mensagem = 'Aguarde... processando pagamento';
+  String mensagem = 'Aguarde... processando pedido';
   double progresso = 0.0;
   double incremento = 0.0;
   bool aprovado = false;
@@ -42,8 +42,6 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
     await Future.delayed(const Duration(seconds: 2));
     // ignore: use_build_context_synchronously
 
-    print(contador);
-
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
       context,
@@ -71,13 +69,27 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(
-              backgroundColor: Colors.grey,
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-              value: progresso,
+            Container(
+              height: 150,
+              width: 300,
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                children: [
+                  CircularProgressIndicator(
+                    backgroundColor: Colors.grey,
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
+                    value: progresso,
+                  ),
+                  const SizedBox(height: 16.0),
+                  Text(mensagem),
+                ],
+              ),
             ),
-            const SizedBox(height: 16.0),
-            Text(mensagem),
           ],
         ),
       ),

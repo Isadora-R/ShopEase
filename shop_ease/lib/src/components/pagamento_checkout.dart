@@ -20,7 +20,7 @@ class _PagamentoCheckoutState extends State<PagamentoCheckout> {
   String exibeCartao() {
     if (passaIndexCartao != -1) {
       List<String> cartao = Cartao.listaDeCartoes[passaIndexCartao];
-      return 'Cartao de final: ***** ${cartao[0].substring(cartao[0].length - 4)}';
+      return 'Cartão de final: ***** ${cartao[0].substring(cartao[0].length - 4)}';
     }
     return '';
   }

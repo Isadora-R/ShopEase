@@ -26,6 +26,15 @@ class _PagamentoFrete extends State<PagamentoFrete> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    pacChecked = false;
+    sedexChecked = false;
+    transpChecked = false;
+    freteSelected = false;
+  }
+
   String freteSelecionado(bool pac, bool sedex, bool transportadora) {
     if (pac) {
       return 'R\$ $fretepac';

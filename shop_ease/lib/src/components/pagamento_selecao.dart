@@ -22,6 +22,12 @@ class PagamentoSelecao extends StatefulWidget {
 class _PagamentoSelecao extends State<PagamentoSelecao> {
   bool cartaoSelecionado = false;
   bool metodoSelecionado = false; // variável para liberar botão continuar
+  @override
+  void initState() {
+    super.initState();
+    transfChecked = false;
+    pixChecked = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -399,7 +405,7 @@ class _CartaoBotoes extends State<CartaoBotoes> {
                         ? const Icon(Icons.check_circle_outline_outlined)
                         : const Icon(Icons.circle_outlined),
                     label: Text(
-                      'Cartao ${index + 1} de final: ***** ${cartao[0].substring(cartao[0].length - 4)}',
+                      'Cartão de final: ***** ${cartao[0].substring(cartao[0].length - 4)}',
                     ),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

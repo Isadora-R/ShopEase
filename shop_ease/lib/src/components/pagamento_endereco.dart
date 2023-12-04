@@ -137,7 +137,6 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 30),
                       // ignore: prefer_const_constructors
                       Resumo()
                     ],
@@ -179,7 +178,7 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 200,
       child: ListView.builder(
         itemCount: Endereco.listaDeEnderecos.length,
         itemBuilder: (context, index) {

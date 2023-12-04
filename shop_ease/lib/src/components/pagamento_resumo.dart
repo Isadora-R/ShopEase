@@ -352,6 +352,7 @@ class _ResumoState extends State<Resumo> {
               child: ElevatedButton(
                 onPressed: () {
                   checkoutVerdadeiro = false;
+                  passaPixCheckout = false;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
