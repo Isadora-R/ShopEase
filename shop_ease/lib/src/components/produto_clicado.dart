@@ -22,6 +22,7 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes do Produto'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -114,8 +115,8 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
 
             Container(
                 transformAlignment: Alignment.center,
-                // width: 900,
-                // height: BoxFit.fitHeight,
+                width: 900,
+                height: 130,
                 color: Colors.purple,
                 child: Center(
                   child: Column(
