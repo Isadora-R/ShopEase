@@ -34,7 +34,7 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
                 widget.product.title,
                 style: const TextStyle(
                     fontSize: 30.0,
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -114,8 +114,8 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
 
             Container(
                 transformAlignment: Alignment.center,
-                width: 900,
-                height: 90,
+                // width: 900,
+                // height: BoxFit.fitHeight,
                 color: Colors.purple,
                 child: Center(
                   child: Column(
@@ -131,7 +131,7 @@ class _ProdutoClicadoState extends State<ProdutoClicado> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        '${widget.product.description}, da marca: ${widget.product.brand}',
+                        'Detalhes: ${widget.product.description}, \nMarca: ${widget.product.brand}\nCategoria: ${widget.product.category}',
                         style: const TextStyle(
                             fontSize: 15.0, color: Colors.white),
                         textAlign: TextAlign.justify,
