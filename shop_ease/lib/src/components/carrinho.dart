@@ -142,12 +142,14 @@ class Carrinho extends StatelessWidget {
                                   children: [
                                     const Text(
                                       'Sub-total:',
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal),
                                     ),
                                     Text(
                                       'R\$ ${carrinhoProvider.calcularTotalCarrinho().toStringAsFixed(2)}',
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal),
@@ -172,12 +174,14 @@ class Carrinho extends StatelessWidget {
                                   children: [
                                     const Text(
                                       'Desconto com PIX',
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.normal),
                                     ),
                                     Text(
                                       'R\$ -${(carrinhoProvider.calcularTotalCarrinho() - carrinhoProvider.calculaDesconto()).toStringAsFixed(2)} ',
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.normal),
@@ -191,12 +195,14 @@ class Carrinho extends StatelessWidget {
                                   children: [
                                     const Text(
                                       'Sub-total:',
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal),
                                     ),
                                     Text(
                                       'R\$ ${carrinhoProvider.calculaDesconto().toStringAsFixed(2)}',
+                                      overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal),

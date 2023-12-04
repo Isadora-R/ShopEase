@@ -43,108 +43,106 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
         ),
         body: Center(
           child: SizedBox(
-              width: 1220,
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const Text(
-                                    'Escolha endereço de envio',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text(
+                                'Escolha endereço de envio',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PagamentoAddEndereco()),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
                                   ),
-                                  const SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
+                                  minimumSize: const Size(150, 100),
+                                  alignment: Alignment.centerLeft,
+                                ),
+                                child: const Text(
+                                  ('Adicionar novo endereço'),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              EnderecoBotoes(
+                                  onEnderecoSelected: (bool selected) {
+                                setState(() {
+                                  enderecoSelecionado = selected;
+                                });
+                              }),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ElevatedButton(
+                                onPressed: enderecoSelecionado
+                                    ? () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
                                             builder: (context) =>
-                                                const PagamentoAddEndereco()),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                      minimumSize: const Size(150, 100),
-                                      alignment: Alignment.centerLeft,
-                                    ),
-                                    child: const Text(
-                                      ('Adicionar novo endereço'),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  EnderecoBotoes(
-                                      onEnderecoSelected: (bool selected) {
-                                    setState(() {
-                                      enderecoSelecionado = selected;
-                                    });
-                                  }),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: enderecoSelecionado
-                                        ? () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PagamentoFrete(),
-                                              ),
-                                            );
-                                          }
-                                        : () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  title: const Text(
-                                                      'Nenhum endereço selecionado'),
-                                                  content: const Text(
-                                                      'Por favor, selecione um endereço para continuar.'),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: const Text('Ok'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
+                                                const PagamentoFrete(),
+                                          ),
+                                        );
+                                      }
+                                    : () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'Nenhum endereço selecionado'),
+                                              content: const Text(
+                                                  'Por favor, selecione um endereço para continuar.'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('Ok'),
+                                                ),
+                                              ],
                                             );
                                           },
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(150, 50),
-                                    ),
-                                    child: const Text('Continuar'),
-                                  ),
-                                ]),
-                          ),
-                        ),
+                                        );
+                                      },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(150, 50),
+                                ),
+                                child: const Text('Continuar'),
+                              ),
+                            ]),
                       ),
-                      // ignore: prefer_const_constructors
-                      Resumo()
-                    ],
+                    ),
                   ),
-                ),
-              )),
+                  // ignore: prefer_const_constructors
+                  Resumo()
+                ],
+              ),
+            ),
+          )),
         ),
       ),
     );
@@ -211,17 +209,18 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
                       icon: buttonStates[index]
                           ? const Icon(Icons.check_circle_outline_outlined)
                           : const Icon(Icons.circle_outlined),
-                      label: Flexible(
-                        child: Text(
-                          'Endereço ${index + 1}: Rua ${endereco[4]} ${endereco[5]} - ${endereco[1]}',
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      label: Text(
+                        'Endereço ${index + 1}: Rua ${endereco[4]} ${endereco[5]} - ${endereco[1]}',
+                        overflow: TextOverflow.ellipsis,
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(0),
                         ),
-                        minimumSize: const Size(100, 100),
+                        minimumSize: Size(
+                          MediaQuery.of(context).size.width,
+                          100,
+                        ),
                         alignment: Alignment.centerLeft,
                       ),
                     ),
