@@ -40,7 +40,7 @@ class _RastreamentoState extends State<Rastreamento>
 
   Future<void> _separandoPedido() async {
     if (!_isMounted) return;
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 3));
     setState(() {
       progresso = incremento + 0.2;
       mensagem =
@@ -51,7 +51,7 @@ class _RastreamentoState extends State<Rastreamento>
 
   Future<void> _enviarPedido() async {
     if (!_isMounted) return;
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 3));
     setState(() {
       progresso = incremento + 0.2;
       incremento = progresso;
@@ -62,7 +62,7 @@ class _RastreamentoState extends State<Rastreamento>
 
   Future<void> _pedidoCaminho() async {
     if (!_isMounted) return;
-    await Future.delayed(const Duration(seconds: 15));
+    await Future.delayed(const Duration(seconds: 3));
     setState(() {
       progresso = incremento + 0.2;
       incremento = progresso;
@@ -73,7 +73,7 @@ class _RastreamentoState extends State<Rastreamento>
 
   Future<void> _saiuEntrega() async {
     if (!_isMounted) return;
-    await Future.delayed(const Duration(seconds: 20));
+    await Future.delayed(const Duration(seconds: 3));
     setState(() {
       progresso = incremento + 0.3;
       incremento = progresso;
@@ -84,47 +84,58 @@ class _RastreamentoState extends State<Rastreamento>
 
   Future<void> _pedidoEntregue() async {
     if (!_isMounted) return;
-    await Future.delayed(const Duration(seconds: 25));
+    await Future.delayed(const Duration(seconds: 3));
     setState(() {
       mensagem = 'Seu pedido foi entregue!';
       progresso = 1.0;
     });
+    await Future.delayed(const Duration(seconds: 3));
+    var carrinhoProvider =
+        // ignore: use_build_context_synchronously
+        Provider.of<CarrinhoProvider>(context, listen: false);
 
-    await Future.delayed(const Duration(seconds: 5));
-    setState(() {
-      widget.aprovado = false;
-    });
-  }
-
-  Future<void> _acabouEntrega() async {
-    await Future.delayed(const Duration(seconds: 5));
-    // ignore: use_build_context_synchronously
-    var carrinhoProvider = Provider.of<CarrinhoProvider>(context);
+    // Limpe o carrinho
     carrinhoProvider.limpaCarrinho();
-    await Future.delayed(const Duration(seconds: 5));
-    setState(() {
-      widget.aprovado = false;
-    });
+    print('Limpou carrinho');
   }
 
   Future<void> _iniciarRastreamento() async {
     if (!_isMounted) return;
 
     try {
-      await Future.any<void>([
-        _separandoPedido(),
-        _enviarPedido(),
-        _pedidoCaminho(),
-        _saiuEntrega(),
-        _pedidoEntregue(),
-        _acabouEntrega(),
-        _cancelCompleter.future,
-      ]);
+      await _separandoPedido();
+      await _enviarPedido();
+      await _pedidoCaminho();
+      await _saiuEntrega();
+      await _pedidoEntregue();
+      await _acabouEntrega();
+      await _cancelCompleter.future;
     } catch (error) {
-      // Handle the error, if needed
       if (error.toString() == 'disposed') {
         print('Não acompanhando rastreamento!');
       }
+    }
+  }
+
+  Future<void> _acabouEntrega() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Ignore: use_build_context_synchronously
+    var carrinhoProvider =
+        // ignore: use_build_context_synchronously
+        Provider.of<CarrinhoProvider>(context, listen: false);
+
+    // Limpe o carrinho
+    carrinhoProvider.limpaCarrinho();
+    print('Limpou carrinho');
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    // Verifique se o widget ainda está montado antes de chamar setState
+    if (_isMounted) {
+      setState(() {
+        widget.aprovado = false;
+      });
     }
   }
 
