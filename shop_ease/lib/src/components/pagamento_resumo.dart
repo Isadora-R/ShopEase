@@ -8,6 +8,7 @@ import 'package:shop_ease/src/components/pagamento_aprovado.dart';
 
 //variável com frete adicionado
 double produtoFrete = 0;
+double produtoFretePix = 0;
 
 class Resumo extends StatefulWidget {
   const Resumo({super.key});
@@ -36,23 +37,42 @@ class _ResumoState extends State<Resumo> {
   }
 
   //função para retornar frete selecionado
-  String freteSelecionado(
-      bool pac, bool sedex, bool transportadora, double produto) {
+  String freteSelecionado(bool pac, bool sedex, bool transportadora,
+      double produto, double produtoPix) {
     double resetaFrete = produto;
-    if (pac) {
-      produtoFrete = resetaFrete;
-      produtoFrete = produtoFrete + fretepac;
-      return 'R\$ $fretepac';
-    } else if (sedex) {
-      produtoFrete = resetaFrete;
-      produtoFrete = produtoFrete + fretesedex;
-      return 'R\$ $fretesedex';
-    } else if (transportadora) {
-      produtoFrete = resetaFrete;
-      produtoFrete = produtoFrete + fretetransp;
-      return 'R\$ $fretetransp';
+    double resetaFretePix = produtoPix;
+    if (passaPixCheckout) {
+      if (pac) {
+        produtoFretePix = resetaFretePix;
+        produtoFretePix = produtoFretePix + fretepac;
+        return 'R\$ $fretepac';
+      } else if (sedex) {
+        produtoFretePix = resetaFretePix;
+        produtoFretePix = produtoFretePix + fretesedex;
+        return 'R\$ $fretesedex';
+      } else if (transportadora) {
+        produtoFretePix = resetaFretePix;
+        produtoFretePix = produtoFretePix + fretetransp;
+        return 'R\$ $fretetransp';
+      } else {
+        return ' ';
+      }
     } else {
-      return ' ';
+      if (pac) {
+        produtoFrete = resetaFrete;
+        produtoFrete = produtoFrete + fretepac;
+        return 'R\$ $fretepac';
+      } else if (sedex) {
+        produtoFrete = resetaFrete;
+        produtoFrete = produtoFrete + fretesedex;
+        return 'R\$ $fretesedex';
+      } else if (transportadora) {
+        produtoFrete = resetaFrete;
+        produtoFrete = produtoFrete + fretetransp;
+        return 'R\$ $fretetransp';
+      } else {
+        return ' ';
+      }
     }
   }
 
@@ -71,7 +91,7 @@ class _ResumoState extends State<Resumo> {
         }
         promo = promo * produtoPix;
         promo = promo + (produto - produtoPix);
-        return promo.toStringAsFixed(2);
+        return 'R\$ -${promo.toStringAsFixed(2)}';
       } else {
         return 'R\$ -${(produto - produtoPix).toStringAsFixed(2)}';
       }
@@ -85,7 +105,7 @@ class _ResumoState extends State<Resumo> {
           }
         }
         promo = promo * produto;
-        return 'R\$ -$promo';
+        return 'R\$ -${promo.toStringAsFixed(2)}';
       } else {
         return ' ';
       }
@@ -232,7 +252,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${freteSelecionado(pacChecked, sedexChecked, transpChecked, produto)} ',
+                  '${freteSelecionado(pacChecked, sedexChecked, transpChecked, produto, produtoPix)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -250,7 +270,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${desconto(listaDeValores, cupomController.text, produto, produtoPix)} ',
+                  '${desconto(listaDeValores, cupomController.text, produtoFrete, produtoFretePix)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
@@ -316,7 +336,7 @@ class _ResumoState extends State<Resumo> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  '${total(listaDeValores, produtoFrete, produtoPix).toStringAsFixed(2)} ',
+                  'R\$ ${total(listaDeValores, produtoFrete, produtoFretePix).toStringAsFixed(2)} ',
                   style: const TextStyle(
                       fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
