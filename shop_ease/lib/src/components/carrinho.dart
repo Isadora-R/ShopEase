@@ -41,217 +41,222 @@ class Carrinho extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Center(
-        child: SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SizedBox(
-                          height: 400,
-                          child: ListView.separated(
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const Divider(
-                                color: Colors.grey,
-                                thickness: 1.0,
-                                height: 1.0,
-                              );
-                            },
-                            itemCount: carrinhoProvider.itensNoCarrinho.length,
-                            itemBuilder: (context, index) {
-                              var produto =
-                                  carrinhoProvider.itensNoCarrinho[index];
-                              return Container(
-                                padding: const EdgeInsets.all(8.0),
-                                color: Colors.white,
-                                child: ListTile(
-                                  title: Text(produto.nome,
-                                      style: const TextStyle(fontSize: 20)),
-                                  subtitle:
-                                      Text('R\$ ${produto.preco.toString()}'),
-                                  leading: Image(
-                                    image: NetworkImage(produto.imagem),
-                                    width: 150,
-                                    height: 300,
-                                  ),
-                                  trailing: IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.deepPurple[900],
+      body: SingleChildScrollView(
+        child: Center(
+          child: SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                            height: 400,
+                            child: ListView.separated(
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1.0,
+                                  height: 1.0,
+                                );
+                              },
+                              itemCount:
+                                  carrinhoProvider.itensNoCarrinho.length,
+                              itemBuilder: (context, index) {
+                                var produto =
+                                    carrinhoProvider.itensNoCarrinho[index];
+                                return Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  color: Colors.white,
+                                  child: ListTile(
+                                    title: Text(produto.nome,
+                                        style: const TextStyle(fontSize: 20)),
+                                    subtitle:
+                                        Text('R\$ ${produto.preco.toString()}'),
+                                    leading: Image(
+                                      image: NetworkImage(produto.imagem),
+                                      width: 150,
+                                      height: 300,
                                     ),
-                                    onPressed: () {
-                                      carrinhoProvider
-                                          .removerDoCarrinho(produto);
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 600,
-                    color: Colors.white70,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Resumo da compra',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const Divider(
-                          color: Colors.grey,
-                          height: 20,
-                          thickness: 2,
-                          indent: 0,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Sub-total:',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                  Text(
-                                    'R\$ ${carrinhoProvider.calcularTotalCarrinho().toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 20,
-                                thickness: 2,
-                                indent: 0,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Desconto com PIX',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                  Text(
-                                    'R\$ -${(carrinhoProvider.calcularTotalCarrinho() - carrinhoProvider.calculaDesconto()).toStringAsFixed(2)} ',
-                                    style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Sub-total:',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                  Text(
-                                    'R\$ ${carrinhoProvider.calculaDesconto().toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (carrinhoProvider
-                                          .calcularTotalCarrinho()
-                                          .sign >
-                                      0) {
-                                    // Criar um PedidoHistorico para cada produto no carrinho e adicionar ao histórico
-                                    for (var produto
-                                        in carrinhoProvider.itensNoCarrinho) {
-                                      PedidoHistorico pedido = PedidoHistorico(
-                                          nome: produto.nome,
-                                          preco: produto.preco);
-
-                                      // Adicionar o pedido ao histórico
-                                      pedidoProvider.adicionarPedido(pedido);
-                                    }
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PagamentoEndereco(),
-                                        settings: RouteSettings(
-                                            arguments: carrinhoProvider
-                                                .calcularTotalCarrinho()),
+                                    trailing: IconButton(
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.deepPurple[900],
                                       ),
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content:
-                                              Text('Seu carrinho está vazio!')),
-                                    );
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(200, 50),
-                                ),
-                                child: const Text('Fazer pedido'),
-                              ),
-                            ],
+                                      onPressed: () {
+                                        carrinhoProvider
+                                            .removerDoCarrinho(produto);
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: 600,
+                      color: Colors.white70,
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Resumo da compra',
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            height: 20,
+                            thickness: 2,
+                            indent: 0,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 5.0),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Sub-total:',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    Text(
+                                      'R\$ ${carrinhoProvider.calcularTotalCarrinho().toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 20,
+                                  thickness: 2,
+                                  indent: 0,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Desconto com PIX',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    Text(
+                                      'R\$ -${(carrinhoProvider.calcularTotalCarrinho() - carrinhoProvider.calculaDesconto()).toStringAsFixed(2)} ',
+                                      style: const TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5.0),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Sub-total:',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                    Text(
+                                      'R\$ ${carrinhoProvider.calculaDesconto().toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (carrinhoProvider
+                                            .calcularTotalCarrinho()
+                                            .sign >
+                                        0) {
+                                      // Criar um PedidoHistorico para cada produto no carrinho e adicionar ao histórico
+                                      for (var produto
+                                          in carrinhoProvider.itensNoCarrinho) {
+                                        PedidoHistorico pedido =
+                                            PedidoHistorico(
+                                                nome: produto.nome,
+                                                preco: produto.preco);
+
+                                        // Adicionar o pedido ao histórico
+                                        pedidoProvider.adicionarPedido(pedido);
+                                      }
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PagamentoEndereco(),
+                                          settings: RouteSettings(
+                                              arguments: carrinhoProvider
+                                                  .calcularTotalCarrinho()),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Seu carrinho está vazio!')),
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(200, 50),
+                                  ),
+                                  child: const Text('Fazer pedido'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
