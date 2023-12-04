@@ -96,6 +96,17 @@ class _RastreamentoState extends State<Rastreamento>
     });
   }
 
+  Future<void> _acabouEntrega() async {
+    await Future.delayed(const Duration(seconds: 5));
+    // ignore: use_build_context_synchronously
+    var carrinhoProvider = Provider.of<CarrinhoProvider>(context);
+    carrinhoProvider.limpaCarrinho();
+    await Future.delayed(const Duration(seconds: 5));
+    setState(() {
+      widget.aprovado = false;
+    });
+  }
+
   Future<void> _iniciarRastreamento() async {
     if (!_isMounted) return;
 
@@ -106,6 +117,7 @@ class _RastreamentoState extends State<Rastreamento>
         _pedidoCaminho(),
         _saiuEntrega(),
         _pedidoEntregue(),
+        _acabouEntrega(),
         _cancelCompleter.future,
       ]);
     } catch (error) {
