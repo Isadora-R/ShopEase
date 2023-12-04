@@ -223,6 +223,7 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     inputFormatters: [
+                                      LengthLimitingTextInputFormatter(11),
                                       FilteringTextInputFormatter.digitsOnly,
                                     ],
                                     controller: cpfController,

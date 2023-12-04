@@ -36,11 +36,11 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
     String nomeCompleto = '';
     String ruaCasa = '';
 
-    if (endereco.length >= 5) {
+    if (endereco.length >= 6) {
       numeroCasa = endereco[5].replaceAll(RegExp(r'[^0-9]'), '');
       nomeCompleto = '${endereco[3]} ${endereco[4]}';
       ruaCasa = endereco[5].replaceAll(RegExp(r'[^a-zA-Z ]'), '');
-    } else if (endereco_.length >= 3) {
+    } else if (endereco_.length >= 4) {
       nomeCompleto = '${endereco_[0]} ${endereco_[1]}';
       numeroCasa = endereco_[3].replaceAll(RegExp(r'[^0-9]'), '');
       ruaCasa = endereco_[3].replaceAll(RegExp(r'[^a-zA-Z ]'), '');
@@ -270,10 +270,6 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
                                   SizedBox(
                                     child: TextField(
                                       keyboardType: TextInputType.text,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp(r'[a-zA-Z\s]')),
-                                      ],
                                       controller: complementoController,
                                       decoration: const InputDecoration(
                                         labelText: 'Complemento',
