@@ -22,6 +22,7 @@ class PagamentoSelecao extends StatefulWidget {
 class _PagamentoSelecao extends State<PagamentoSelecao> {
   bool cartaoSelecionado = false;
   bool metodoSelecionado = false; // variável para liberar botão continuar
+
   @override
   void initState() {
     super.initState();
@@ -370,7 +371,6 @@ class _CartaoBotoes extends State<CartaoBotoes> {
           },
         ),
         SizedBox(
-          //height: 95,
           height: 200,
           child: ListView.builder(
             itemCount: Cartao.listaDeCartoes.length,
@@ -382,41 +382,70 @@ class _CartaoBotoes extends State<CartaoBotoes> {
                   const SizedBox(
                     height: 2,
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        desmarca();
-                        for (int i = 0; i < buttonStates.length; i++) {
-                          // Desmarca todos os botões
-                          buttonStates[i] = false;
-                        }
-                        // Marca apenas o botão atual
-                        buttonStates[index] = true;
-                        passaIndexCartao = index;
-                      });
-                      passaPixCheckout = false;
-                      passaTransCheckout = false;
-                      widget.onMetodoSelected(true);
-                      widget.onCartaoSelected(true);
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              desmarca();
+                              for (int i = 0; i < buttonStates.length; i++) {
+                                // Desmarca todos os botões
+                                buttonStates[i] = false;
+                              }
+                              // Marca apenas o botão atual
+                              buttonStates[index] = true;
+                              passaIndexCartao = index;
+                            });
+                            passaPixCheckout = false;
+                            passaTransCheckout = false;
+                            widget.onMetodoSelected(true);
+                            widget.onCartaoSelected(true);
 
-                      //altera para true quando botão selecionado
-                    },
-                    icon: buttonStates[index]
-                        ? const Icon(Icons.check_circle_outline_outlined)
-                        : const Icon(Icons.circle_outlined),
-                    label: Text(
-                      'Cartão de final: ***** ${cartao[0].substring(cartao[0].length - 4)}',
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
+                            //altera para true quando botão selecionado
+                          },
+                          icon: buttonStates[index]
+                              ? const Icon(Icons.check_circle_outline_outlined)
+                              : const Icon(Icons.circle_outlined),
+                          label: Text(
+                            'Cartão de final: ***** ${cartao[0].substring(cartao[0].length - 4)}',
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            minimumSize: Size(
+                              MediaQuery.of(context).size.width,
+                              100,
+                            ),
+                            alignment: Alignment.centerLeft,
+                          ),
+                        ),
                       ),
-                      minimumSize: Size(
-                        MediaQuery.of(context).size.width,
-                        100,
+                      Expanded(
+                        flex: 1,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              Cartao.listaDeCartoes.removeAt(index);
+                              buttonStates.removeAt(index);
+                              widget.onMetodoSelected(false);
+                              widget.onCartaoSelected(false);
+                            });
+                          },
+                          icon: const Icon(Icons.delete),
+                          label: const Text(''),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            minimumSize: const Size(50, 100),
+                            alignment: Alignment.center,
+                          ),
+                        ),
                       ),
-                      alignment: Alignment.centerLeft,
-                    ),
+                    ],
                   ),
                 ],
               );

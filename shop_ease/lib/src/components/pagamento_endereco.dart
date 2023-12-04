@@ -83,8 +83,10 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
                                       minimumSize: const Size(150, 100),
                                       alignment: Alignment.centerLeft,
                                     ),
-                                    child:
-                                        const Text('Adicionar novo endereço'),
+                                    child: const Text(
+                                      ('Adicionar novo endereço'),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                   EnderecoBotoes(
                                       onEnderecoSelected: (bool selected) {
@@ -189,33 +191,63 @@ class _EnderecoBotoes extends State<EnderecoBotoes> {
               const SizedBox(
                 height: 2,
               ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    for (int i = 0; i < buttonStates.length; i++) {
-                      // Desmarca todos os botões
-                      buttonStates[i] = false;
-                    }
-                    // Marca apenas o botão atual
-                    buttonStates[index] = true;
-                    passaIndexEndereco = index;
-                  });
-                  widget.onEnderecoSelected(
-                      true); //altera enderecoSelecionado para true quando botão selecionado
-                },
-                icon: buttonStates[index]
-                    ? const Icon(Icons.check_circle_outline_outlined)
-                    : const Icon(Icons.circle_outlined),
-                label: Text(
-                  'Endereço ${index + 1}: Rua ${endereco[4]} ${endereco[5]} - ${endereco[1]}',
-                ),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          for (int i = 0; i < buttonStates.length; i++) {
+                            // Desmarca todos os botões
+                            buttonStates[i] = false;
+                          }
+                          // Marca apenas o botão atual
+                          buttonStates[index] = true;
+                          passaIndexEndereco = index;
+                        });
+                        widget.onEnderecoSelected(true);
+                      },
+                      icon: buttonStates[index]
+                          ? const Icon(Icons.check_circle_outline_outlined)
+                          : const Icon(Icons.circle_outlined),
+                      label: Flexible(
+                        child: Text(
+                          'Endereço ${index + 1}: Rua ${endereco[4]} ${endereco[5]} - ${endereco[1]}',
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        minimumSize: const Size(100, 100),
+                        alignment: Alignment.centerLeft,
+                      ),
+                    ),
                   ),
-                  minimumSize: const Size(1220, 100),
-                  alignment: Alignment.centerLeft,
-                ),
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          Endereco.listaDeEnderecos.removeAt(index);
+                          buttonStates.removeAt(index);
+                          widget.onEnderecoSelected(false);
+                        });
+                      },
+                      icon: const Icon(Icons.delete),
+                      label: const Text(''),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        minimumSize: const Size(50, 100),
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           );
