@@ -182,5 +182,6 @@ class CarrinhoProvider with ChangeNotifier {
 
   void limpaCarrinho() {
     itensNoCarrinho.clear();
+    notifyListeners();
   }
 }

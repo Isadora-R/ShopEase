@@ -2,6 +2,8 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_ease/src/components/carrinho.dart';
 
 // ignore: must_be_immutable
 class Rastreamento extends StatefulWidget {
@@ -114,60 +116,114 @@ class _RastreamentoState extends State<Rastreamento>
     }
   }
 
+  // ignore: prefer_final_fields
   Completer<void> _cancelCompleter = Completer<void>();
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.aprovado && _isMounted) {
+
+    var pedidoProvider = Provider.of<CarrinhoProvider>(context);
+    if (widget.aprovado &&
+        _isMounted &&
+        pedidoProvider.itensNoCarrinho.isNotEmpty) {
+      DateTime hoje = DateTime.now();
+      String dataFormatada = "${hoje.day}/${hoje.month}/${hoje.year}";
       return Scaffold(
         body: Center(
-            child: Container(
-          transformAlignment: Alignment.center,
-          width: 900,
-          height: 450,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Acompanhe sua entrega',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+          child: Container(
+            transformAlignment: Alignment.center,
+            width: 900,
+            height: 450,
+            decoration: BoxDecoration(
+              color: Colors.white60,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Acompanhe suas entregas',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              LinearProgressIndicator(
-                backgroundColor: Colors.grey,
-                // ignore: prefer_const_constructors
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                value: progresso,
-              ),
-              const SizedBox(height: 16.0),
-              Text(
-                mensagem,
-                style:
-                    const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  _cancelCompleter.completeError('disposed');
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false);
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(150, 35),
+                const SizedBox(height: 16.0),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: pedidoProvider.itensNoCarrinho.length,
+                    itemBuilder: (context, index) {
+                      Produto pedido = pedidoProvider.itensNoCarrinho[index];
+
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 2),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Item #${index + 1} - ${pedido.nome}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            Text(
+                              'Pedido realizado em: $dataFormatada',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-                child: const Text('Início'),
-              ),
-            ],
+                const SizedBox(height: 16.0),
+                LinearProgressIndicator(
+                  backgroundColor: Colors.grey,
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                  value: progresso,
+                ),
+                const SizedBox(height: 16.0),
+                Text(
+                  mensagem,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+                ElevatedButton(
+                  onPressed: () {
+                    _cancelCompleter.completeError('disposed');
+                    Provider.of<CarrinhoProvider>(context, listen: false)
+                        .limpaCarrinho();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/home',
+                      (route) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(150, 35),
+                  ),
+                  child: const Text('Início'),
+                ),
+                const SizedBox(height: 10.0),
+              ],
+            ),
           ),
-        )),
+        ),
       );
     } else {
       return Scaffold(
@@ -177,7 +233,7 @@ class _RastreamentoState extends State<Rastreamento>
             width: 900,
             height: 450,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white60,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(children: [

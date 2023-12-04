@@ -1,5 +1,7 @@
 ﻿// ignore_for_file: prefer_final_fields
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,11 +41,20 @@ class Historico extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                      'Pedido ${pedido.nome}',
+                      'Pedido #${index + 1} - ${pedido.nome}',
                       style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.deepPurple[900],
+                      ),
+                      onPressed: () {
+                        pedidoProvider.apagaItem(pedido);
+                      },
                     ),
                     subtitle: const Text(
                       'Clique para ver detalhes do pedido',
@@ -68,13 +79,14 @@ class Historico extends StatelessWidget {
   void _mostrarDetalhesPedido(BuildContext context, PedidoHistorico pedido) {
     DateTime hoje = DateTime.now();
     String dataFormatada = "${hoje.day}/${hoje.month}/${hoje.year}";
+    var protocolo = Random().nextInt(50000);
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text('Detalhes do Pedido ${pedido.nome}'),
           content: Text(
-              'Valor: R\$ ${pedido.preco}, o pedido foi feito em: $dataFormatada '),
+              'Valor: R\$ ${pedido.preco} \nPedido foi feito em: $dataFormatada \nProtocolo do pedido: #$protocolo'),
           actions: [
             TextButton(
               onPressed: () {
@@ -106,6 +118,12 @@ class PedidoProvider extends ChangeNotifier {
 
   void limpaHistorico() {
     _historico.clear();
+    notifyListeners();
+  }
+
+  void apagaItem(PedidoHistorico pedido) {
+    _historico.remove(pedido);
+    notifyListeners();
   }
 }
 

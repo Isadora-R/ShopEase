@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shop_ease/src/components/carrinho.dart';
 import 'rastreamento.dart';
 
@@ -42,7 +41,7 @@ class _PagamentoAprovado extends State<PagamentoAprovado> {
     });
     await Future.delayed(const Duration(seconds: 2));
     // ignore: use_build_context_synchronously
-    Provider.of<CarrinhoProvider>(context, listen: false).limpaCarrinho();
+
     print(contador);
 
     // ignore: use_build_context_synchronously
