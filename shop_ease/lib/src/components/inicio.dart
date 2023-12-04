@@ -30,7 +30,7 @@ class _InicioState extends State<Inicio> {
       body: Center(
           child: Column(
         children: [
-          const SizedBox(height: 15.0),
+          // const SizedBox(height: 15.0),
           const Text(
             'DESCOBERTAS DO DIA',
             style: TextStyle(
@@ -38,7 +38,7 @@ class _InicioState extends State<Inicio> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 30.0),
+          // const SizedBox(height: 30.0),
           Container(
             transformAlignment: Alignment.center,
             width: 900,
@@ -108,7 +108,7 @@ class _InicioState extends State<Inicio> {
               },
             ),
           ),
-          const SizedBox(height: 30.0),
+          // const SizedBox(height: 30.0),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 30),
             padding: const EdgeInsets.symmetric(vertical: 20),
