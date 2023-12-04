@@ -125,222 +125,227 @@ class _PagamentoAddEndereco extends State<PagamentoAddEndereco> {
           backgroundColor: Colors.transparent,
           elevation: 0, // Remove a sombra da AppBar
         ),
-        body: Center(
-          child: SizedBox(
-              width: 1220,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: SizedBox(
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const Text(
-                                    'Adicione um endereço',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 10.0,
-                                  ),
-                                  SizedBox(
-                                    child: TextField(
-                                      keyboardType: TextInputType.text,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp(r'[a-zA-Z\s]')),
+        body: SingleChildScrollView(
+          child: Center(
+            child: SizedBox(
+                width: 1220,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: SizedBox(
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    const Text(
+                                      'Adicione um endereço',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    SizedBox(
+                                      child: TextField(
+                                        keyboardType: TextInputType.text,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'[a-zA-Z\s]')),
+                                        ],
+                                        controller: nomeController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Nome completo',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: TextField(
+                                            keyboardType: TextInputType.text,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  2),
+                                              FilteringTextInputFormatter.allow(
+                                                  RegExp(r'[a-zA-Z]')),
+                                            ],
+                                            controller: estadoController,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Estado',
+                                              border: OutlineInputBorder(),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 100,
+                                        ),
+                                        Expanded(
+                                          child: TextField(
+                                            keyboardType: TextInputType.text,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(
+                                                  RegExp(r'[a-zA-Z\s]')),
+                                            ],
+                                            controller: cidadeController,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Cidade',
+                                              border: OutlineInputBorder(),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                            ),
+                                          ),
+                                        ),
                                       ],
-                                      controller: nomeController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Nome completo',
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    SizedBox(
+                                      child: TextField(
+                                        keyboardType: TextInputType.text,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'[a-zA-Z\s]')),
+                                        ],
+                                        controller: bairroController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Bairro',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextField(
-                                          keyboardType: TextInputType.text,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(2),
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[a-zA-Z]')),
-                                          ],
-                                          controller: estadoController,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Estado',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
+                                    const SizedBox(height: 10.0),
+                                    Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: TextField(
+                                            keyboardType: TextInputType.text,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(
+                                                  RegExp(r'[a-zA-Z\s]')),
+                                            ],
+                                            controller: ruaController,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Rua/Avenida',
+                                              border: OutlineInputBorder(),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 100,
-                                      ),
-                                      Expanded(
-                                        child: TextField(
-                                          keyboardType: TextInputType.text,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[a-zA-Z\s]')),
-                                          ],
-                                          controller: cidadeController,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Cidade',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
+                                        const SizedBox(
+                                          width: 100,
+                                        ),
+                                        Expanded(
+                                          child: TextField(
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly,
+                                            ],
+                                            controller: numeroController,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Número',
+                                              border: OutlineInputBorder(),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  SizedBox(
-                                    child: TextField(
-                                      keyboardType: TextInputType.text,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp(r'[a-zA-Z\s]')),
                                       ],
-                                      controller: bairroController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Bairro',
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextField(
-                                          keyboardType: TextInputType.text,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[a-zA-Z\s]')),
-                                          ],
-                                          controller: ruaController,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Rua/Avenida',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
+                                    const SizedBox(height: 10.0),
+                                    SizedBox(
+                                      child: TextField(
+                                        keyboardType: TextInputType.text,
+                                        controller: complementoController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Complemento',
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 100,
-                                      ),
-                                      Expanded(
-                                        child: TextField(
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                          ],
-                                          controller: numeroController,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Número',
-                                            border: OutlineInputBorder(),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  SizedBox(
-                                    child: TextField(
-                                      keyboardType: TextInputType.text,
-                                      controller: complementoController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Complemento',
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 60,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (nomeController.text.isNotEmpty &&
-                                          estadoController.text.isNotEmpty &&
-                                          cidadeController.text.isNotEmpty &&
-                                          bairroController.text.isNotEmpty &&
-                                          ruaController.text.isNotEmpty &&
-                                          numeroController.text.isNotEmpty &&
-                                          complementoController
-                                              .text.isNotEmpty) {
-                                        adicionarEndereco();
+                                    const SizedBox(
+                                      height: 60,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (nomeController.text.isNotEmpty &&
+                                            estadoController.text.isNotEmpty &&
+                                            cidadeController.text.isNotEmpty &&
+                                            bairroController.text.isNotEmpty &&
+                                            ruaController.text.isNotEmpty &&
+                                            numeroController.text.isNotEmpty &&
+                                            complementoController
+                                                .text.isNotEmpty) {
+                                          adicionarEndereco();
 
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PagamentoEndereco(),
-                                          ),
-                                        );
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                  'Campos obrigatórios'),
-                                              content: const Text(
-                                                  'Preencha todos os campos para adicionar o endereço.'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text('OK'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(150, 50),
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PagamentoEndereco(),
+                                            ),
+                                          );
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'Campos obrigatórios'),
+                                                content: const Text(
+                                                    'Preencha todos os campos para adicionar o endereço.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text('OK'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: const Size(150, 50),
+                                      ),
+                                      child: const Text('Adicionar'),
                                     ),
-                                    child: const Text('Adicionar'),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 30),
-                      // ignore: prefer_const_constructors
-                      Resumo()
-                    ],
+                        const SizedBox(width: 30),
+                        // ignore: prefer_const_constructors
+                        Resumo()
+                      ],
+                    ),
                   ),
-                ),
-              )),
+                )),
+          ),
         ));
   }
 }

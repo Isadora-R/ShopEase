@@ -108,187 +108,191 @@ class _PagamentoCartao extends State<PagamentoCartao> {
           backgroundColor: Colors.transparent,
           elevation: 0, // Remove a sombra da AppBar
         ),
-        body: Center(
-          child: SizedBox(
-              child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const Text(
-                              'Adicione um novo cartão',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            SizedBox(
-                              height: 50.0,
-                              width: 500,
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(16),
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                controller: numeroCartaoController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Número de Cartão',
-                                  border: OutlineInputBorder(),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: SizedBox(
+                child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Text(
+                                'Adicione um novo cartão',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            SizedBox(
-                              height: 50.0,
-                              width: 500,
-                              child: TextField(
-                                keyboardType: TextInputType.text,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[a-zA-Z\s]')),
-                                ],
-                                controller: nomeCartaoController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Nome no Cartão',
-                                  border: OutlineInputBorder(),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: TextField(
-                                    controller: validadeCartaoController,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(5),
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp(r'[0-9/]')),
-                                    ],
-                                    decoration: const InputDecoration(
-                                      labelText: 'Validade (MM/AA)',
-                                      border: OutlineInputBorder(),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                    ),
+                              SizedBox(
+                                height: 50.0,
+                                width: 500,
+                                child: TextField(
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(16),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  controller: numeroCartaoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Número de Cartão',
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: Colors.white,
                                   ),
                                 ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const SizedBox(
-                                  width: 282,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(3),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                    controller: codSegurancaController,
-                                    decoration: const InputDecoration(
-                                      labelText: 'Cód. de Segurança',
-                                      border: OutlineInputBorder(),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                    ),
+                              ),
+                              const SizedBox(height: 10.0),
+                              SizedBox(
+                                height: 50.0,
+                                width: 500,
+                                child: TextField(
+                                  keyboardType: TextInputType.text,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r'[a-zA-Z\s]')),
+                                  ],
+                                  controller: nomeCartaoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Nome no Cartão',
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: Colors.white,
                                   ),
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 10.0),
-                            SizedBox(
-                              height: 50.0,
-                              width: 500,
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(11),
-                                  FilteringTextInputFormatter.digitsOnly,
+                              ),
+                              const SizedBox(height: 10.0),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: TextField(
+                                      controller: validadeCartaoController,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(5),
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'[0-9/]')),
+                                      ],
+                                      decoration: const InputDecoration(
+                                        labelText: 'Validade (MM/AA)',
+                                        border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const SizedBox(
+                                    width: 282,
+                                  ),
+                                  Expanded(
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(3),
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
+                                      controller: codSegurancaController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Cód. de Segurança',
+                                        border: OutlineInputBorder(),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ],
-                                controller: cpfController,
-                                decoration: const InputDecoration(
-                                  labelText: 'CPF do titular do cartão',
-                                  border: OutlineInputBorder(),
-                                  filled: true,
-                                  fillColor: Colors.white,
+                              ),
+                              const SizedBox(height: 10.0),
+                              SizedBox(
+                                height: 50.0,
+                                width: 500,
+                                child: TextField(
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(11),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  controller: cpfController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'CPF do titular do cartão',
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 60,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (numeroCartaoController.text.isNotEmpty &&
-                                    nomeCartaoController.text.isNotEmpty &&
-                                    validadeCartaoController.text.isNotEmpty &&
-                                    codSegurancaController.text.isNotEmpty &&
-                                    cpfController.text.isNotEmpty) {
-                                  adicionarCartao();
+                              const SizedBox(
+                                height: 60,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (numeroCartaoController.text.isNotEmpty &&
+                                      nomeCartaoController.text.isNotEmpty &&
+                                      validadeCartaoController
+                                          .text.isNotEmpty &&
+                                      codSegurancaController.text.isNotEmpty &&
+                                      cpfController.text.isNotEmpty) {
+                                    adicionarCartao();
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PagamentoSelecao(),
-                                    ),
-                                  );
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title:
-                                            const Text('Campos obrigatórios'),
-                                        content: const Text(
-                                            'Preencha todos os campos para adicionar o cartão.'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(150, 50),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PagamentoSelecao(),
+                                      ),
+                                    );
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title:
+                                              const Text('Campos obrigatórios'),
+                                          content: const Text(
+                                              'Preencha todos os campos para adicionar o cartão.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(150, 50),
+                                ),
+                                child: const Text('Adicionar'),
                               ),
-                              child: const Text('Adicionar'),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 30),
-                  // ignore: prefer_const_constructors
-                  Resumo()
-                ],
+                    const SizedBox(width: 30),
+                    // ignore: prefer_const_constructors
+                    Resumo()
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+          ),
         ));
   }
 }

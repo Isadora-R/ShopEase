@@ -41,108 +41,111 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
           backgroundColor: Colors.transparent,
           elevation: 0, // Remove a sombra da AppBar
         ),
-        body: Center(
-          child: SizedBox(
-              child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const Text(
-                                'Escolha endereço de envio',
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PagamentoAddEndereco()),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0),
+        body: SingleChildScrollView(
+          child: Center(
+            child: SizedBox(
+                child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                const Text(
+                                  'Escolha endereço de envio',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PagamentoAddEndereco()),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                    minimumSize: const Size(150, 100),
+                                    alignment: Alignment.centerLeft,
                                   ),
-                                  minimumSize: const Size(150, 100),
-                                  alignment: Alignment.centerLeft,
+                                  child: const Text(
+                                    ('Adicionar novo endereço'),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                                child: const Text(
-                                  ('Adicionar novo endereço'),
-                                  overflow: TextOverflow.ellipsis,
+                                EnderecoBotoes(
+                                    onEnderecoSelected: (bool selected) {
+                                  setState(() {
+                                    enderecoSelecionado = selected;
+                                  });
+                                }),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              EnderecoBotoes(
-                                  onEnderecoSelected: (bool selected) {
-                                setState(() {
-                                  enderecoSelecionado = selected;
-                                });
-                              }),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ElevatedButton(
-                                onPressed: enderecoSelecionado
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PagamentoFrete(),
-                                          ),
-                                        );
-                                      }
-                                    : () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                  'Nenhum endereço selecionado'),
-                                              content: const Text(
-                                                  'Por favor, selecione um endereço para continuar.'),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(150, 50),
+                                ElevatedButton(
+                                  onPressed: enderecoSelecionado
+                                      ? () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PagamentoFrete(),
+                                            ),
+                                          );
+                                        }
+                                      : () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'Nenhum endereço selecionado'),
+                                                content: const Text(
+                                                    'Por favor, selecione um endereço para continuar.'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(150, 50),
+                                  ),
+                                  child: const Text('Continuar'),
                                 ),
-                                child: const Text('Continuar'),
-                              ),
-                            ]),
+                              ]),
+                        ),
                       ),
                     ),
-                  ),
-                  // ignore: prefer_const_constructors
-                  Resumo()
-                ],
+                    // ignore: prefer_const_constructors
+                    Resumo()
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+          ),
         ),
       ),
     );

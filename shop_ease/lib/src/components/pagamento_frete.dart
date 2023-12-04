@@ -58,88 +58,91 @@ class _PagamentoFrete extends State<PagamentoFrete> {
           backgroundColor: Colors.transparent,
           elevation: 0, // Remove a sombra da AppBar
         ),
-        body: Center(
-          child: SizedBox(
-              child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const Text(
-                                'Escolha um método de envio',
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              MetodosFrete(
-                                updateParent: (bool selected) {
-                                  setState(() {
-                                    freteSelected = selected;
-                                  });
-                                },
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ElevatedButton(
-                                onPressed: freteSelected
-                                    ? () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PagamentoSelecao(),
-                                          ),
-                                        );
-                                      }
-                                    : () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                  'Nenhum método de envio selecionado'),
-                                              content: const Text(
-                                                  'Por favor, selecione um método para continuar.'),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(150, 50),
+        body: SingleChildScrollView(
+          child: Center(
+            child: SizedBox(
+                child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                const Text(
+                                  'Escolha um método de envio',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                child: const Text('Continuar'),
-                              ),
-                            ]),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                MetodosFrete(
+                                  updateParent: (bool selected) {
+                                    setState(() {
+                                      freteSelected = selected;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  onPressed: freteSelected
+                                      ? () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PagamentoSelecao(),
+                                            ),
+                                          );
+                                        }
+                                      : () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'Nenhum método de envio selecionado'),
+                                                content: const Text(
+                                                    'Por favor, selecione um método para continuar.'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(150, 50),
+                                  ),
+                                  child: const Text('Continuar'),
+                                ),
+                              ]),
+                        ),
                       ),
                     ),
-                  ),
-                  // ignore: prefer_const_constructors
-                  Resumo()
-                ],
+                    // ignore: prefer_const_constructors
+                    Resumo()
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+          ),
         ));
   }
 }
