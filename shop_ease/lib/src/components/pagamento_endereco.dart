@@ -20,16 +20,12 @@ class _PagamentoEndereco extends State<PagamentoEndereco> {
   bool enderecoSelecionado = false; // variável para liberar botão continuar
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
-        // Obtendo a instância do PedidoProvider diretamente usando Provider.of
         var pedidoProvider =
             Provider.of<PedidoProvider>(context, listen: false);
-
-        // Chamando a função removePedido quando o botão de voltar é pressionado
         pedidoProvider.removePedido();
-
-        // Permitindo a navegação de volta
         return true;
       },
       child: Scaffold(

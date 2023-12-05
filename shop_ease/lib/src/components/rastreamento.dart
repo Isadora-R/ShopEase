@@ -28,7 +28,7 @@ class _RastreamentoState extends State<Rastreamento>
   @override
   void initState() {
     super.initState();
-    _isMounted = true;
+    _isMounted = widget.aprovado;
     _iniciarRastreamento();
   }
 
@@ -124,9 +124,7 @@ class _RastreamentoState extends State<Rastreamento>
     await Future.delayed(const Duration(seconds: 3));
     // Ignore: use_build_context_synchronously
     // ignore: unused_local_variable
-    var carrinhoProvider =
-        // ignore: use_build_context_synchronously
-        Provider.of<CarrinhoProvider>(context, listen: false);
+    print('acabou entrega');
 
     await Future.delayed(const Duration(seconds: 3));
 
@@ -227,11 +225,7 @@ class _RastreamentoState extends State<Rastreamento>
                     _cancelCompleter.completeError('disposed');
                     Provider.of<CarrinhoProvider>(context, listen: false)
                         .limpaCarrinho();
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/home',
-                      (route) => false,
-                    );
+                    Navigator.pushNamed(context, '/home');
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(150, 35),
@@ -267,8 +261,7 @@ class _RastreamentoState extends State<Rastreamento>
               const SizedBox(height: 100.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false);
+                  Navigator.pushNamed(context, '/home');
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(150, 35),
@@ -286,7 +279,7 @@ class _RastreamentoState extends State<Rastreamento>
 void main() {
   runApp(MaterialApp(
     home: Rastreamento(
-      aprovado: true,
+      aprovado: false,
     ),
   ));
 }
