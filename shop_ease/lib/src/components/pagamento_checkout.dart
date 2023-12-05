@@ -213,7 +213,7 @@ class _PagamentoCheckoutState extends State<PagamentoCheckout> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 30),
+
                     // ignore: prefer_const_constructors
                     Resumo(),
                   ],

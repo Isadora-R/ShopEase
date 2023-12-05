@@ -7,9 +7,9 @@ bool sedexChecked = false;
 bool transpChecked = false;
 bool freteSelected = false;
 
-double fretepac = 18;
-double fretesedex = 54;
-double fretetransp = 31;
+double fretepac = 18.99;
+double fretesedex = 54.25;
+double fretetransp = 31.45;
 
 class PagamentoFrete extends StatefulWidget {
   const PagamentoFrete({super.key});
@@ -77,6 +77,7 @@ class _PagamentoFrete extends State<PagamentoFrete> {
                               children: [
                                 const Text(
                                   'Escolha um método de envio',
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold),
@@ -130,7 +131,10 @@ class _PagamentoFrete extends State<PagamentoFrete> {
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: const Size(150, 50),
                                   ),
-                                  child: const Text('Continuar'),
+                                  child: const Text(
+                                    'Continuar',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ]),
                         ),
@@ -188,8 +192,14 @@ class _MetodosFrete extends State<MetodosFrete> {
           label: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('PAC R\$ $fretepac'),
-              const Text('Chegará entre 10 à 12 dias'),
+              Text(
+                'PAC R\$ $fretepac',
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Text(
+                'Chegará entre 10 à 12 dias',
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
           style: ElevatedButton.styleFrom(
@@ -217,8 +227,14 @@ class _MetodosFrete extends State<MetodosFrete> {
           label: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Sedex R\$ $fretesedex'),
-              const Text('Chegará entre 2 à 3 dias'),
+              Text(
+                'Sedex R\$ $fretesedex',
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Text(
+                'Chegará entre 2 à 3 dias',
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
           style: ElevatedButton.styleFrom(
@@ -246,8 +262,14 @@ class _MetodosFrete extends State<MetodosFrete> {
           label: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Transportadora Jadlog R\$ $fretetransp'),
-              const Text('Chegará entre 5 à 7 dias'),
+              Text(
+                'Transportadora Jadlog R\$ $fretetransp',
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Text(
+                'Chegará entre 5 à 7 dias',
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
           style: ElevatedButton.styleFrom(

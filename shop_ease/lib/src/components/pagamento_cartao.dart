@@ -191,10 +191,7 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                                     ),
                                   ),
                                   const SizedBox(
-                                    width: 5,
-                                  ),
-                                  const SizedBox(
-                                    width: 282,
+                                    width: 100,
                                   ),
                                   Expanded(
                                     child: TextField(
@@ -285,7 +282,6 @@ class _PagamentoCartao extends State<PagamentoCartao> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 30),
                     // ignore: prefer_const_constructors
                     Resumo()
                   ],
