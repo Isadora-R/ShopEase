@@ -24,7 +24,6 @@ class _PesquisaCreate extends State<Pesquisa> {
   dynamic products; //é filtrado em relação à pesquisa
   bool pesquisando = false;
 
-
   @override
   void initState() {
     super.initState();
@@ -114,7 +113,7 @@ class _PesquisaCreate extends State<Pesquisa> {
                             },
                         // child: const InkWell(splashColor: Colors.red),
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -130,30 +129,39 @@ class _PesquisaCreate extends State<Pesquisa> {
                                 height: 150,
                                 fit: BoxFit.cover,
                               ),
+
                               const SizedBox(height: 7.0),
+                              const Divider(
+                                color: Colors.purple,
+                                height: 10,
+                                thickness: 2,
+                                indent: 0,
+                              ),
+
+                              /// const SizedBox(height: 20.0),
                               Text(
                                 produto.title,
                                 style: const TextStyle(fontSize: 25),
                                 textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: 2.0),
-                              Text(
-                                '${produto.description.substring(0, 43)}...',
-                              ),
-                              Text('R\$ ${produto.price},00',
-                                  style: const TextStyle(fontSize: 20)),
-                              const SizedBox(height: 5.0),
-                              RatingBarIndicator(
-                                rating: produto.rating,
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
+
+                              const SizedBox(height: 20.0),
+
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  '${produto.description.substring(0, 43)}...',
                                 ),
-                                itemCount: 5,
-                                itemSize: 15,
-                                direction: Axis.horizontal,
                               ),
-                              const SizedBox(height: 8.0),
+
+                              const SizedBox(height: 5.0),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text('R\$ ${produto.price},00',
+                                    style: const TextStyle(fontSize: 20)),
+                              ),
+
+                              const SizedBox(height: 70.0),
                               ElevatedButton(
                                 onPressed: () {
                                   Provider.of<CarrinhoProvider>(context,
@@ -173,6 +181,21 @@ class _PesquisaCreate extends State<Pesquisa> {
                                 child: const Text(
                                   'Adicionar ao carrinho',
                                   style: TextStyle(fontSize: 13),
+                                ),
+                              ),
+
+                              const SizedBox(height: 40.0),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: RatingBarIndicator(
+                                  rating: produto.rating,
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 15,
+                                  direction: Axis.horizontal,
                                 ),
                               ),
                             ],
