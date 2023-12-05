@@ -137,6 +137,19 @@ class _PesquisaCreate extends State<Pesquisa> {
                                 thickness: 2,
                                 indent: 0,
                               ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: RatingBarIndicator(
+                                  rating: produto.rating,
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 15,
+                                  direction: Axis.horizontal,
+                                ),
+                              ),
 
                               /// const SizedBox(height: 20.0),
                               Text(
@@ -161,7 +174,7 @@ class _PesquisaCreate extends State<Pesquisa> {
                                     style: const TextStyle(fontSize: 20)),
                               ),
 
-                              const SizedBox(height: 70.0),
+                              const SizedBox(height: 50.0),
                               ElevatedButton(
                                 onPressed: () {
                                   Provider.of<CarrinhoProvider>(context,
@@ -184,20 +197,7 @@ class _PesquisaCreate extends State<Pesquisa> {
                                 ),
                               ),
 
-                              const SizedBox(height: 40.0),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: RatingBarIndicator(
-                                  rating: produto.rating,
-                                  itemBuilder: (context, index) => const Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                  itemCount: 5,
-                                  itemSize: 15,
-                                  direction: Axis.horizontal,
-                                ),
-                              ),
+                              const SizedBox(height: 5.0),
                             ],
                           ),
                         ));
